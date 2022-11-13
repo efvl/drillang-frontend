@@ -1,16 +1,17 @@
 import React from "react";
+import AddLangForm from "../features/langs/components/AddLangForm";
 import Layout from "../layout/Layout";
 
-const Home = () => {
+const AddLang = () => {
 
     return (
         <>
         <Layout>
-            <div>Home page</div>
+            <AddLangForm/>
         </Layout>
         </>
     );
 
 };
 
-export default Home;
+export default AddLang;

@@ -1,13 +1,18 @@
 import React from 'react';
-import Navbar from './layout/Navbar';
-import Home from './pages/Home';
+import Lang from './pages/Lang';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import AddLang from './pages/AddLang';
 
 
 function App() {
   return (
     <div className="App">
-      <Navbar></Navbar>
-      <Home></Home>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={ <Lang/> }/>
+          <Route exact path="/lang/add" element={ <AddLang/> }/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

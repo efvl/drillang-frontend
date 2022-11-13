@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     return (
@@ -16,7 +17,7 @@ const Navbar = () => {
                     aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <button className="btn btn-outline-dark">Add Card</button>
+                <Link className="btn btn-outline-dark" to="/lang/add">Add Lang</Link>
             </div>
             </nav>
         </div>
