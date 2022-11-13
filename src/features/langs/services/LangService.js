@@ -8,4 +8,10 @@ export default class LangService {
         return response;
     }
 
+    static async addLanguage(language) {
+        const response = await axios.post("http://localhost:8081/dlang/v1/lang", language);
+        // console.log(response.data);
+        return response;
+    }
+
 }
