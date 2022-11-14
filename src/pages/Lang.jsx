@@ -22,10 +22,15 @@ const Lang = () => {
         setLangs(response.data);
     }
 
+    const deleteLanguage = async (id) => {
+        await LangService.deleteLanguage(id);
+        fetchLanguages();
+    } 
+
     return (
         <>
         <Layout>
-            <LangTable langs={langs}/>
+            <LangTable langs={langs} remove={deleteLanguage}/>
         </Layout>
         </>
     );

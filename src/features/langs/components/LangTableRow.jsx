@@ -1,17 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const LangTableRow = ({lang, rowNum}) => {
+const LangTableRow = (props) => {
 
     return (
         <tr>
-            <th scope="row">{rowNum}</th> 
-            <td>{lang.id}</td>
-            <td>{lang.shortName}</td>
-            <td>{lang.fullName}</td>
+            <th scope="row">{props.rowNum}</th> 
+            <td>{props.lang.id}</td>
+            <td>{props.lang.shortName}</td>
+            <td>{props.lang.fullName}</td>
             <td>
                 <button className="btn btn-primary mx-2">View</button>
-                <button className="btn btn-outline-primary mx-2">Update</button>
-                <button className="btn btn-danger mx-2">Delete</button>
+                <Link to={`/lang/edit/${props.lang.id}`} className="btn btn-outline-primary mx-2">Update</Link>
+                <button onClick={() => props.remove(props.lang.id)} className="btn btn-danger mx-2">Delete</button>
             </td>
         </tr>
     );

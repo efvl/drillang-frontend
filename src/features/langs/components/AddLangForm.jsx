@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const AddLangForm = ({create}) => {
 
@@ -40,9 +41,9 @@ const AddLangForm = ({create}) => {
                         <button type="submit" 
                                 className="btn btn-outline-primary"
                                 onClick={addNewLanguage}> Submit </button>
-                        <button type="submit" 
-                                className="btn btn-outline-danger mx-2"
-                                >Cancel</button>
+                        <Link className="btn btn-outline-danger mx-2" to="/">
+                            Cancel
+                        </Link>
                     </form>
                 </div>
             </div>

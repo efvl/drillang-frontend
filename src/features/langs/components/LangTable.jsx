@@ -1,7 +1,7 @@
 import React from "react";
 import LangTableRow from "../components/LangTableRow";
 
-const LangTable = ({langs}) => {
+const LangTable = ({langs, remove}) => {
 
     return (
         <div className="container">
@@ -18,7 +18,7 @@ const LangTable = ({langs}) => {
                 </thead>
                 <tbody>
                     {langs.map((item, index) =>
-                        <LangTableRow rowNum={index + 1} lang={item} key={item.id} />
+                        <LangTableRow key={item.id} rowNum={index + 1} lang={item} remove={remove} />
                     )}
                 </tbody>
                 </table>
