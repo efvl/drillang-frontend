@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import LangTable from "../features/langs/components/LangTable";
 import LangService from "../features/langs/services/LangService";
+import LangNavbar from "../layout/LangNavbar";
 import Layout from "../layout/Layout";
 
 const Lang = () => {
@@ -30,6 +31,7 @@ const Lang = () => {
     return (
         <>
         <Layout>
+            <LangNavbar/>
             <LangTable langs={langs} remove={deleteLanguage}/>
         </Layout>
         </>

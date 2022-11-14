@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import LangService from '../services/LangService'
 
-const AddLangForm = ({create}) => {
+const LangForm = (props) => {
 
     const [lang, setLang] = useState({
         id:"",
@@ -9,16 +10,28 @@ const AddLangForm = ({create}) => {
         fullName:""
     });
 
-    const addNewLanguage = (e) => {
+    const submitLanguage = (e) => {
         e.preventDefault();
-        create(lang);
+        props.submitAction(lang);
+    }
+
+    useEffect(() => {
+        if(props.isEdit){
+            loadLanguage();
+        }
+    }, []);
+
+    const loadLanguage = async () => {
+        const result = await LangService.getLanguageById(props.languageId);
+        console.log(result.data);  
+        setLang(result.data);
     }
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h5 className="text-center m-4">Add Language</h5>
+                    <h5 className="text-center m-4">{props.isEdit?'Edit':'Create'} Language</h5>
                     <form>
                         <div className="mb-3">
                             <label htmlFor="shortName" className="form-label">Short Name</label>
@@ -38,12 +51,8 @@ const AddLangForm = ({create}) => {
                                 value={lang.fullName}
                                 onChange={e => setLang({...lang, fullName: e.target.value})}/>
                         </div>
-                        <button type="submit" 
-                                className="btn btn-outline-primary"
-                                onClick={addNewLanguage}> Submit </button>
-                        <Link className="btn btn-outline-danger mx-2" to="/">
-                            Cancel
-                        </Link>
+                        <button type="submit" className="btn btn-outline-primary" onClick={submitLanguage}>{props.isEdit?' Save ':' Add '} </button>
+                        <Link className="btn btn-outline-danger mx-2" to="/lang">Cancel</Link>
                     </form>
                 </div>
             </div>
@@ -51,4 +60,4 @@ const AddLangForm = ({create}) => {
     );
 };
 
-export default AddLangForm;
+export default LangForm;
