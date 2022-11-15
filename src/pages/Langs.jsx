@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
+import LangActionBar from "../features/langs/components/LangActionBar";
 import LangTable from "../features/langs/components/LangTable";
 import LangService from "../features/langs/services/LangService";
-import LangNavbar from "../layout/LangNavbar";
 import Layout from "../layout/Layout";
 
-const Lang = () => {
+const Langs = () => {
 
     const [langs, setLangs] = useState([]);
 
@@ -31,7 +31,7 @@ const Lang = () => {
     return (
         <>
         <Layout>
-            <LangNavbar/>
+            <LangActionBar/>
             <LangTable langs={langs} remove={deleteLanguage}/>
         </Layout>
         </>
@@ -39,4 +39,4 @@ const Lang = () => {
 
 };
 
-export default Lang;
+export default Langs;

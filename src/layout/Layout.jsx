@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar"
+import TopNavbar from "./TopNavbar"
 
 const Layout = ({children}) => {
     return (
         <>
         <div>
-            <Navbar/>
+            <TopNavbar/>
         </div>
         <main>{children}</main>
         </>
