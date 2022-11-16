@@ -8,6 +8,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import LangDropdown from "./LangDropdown";
+import Image from 'react-bootstrap/Image'
 
 const WCardForm = (props) => {
 
@@ -28,11 +30,22 @@ const WCardForm = (props) => {
         "shortName": "string",
         "fullName": "string"
     });
+    const [selectedPicture, setSelectedPicture] = useState();
 
     const handleSelectLanguage = (e) => {
       console.log(e);
       setSelectedLanguage(langs.find(item => item.id == e));
     }
+
+    const fileSelectedHandler = (e) => {
+        console.log("file selected");
+        setSelectedPicture(e.target.files[0])
+    }
+
+    const handleFileUploadHandler = () => {
+
+    }
+
 
     const submitWordCard = (e) => {
         e.preventDefault();
@@ -72,48 +85,52 @@ const WCardForm = (props) => {
 
     return (
         <Container>
-            <h5 className="text-center m-4">{props.isEdit?'Edit':'Create'} Word Card</h5>
-            <Row className="col-md-6 offset-md-3 border p-4">
-                <Col className="col-8">Language: {selectedLanguage.fullName}</Col>
-                <Col className="col-4">
-                    <Dropdown onSelect={handleSelectLanguage}>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Languages
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {langs.map((item, i) =>
-                                <Dropdown.Item eventKey={item.id} key={i}>{item.fullName}</Dropdown.Item>
-                            )}
-                        </Dropdown.Menu>
-                    </Dropdown>
+            <Row>
+                <Col md={4} className="border">
+                    <Form.Group controlId="formFile" className="mb-3">
+                        <Form.Label>Default file input example</Form.Label>
+                        <Form.Control type="file" onChange={fileSelectedHandler}/>
+                    </Form.Group>
                 </Col>
-            </Row>
-            <Row className="col-md-6 offset-md-3 border rounded p-4 shadow">
-                <Form>
-                    <Form.Group className="mb-3" controlId="word">
-                        <Form.Label>Word</Form.Label>
-                        <Form.Control type="text" 
-                            placeholder="Enter word"
-                            value={wcard.word}
-                            onChange={e => setWCard({...wcard, word: e.target.value})}/>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="transcript">
-                        <Form.Label>Transcription</Form.Label>
-                        <Form.Control type="text" 
-                            placeholder="Enter word transcription"
-                            value={wcard.transcript}
-                            onChange={e => setWCard({...wcard, transcript: e.target.value})}/>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="example">
-                        <Form.Label>Example</Form.Label>
-                        <Form.Control type="text" 
-                            placeholder="Enter example of word using"
-                            value={wcard.example}
-                            onChange={e => setWCard({...wcard, example: e.target.value})}/>
-                    </Form.Group>
-                    <Button variant="outline-primary" type="submit" onClick={submitWordCard}>{props.isEdit?' Save ':' Add '} </Button>
-                    <Link className="btn btn-outline-danger mx-2" to="/wcard">Cancel</Link>
-                </Form>
+                <Col md={6} className="border p-4 ">
+                    <h5 className="text-center m-4">{props.isEdit?'Edit':'Create'} Word Card</h5>
+                    <Row>
+                        <Col className="col-8">Language: {selectedLanguage.fullName}</Col>
+                        <Col className="col-4">
+                            <LangDropdown handler={handleSelectLanguage} langs={langs}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Form>
+                            <Form.Group className="mb-3" controlId="word">
+                                <Form.Label>Word</Form.Label>
+                                <Form.Control type="text" 
+                                    placeholder="Enter word"
+                                    value={wcard.word}
+                                    onChange={e => setWCard({...wcard, word: e.target.value})}/>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="transcript">
+                                <Form.Label>Transcription</Form.Label>
+                                <Form.Control type="text" 
+                                    placeholder="Enter word transcription"
+                                    value={wcard.transcript}
+                                    onChange={e => setWCard({...wcard, transcript: e.target.value})}/>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="example">
+                                <Form.Label>Example</Form.Label>
+                                <Form.Control type="text" 
+                                    placeholder="Enter example of word using"
+                                    value={wcard.example}
+                                    onChange={e => setWCard({...wcard, example: e.target.value})}/>
+                            </Form.Group>
+                            <div className="text-center">
+                                <Button variant="outline-primary" style={{width: 150}} type="submit" onClick={submitWordCard}>{props.isEdit?' Save ':' Add '} </Button>
+                                <Link className="btn btn-outline-danger mx-2" style={{width: 150}} to="/wcard">Cancel</Link>
+                            </div>
+                        </Form>
+                    </Row>
+                </Col>
+                <Col></Col>
             </Row>
         </Container>    
     );
