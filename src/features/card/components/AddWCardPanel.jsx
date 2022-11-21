@@ -68,7 +68,7 @@ const AddWCardPanel = () => {
     }
 
     return (
-        <Container>
+        <Container className="mt-3">
             <Row>
                 <Col md={4} className="border">
                     {preview &&  <img src={preview}  width="100%"/> }

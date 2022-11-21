@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import AddEditLang from './pages/AddEditLang';
 import AddEditWCard from './pages/AddEditWCard';
 import Home from './pages/Home';
+import Translates from './pages/Translates';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/wcard" element={ <WordCards/> }/>
           <Route exact path="/wcard/add" element={ <AddEditWCard/> }/>
           <Route exact path="/wcard/edit/:id" element={ <AddEditWCard/> }/>
+          <Route exact path="/translate" element={ <Translates/>} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -83,7 +83,7 @@ const EditWCardPanel = (props) => {
     }
 
     return (
-        <Container>
+        <Container className="mt-3">
             <Row>
                 <Col md={4} className="border">
                     {pictureId && <img src={PictureFileService.PICTURE_URL + "/" + pictureId}  width="100%"/>}
