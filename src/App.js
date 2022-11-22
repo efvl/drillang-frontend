@@ -6,6 +6,7 @@ import AddEditLang from './pages/AddEditLang';
 import AddEditWCard from './pages/AddEditWCard';
 import Home from './pages/Home';
 import Translates from './pages/Translates';
+import AddEditTranslation from './pages/AddEditTranslation';
 
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
           <Route exact path="/wcard/add" element={ <AddEditWCard/> }/>
           <Route exact path="/wcard/edit/:id" element={ <AddEditWCard/> }/>
           <Route exact path="/translate" element={ <Translates/>} />
+          <Route exact path="/translate/edit/:id" element={ <AddEditTranslation/>} />
+          <Route exact path="/translate/add"  element={ <AddEditTranslation/>} />
         </Routes>
       </BrowserRouter>
     </div>

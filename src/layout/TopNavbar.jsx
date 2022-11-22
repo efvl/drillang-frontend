@@ -14,7 +14,7 @@ const TopNavbar = () => {
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/lang">Languages</Nav.Link>
                     <Nav.Link href="/wcard">Word Cards</Nav.Link>
-                    <Nav.Link href="/translate">Tranlations</Nav.Link>
+                    <Nav.Link href="/translate">Translations</Nav.Link>
                 </Nav>
                 </Navbar.Collapse>
             </Container>

@@ -16,6 +16,11 @@ const WCardForm = (props) => {
         props.submitAction(wcardForm);
     }
 
+    const cancelWordCard = (e) => {
+        e.preventDefault();
+        props.cancelAction(wcardForm);
+    }
+
     useEffect(() => {
         console.log(props);
         if(props.isEdit){
@@ -46,9 +51,13 @@ const WCardForm = (props) => {
                     value={wcardForm.example}
                     onChange={e => setWcardForm({...wcardForm, example: e.target.value})}/>
             </Form.Group>
-            <div className="text-center">
+            <div className="text-center p-2">
                 <Button variant="outline-primary" style={{width: 150}} type="submit" onClick={submitWordCard}> Save </Button>
-                <Link className="btn btn-outline-danger mx-2" style={{width: 150}} to="/wcard">Cancel</Link>
+                {props.cancelAction
+                    ? <Button variant="outline-danger mx-2" style={{width: 150}} type="submit" onClick={cancelWordCard}> Cancel </Button>
+                    : <Link className="btn btn-outline-danger mx-2" style={{width: 150}} to="/wcard">Cancel</Link>
+                }
+                
             </div>
         </Form>
     );

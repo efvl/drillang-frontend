@@ -1,19 +1,17 @@
 import React, {useCallback, useEffect, useState} from "react";
 import PaginationBar from "../components/PaginationBar";
-import WCardActionBar from "../features/card/components/WCardActionBar";
-import WordCardTable from "../features/card/components/WordCardTable";
-import WordCardService from "../features/card/services/WordCardService";
+import TranslateTable from "../features/translate/components/TranslateTable"; 
+import TranslateService from "../features/translate/services/TranslateServices";
 import Layout from "../layout/Layout";
 
 const Translates = () => {
 
-    const [wcards, setWcards] = useState([]);
+    const [trns, setTrns] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(5);
     const [searchData, setSearchData] = useState(
         {
-            "ids": [ 0 ],
-            "language": "string",
+            "languageId": 0,
             "word": "string",
             "curNumPage": 0,
             "sizeOfPage": 5
@@ -21,14 +19,14 @@ const Translates = () => {
     );
 
     useEffect(() => {
-        fetchWordCards(searchData);
+        fetchTranslations(searchData);
     }, [searchData]);
 
-    const fetchWordCards = async (searchData) => {
+    const fetchTranslations = async (searchData) => {
         console.log(searchData);  
-        const response = await WordCardService.searchWordCards(searchData);
+        const response = await TranslateService.searchTranslates(searchData);
         console.log(response.data);
-        setWcards(response.data.content);
+        setTrns(response.data.content);
         setCurrentPage(response.data.number);
         setTotalPages(response.data.totalPages);
     }
@@ -38,15 +36,15 @@ const Translates = () => {
         setSearchData({...searchData, curNumPage : page}); 
     }, []);
 
-    const deleteWordCard = async (id) => {
-        await WordCardService.deleteWordCard(id);
-        fetchWordCards(searchData);
+    const deleteTranslation = async (id) => {
+        await TranslateService.deleteTranslate(id);
+        fetchTranslations(searchData);
     } 
 
     return (
         <>
         <Layout>
-            <WordCardTable wcards={wcards} remove={deleteWordCard}/>
+            <TranslateTable trns={trns} remove={deleteTranslation}/>
             <PaginationBar currentPage={currentPage} totalPages={totalPages} onChangePage={handleChangePage}/>
         </Layout>
         </>
