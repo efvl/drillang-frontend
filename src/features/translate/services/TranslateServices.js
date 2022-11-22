@@ -18,7 +18,7 @@ export default class TranslateService {
         return response;
     }
 
-    static async editTranslate(translate) {
+    static async updateTranslate(translate) {
         const response = await axios.put("http://localhost:8081/dlang/v1/translate", translate);
         return response;
     }

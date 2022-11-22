@@ -13,7 +13,7 @@ const TranslateTableRow = (props) => {
             <td>{props.translate.word2.word}</td>
             <td>
                 <button className="btn btn-primary mx-2">View</button>
-                {/* <Link to={`/wcard/edit/${props.wcard.id}`} className="btn btn-outline-primary mx-2">Update</Link> */}
+                <Link to={`/translate/edit/${props.translate.id}`} className="btn btn-outline-primary mx-2">Update</Link>
                 <button onClick={() => props.remove(props.translate.id)} className="btn btn-danger mx-2">Delete</button>
             </td>
         </tr>
