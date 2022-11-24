@@ -78,7 +78,7 @@ const AddWCardPanel = () => {
                     </Form.Group>
                 </Col>
                 <Col md={6} className="border p-4 ">
-                    <h5 className="text-center m-4">Create Word Card</h5>
+                    <h5 className="text-center">Create Word Card</h5>
                     <Row>
                         <Col className="col-8">Language: {selectedLanguage.fullName}</Col>
                         <Col className="col-4">

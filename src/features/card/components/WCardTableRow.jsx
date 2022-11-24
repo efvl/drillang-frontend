@@ -7,7 +7,7 @@ const WCardTableRow = (props) => {
         <tr>
             <th scope="row">{props.rowNum}</th> 
             <td>{props.wcard.id}</td>
-            <td>{props.wcard.language.shortName}</td>
+            <td>{props.wcard.language?.shortName}</td>
             <td>{props.wcard.word}</td>
             <td>{props.wcard.transcript}</td>
             <td>{props.wcard.example}</td>

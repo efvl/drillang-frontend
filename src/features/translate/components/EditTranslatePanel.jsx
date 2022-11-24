@@ -78,11 +78,13 @@ const EditTranslatePanel = (props) => {
                     {translate && <img src={PictureFileService.PICTURE_URL + "/" + translate.word1.pictureId}  width="100%"/>}
                 </Col>
                 <Col md={6}>
-                    <Row className="px-4">
-                        {translate && translate.word1.language.fullName}
-                    </Row>
-                    <Row className="text-center"> 
-                        <h3>{translate && translate.word1.word}</h3>
+                    <Row className="align-bottom">
+                        <Col md={3} className="py-2">
+                            <h5>{translate && translate.word1.language.fullName + ' :'}</h5>
+                        </Col>
+                        <Col md={9} className="text-success"> 
+                            <h3>{translate && translate.word1.word}</h3>
+                        </Col>
                     </Row>
                     <Container className="border p-4">
                         <Row>
