@@ -7,8 +7,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import LangDropdown from "./LangDropdown";
 import PictureFileService from "../services/PictureFileService";
+import AudioFileService from "../services/AudioFileService";
 import { useNavigate } from 'react-router-dom';
 import WCardForm from "./WCardForm";
+import PictureFilePanel from "../../../components/PictureFilePanel";
+import AudioFilePanel from "../../../components/AudioFilePanel";
 
 const EditWCardPanel = (props) => {
 
@@ -26,6 +29,7 @@ const EditWCardPanel = (props) => {
         "fullName": "string"
     });
     const [pictureId, setPictureId] = useState();
+    const [audioId, setAudioId] = useState();
 
     useEffect(() => {
         loadLanguages();
@@ -52,6 +56,7 @@ const EditWCardPanel = (props) => {
         if(result.data) {
             setSelectedLanguage(result.data.language);
             setPictureId(result.data.pictureId);
+            setAudioId(result.data.audioId);
         }
     }
 
@@ -60,12 +65,7 @@ const EditWCardPanel = (props) => {
       setSelectedLanguage(langs.find(item => item.id == e));
     }
 
-    const fileSelectedHandler = (e) => {
-        console.log("file selected");
-        handleFileUpload(e.target.files[0]);
-    }
-
-    const handleFileUpload = async (file) => {
+    const pictureFileUploadHandler = async (file) => {
         const fData = new FormData();
         fData.append("picFile", file);
         const result = await PictureFileService.addPictureFile(fData);
@@ -74,9 +74,19 @@ const EditWCardPanel = (props) => {
         setPictureId(result.data.id);
     }
 
+    const audioFileUploadHandler = async (file) => {
+        const fData = new FormData();
+        fData.append("audFile", file);
+        const result = await AudioFileService.addAudioFile(fData);
+        console.log("create audio file response:");
+        console.log(result.data);
+        setAudioId(result.data.id);
+    }
+
     const updateWordCard = async (newWCard) => {
         newWCard.language = selectedLanguage;
         newWCard.pictureId = pictureId;
+        newWCard.audioId = audioId;
         const response = await WordCardService.updateWordCard(newWCard);
         console.log(response.data);
         navigate('/wcard');
@@ -86,13 +96,12 @@ const EditWCardPanel = (props) => {
         <Container className="mt-3">
             <Row>
                 <Col md={4} className="border">
-                    {pictureId && <img src={PictureFileService.PICTURE_URL + "/" + pictureId}  width="100%"/>}
-                    <div className="text-center">
-                        <Form.Group controlId="formFile" className="mb-3">
-                            <Form.Label>Picture for card</Form.Label>
-                            <Form.Control type="file" onChange={fileSelectedHandler}/>
-                        </Form.Group>
-                    </div>
+                    <PictureFilePanel pictureUrl={pictureId? PictureFileService.PICTURE_URL + "/" + pictureId : null} 
+                                    onChangeHandler={pictureFileUploadHandler}>
+                    </PictureFilePanel>
+                    <AudioFilePanel soundUrl={audioId? AudioFileService.AUDIO_URL + "/" + audioId : null}
+                                    onChangeHandler={audioFileUploadHandler}>
+                    </AudioFilePanel>
                 </Col>
                 <Col md={6} className="border p-4 ">
                     <h5 className="text-center">Edit Word Card</h5>
