@@ -10,6 +10,7 @@ const WordCards = () => {
     const [wcards, setWcards] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(5);
+    const [languageId, setLanguageId] = useState();
     const [searchData, setSearchData] = useState(
         {
             "ids": [ 0 ],
@@ -35,8 +36,14 @@ const WordCards = () => {
 
     const handleChangePage = useCallback((page) => {
         console.log(page);
-        setSearchData({...searchData, curNumPage : page}); 
-    }, []);
+        setSearchData({...searchData, languageId : languageId, curNumPage : page}); 
+    }, [searchData]);
+
+    const handleChangeLanguage = useCallback((lang) => {
+        console.log(lang);
+        setLanguageId(lang.id);
+        setSearchData({...searchData, languageId : lang.id, curNumPage : 0});
+    }, [searchData])
 
     const deleteWordCard = async (id) => {
         await WordCardService.deleteWordCard(id);
@@ -46,7 +53,7 @@ const WordCards = () => {
     return (
         <>
         <Layout>
-            <WCardActionBar/>
+            <WCardActionBar onChangeLang={handleChangeLanguage}/>
             <WordCardTable wcards={wcards} remove={deleteWordCard}/>
             <PaginationBar currentPage={currentPage} totalPages={totalPages} onChangePage={handleChangePage}/>
         </Layout>
