@@ -57,7 +57,6 @@ const WCardForm = (props) => {
                     ? <Button variant="outline-danger mx-2" style={{width: 150}} type="submit" onClick={cancelWordCard}> Cancel </Button>
                     : <Link className="btn btn-outline-danger mx-2" style={{width: 150}} to="/wcard">Cancel</Link>
                 }
-                
             </div>
         </Form>
     );
