@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Layout from "../../layout/Layout";
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import AddWLessonPanel from "../../features/lesson/components/AddWLessonPanel";
+import WLessonForm from "../../features/lesson/components/WLessonForm";
 
 const AddEditWLesson = () => {
 
@@ -17,8 +17,8 @@ const AddEditWLesson = () => {
         <>
         <Layout>
             {params?.id
-                ? <AddWLessonPanel translateId={params.id} />
-                : <AddWLessonPanel/>
+                ? <WLessonForm isEdit={true} wlessonId={params.id} />
+                : <WLessonForm isEdit={false} />
             }
         </Layout>
         </>

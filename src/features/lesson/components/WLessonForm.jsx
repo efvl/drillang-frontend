@@ -11,7 +11,7 @@ import WordLessonService from "../services/WordLessonService";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 
-const AddWLessonPanel = (props) => {
+const WLessonForm = (props) => {
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -25,6 +25,9 @@ const AddWLessonPanel = (props) => {
     const [toSelectLang, setToSelectLang] = useState({});
 
     useEffect(() => {
+        if(props.isEdit){
+            loadWLesson();
+        }
         loadLanguages();
     }, []);
 
@@ -34,6 +37,15 @@ const AddWLessonPanel = (props) => {
             setFromLangs(response.data);
             setToLangs(response.data); 
         }
+    }
+
+    const loadWLesson = async () => {
+        const response = await WordLessonService.getWordLessonById(props.wlessonId);
+        setWLessonForm(response.data);
+        setFromSelectLang(response.data.fromLanguage);
+        setFromLabel(response.data.fromLanguage.fullName);
+        setToSelectLang(response.data.toLanguage);
+        setToLabel(response.data.toLanguage.fullName);
     }
 
     const handleFromSelectLanguage = (e) => {
@@ -99,7 +111,7 @@ const AddWLessonPanel = (props) => {
                         <Col sm="9" className="pt-2">
                             <InputGroup className="mb-3">
                                 <LangDropdown handler={handleFromSelectLanguage} langs={fromLangs}/>
-                                <Form.Control placeholder="Select language"aria-disabled 
+                                <Form.Control placeholder="Select language" aria-disabled
                                     value={fromLabel}
                                     onChange={e => setFromLabel(fromSelectLang.fullName)} />
                             </InputGroup> 
@@ -110,7 +122,7 @@ const AddWLessonPanel = (props) => {
                         <Col sm="9" className="pt-2">
                             <InputGroup className="mb-3">
                                 <LangDropdown handler={handleToSelectLanguage} langs={toLangs}/>
-                                <Form.Control placeholder="Select language"aria-disabled 
+                                <Form.Control placeholder="Select language" aria-disabled
                                     value={toLabel}
                                     onChange={e => setToLabel(toSelectLang.fullName)} />
                             </InputGroup> 
@@ -120,14 +132,14 @@ const AddWLessonPanel = (props) => {
                         <Form.Label column sm="3">Reverse : </Form.Label>
                         <Col sm="9" className="pt-2">
                             <Form.Check type='checkbox' 
-                                    value={wlessonForm?.reverse} 
+                                    checked={wlessonForm?.reverse} 
                                     onChange={e => setWLessonForm({...wlessonForm, reverse: e.target.checked})}/>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="counDone">
                         <Form.Label column sm="3">Count done : </Form.Label>
                         <Col sm="9">
-                            <Form.Control type="text" 
+                            <Form.Control type="text"
                                 placeholder="Enter count that should be done"
                                 value={wlessonForm.countDone}
                                 onChange={handleCountDoneChange}/>
@@ -136,7 +148,7 @@ const AddWLessonPanel = (props) => {
                     <Form.Group as={Row} className="mb-3" controlId="countChars">
                         <Form.Label column sm="3">Count chars : </Form.Label>
                         <Col sm="9">
-                            <Form.Control type="text" 
+                            <Form.Control type="text"
                                 placeholder="Enter minimum count chars that need to check answer"
                                 value={wlessonForm.countChars}
                                 onChange={handleCountCharsChange}/>
@@ -154,4 +166,4 @@ const AddWLessonPanel = (props) => {
     );
 };
 
-export default AddWLessonPanel;
+export default WLessonForm;

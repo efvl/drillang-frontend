@@ -28,6 +28,7 @@ function App() {
           <Route exact path="/translate/add"  element={ <AddEditTranslation/>} />
           <Route exact path="/wlesson" element={ <WordLessons/> }/>
           <Route exact path="/wlesson/add" element={ <AddEditWLesson/> }/>
+          <Route exact path="/wlesson/edit/:id" element={ <AddEditWLesson/> }/>
         </Routes>
       </BrowserRouter>
     </div>
