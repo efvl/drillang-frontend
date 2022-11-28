@@ -1,8 +1,8 @@
 import React, {useCallback, useEffect, useState} from "react";
-import PaginationBar from "../components/PaginationBar";
-import TranslateTable from "../features/translate/components/TranslateTable"; 
-import TranslateService from "../features/translate/services/TranslateServices";
-import Layout from "../layout/Layout";
+import PaginationBar from "../../components/PaginationBar";
+import TranslateTable from "../../features/translate/components/TranslateTable"; 
+import TranslateService from "../../features/translate/services/TranslateServices";
+import Layout from "../../layout/Layout";
 
 const Translates = () => {
 

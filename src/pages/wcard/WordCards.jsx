@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useState} from "react";
-import PaginationBar from "../components/PaginationBar";
-import WCardActionBar from "../features/card/components/WCardActionBar";
-import WordCardTable from "../features/card/components/WordCardTable";
-import WordCardService from "../features/card/services/WordCardService";
-import Layout from "../layout/Layout";
+import PaginationBar from "../../components/PaginationBar";
+import WCardActionBar from "../../features/card/components/WCardActionBar";
+import WordCardTable from "../../features/card/components/WordCardTable";
+import WordCardService from "../../features/card/services/WordCardService";
+import Layout from "../../layout/Layout";
 
 const WordCards = () => {
 

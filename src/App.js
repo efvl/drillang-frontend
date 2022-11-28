@@ -1,14 +1,15 @@
 import React from 'react';
-import Langs from './pages/Langs';
-import WordCards from './pages/WordCards';
+import Langs from './pages/lang/Langs';
+import WordCards from './pages/wcard/WordCards';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import AddEditLang from './pages/AddEditLang';
-import AddEditWCard from './pages/AddEditWCard';
+import AddEditLang from './pages/lang/AddEditLang';
+import AddEditWCard from './pages/wcard/AddEditWCard';
 import Home from './pages/Home';
-import Translates from './pages/Translates';
-import AddEditTranslation from './pages/AddEditTranslation';
+import Translates from './pages/translate/Translates';
+import AddEditTranslation from './pages/translate/AddEditTranslation';
 import WordLessons from './pages/lesson/WordLessons';
 import AddEditWLesson from './pages/lesson/AddEditWLesson';
+import WLessonTranslates from './pages/lesson/WLessonTranslates';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/wlesson" element={ <WordLessons/> }/>
           <Route exact path="/wlesson/add" element={ <AddEditWLesson/> }/>
           <Route exact path="/wlesson/edit/:id" element={ <AddEditWLesson/> }/>
+          <Route exact path="/wlesson/translates/:id" element={ <WLessonTranslates/> }/>
         </Routes>
       </BrowserRouter>
     </div>

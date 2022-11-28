@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import LangForm from "../features/langs/components/LangForm";
-import Layout from "../layout/Layout";
-import LangService from "../features/langs/services/LangService";
+import LangForm from "../../features/langs/components/LangForm";
+import Layout from "../../layout/Layout";
+import LangService from "../../features/langs/services/LangService";
 import { useNavigate, useParams } from 'react-router-dom';
 
 const AddEditLang = () => {

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Layout from "../layout/Layout";
+import Layout from "../../layout/Layout";
 import { useNavigate, useParams } from 'react-router-dom';
-import AddWCardPanel from "../features/card/components/AddWCardPanel";
-import EditWCardPanel from "../features/card/components/EditWCardPanel";
+import AddWCardPanel from "../../features/card/components/AddWCardPanel";
+import EditWCardPanel from "../../features/card/components/EditWCardPanel";
 
 const AddEditWCard = () => {
 

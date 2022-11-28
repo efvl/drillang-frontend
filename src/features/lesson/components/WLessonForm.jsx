@@ -16,7 +16,7 @@ const WLessonForm = (props) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [wlessonForm, setWLessonForm] = useState({ name: '', countDone: 1, countChars : 1 });
+    const [wlessonForm, setWLessonForm] = useState({ name: '', reverse: false, countDone: 1, countChars : 1 });
     const [fromLangs, setFromLangs] = useState([]);
     const [fromLabel, setFromLabel] = useState('');
     const [fromSelectLang, setFromSelectLang] = useState({});
@@ -132,6 +132,7 @@ const WLessonForm = (props) => {
                         <Form.Label column sm="3">Reverse : </Form.Label>
                         <Col sm="9" className="pt-2">
                             <Form.Check type='checkbox' 
+                                    value={wlessonForm?.reverse}
                                     checked={wlessonForm?.reverse} 
                                     onChange={e => setWLessonForm({...wlessonForm, reverse: e.target.checked})}/>
                         </Col>
