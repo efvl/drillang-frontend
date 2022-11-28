@@ -69,6 +69,16 @@ const AddWLessonPanel = (props) => {
         return Object.keys(obj).length === 0;
     }
 
+    const handleCountDoneChange = event => {
+        const result = event.target.value.replace(/\D/g, '');
+        setWLessonForm({...wlessonForm, countDone: result});
+    };
+
+    const handleCountCharsChange = event => {
+        const result = event.target.value.replace(/\D/g, '');
+        setWLessonForm({...wlessonForm, countChars: result});
+    };
+
     return (
         <Container className="mt-3">
             <Row>
@@ -120,7 +130,7 @@ const AddWLessonPanel = (props) => {
                             <Form.Control type="text" 
                                 placeholder="Enter count that should be done"
                                 value={wlessonForm.countDone}
-                                onChange={e => setWLessonForm({...wlessonForm, countDone: e.target.value})}/>
+                                onChange={handleCountDoneChange}/>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="countChars">
@@ -129,7 +139,7 @@ const AddWLessonPanel = (props) => {
                             <Form.Control type="text" 
                                 placeholder="Enter minimum count chars that need to check answer"
                                 value={wlessonForm.countChars}
-                                onChange={e => setWLessonForm({...wlessonForm, countChars: e.target.value})}/>
+                                onChange={handleCountCharsChange}/>
                         </Col>
                     </Form.Group>
                     <div className="text-center p-2">
