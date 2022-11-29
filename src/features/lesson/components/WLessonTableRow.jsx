@@ -26,7 +26,7 @@ const WLessonTableRow = (props) => {
             <td className="text-center">{props.wlesson.countDone}</td>
             <td className="text-center">{props.wlesson.countChars}</td>
             <td>
-                <Link to={`/wlesson/translates/${props.wlesson.id}`} className="btn btn-primary mx-2">Manage</Link>
+                <Link to={`/wlesson/translates/${props.wlesson.id}`} className="btn mx-2 btn-primary">Manage</Link>
                 <Link to={`/wlesson/edit/${props.wlesson.id}`} className="btn btn-outline-primary mx-2">Update</Link>
                 <button onClick={() => props.remove(props.wlesson.id)} className="btn btn-danger mx-2">Delete</button>
             </td>

@@ -1,0 +1,10 @@
+// custom
+$gg: #c719aa;
+
+.btn-gg {
+    background-color: $gg;
+    color: white;
+}
+
+// import bootstrap styles at the bottom!
+@import '~bootstrap/scss/bootstrap.scss';
