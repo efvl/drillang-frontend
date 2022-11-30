@@ -27,6 +27,7 @@ const WLessonManagePanel = (props) => {
     const [searchData, setSearchData] = useState(
         {
             "languageId": 0,
+            "lessonId": 0,
             "word": "string",
             "curNumPage": 0,
             "sizeOfPage": 500
@@ -34,34 +35,60 @@ const WLessonManagePanel = (props) => {
     );
 
     useEffect(() => {
-        loadWLesson();
-        fetchTranslations(searchData);
-        fetchTranslatesWLesson(props.wlessonId);
+        initData();
     }, []);
 
+    const initData = async () => {
+        let wlesson = await loadWLesson();
+        searchData.languageId = wlesson.fromLanguage.id;
+        searchData.lessonId = wlesson.id;
+        fetchTranslations(searchData);
+        fetchTranslatesWLesson(props.wlessonId);
+    }
+
+    const refreshData = () => {
+        fetchTranslations(searchData);
+        fetchTranslatesWLesson(wlesson.id);
+    }
 
     const loadWLesson = async () => {
         const response = await WordLessonService.getWordLessonById(props.wlessonId);
         console.log(response.data);
         setWLesson(response.data);
+        return response.data;
     }
 
     const fetchTranslations = async (searchData) => {
-        console.log(searchData);  
-        const response = await TranslateService.searchTranslates(searchData);
+        console.log(searchData); 
+        const response = await TranslateService.searchTranslatesForLesson(searchData);
         console.log(response.data);
         setTrns(response.data.content);
     }
 
     const fetchTranslatesWLesson = async (lessonId) => {
         console.log(searchData);  
-        const response = await TranslateWLessonService.getTranslatesForLessonById(lessonId);
+        const response = await TranslateWLessonService.getTranslatesOfLesson(lessonId);
         console.log(response.data);
         setTrLessons(response.data);
     }
 
-    const deleteTranslation = async (id) => {
-        console.log('delete translation');
+    const addToLesson = async (translateId) => {
+        let twl = {
+            translate: { id: translateId },
+            wordLesson: wlesson,
+            targetAnswer: 1,
+        }
+        const response = await TranslateWLessonService.addTrWLesson(twl);
+        if(response.status == 200){
+            refreshData();
+        }
+    } 
+
+    const deleteFromLesson = async (twlId) => {
+        const response = await TranslateWLessonService.deleteTrWLesson(twlId);
+        if(response.status == 200){
+            refreshData();
+        }
     } 
 
     const isEmpty = (obj) => {
@@ -104,10 +131,10 @@ const WLessonManagePanel = (props) => {
             </Row>
             <Row>
                 <Col md={5}>
-                    <WTranslateTable trns={trns} remove={deleteTranslation}/>
+                    <WTranslateTable trns={trns} addAction={addToLesson}/>
                 </Col>
                 <Col md={7}>
-                    <TranslatesForLessonTable trLessons={trLessons} remove={deleteTranslation}/>
+                    <TranslatesForLessonTable trLessons={trLessons} deleteAction={deleteFromLesson}/>
                 </Col>
             </Row>
         </Container>    

@@ -28,7 +28,7 @@ export default class TranslateWLessonService {
         return response;
     } 
 
-    static async getTranslatesForLessonById(id) {
+    static async getTranslatesOfLesson(id) {
         const response = await axios.get("http://localhost:8081/dlang/v1/translate-wlesson/by-lesson/" + id);
         return response;
     }

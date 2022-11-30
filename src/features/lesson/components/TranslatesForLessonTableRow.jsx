@@ -4,9 +4,15 @@ import { ArrowLeftSquare, XSquare } from "react-bootstrap-icons";
 
 const TranslatesForLessonTableRow = (props) => {
 
+    const removeTranslationFromLesson = (id) => {
+        props.deleteAction(id);
+    }
+
     return ( 
         <tr>
-            <th className="text-center"><XSquare size={18} color="red"></XSquare></th>
+            <th className="text-center">
+                <XSquare size={18} color="red" onClick={() => removeTranslationFromLesson(props.twl.id)}></XSquare>
+            </th>
             <th scope="row">{props.rowNum}</th> 
             <td>{props.twl.translateId}</td>
             <td>{props.twl.word1}</td>
@@ -14,11 +20,6 @@ const TranslatesForLessonTableRow = (props) => {
             <td>{props.twl.targetAnswer}</td>
             <td>{props.twl.allAnswer}</td>
             <td>{props.twl.correctAnswer}</td>
-            {/* <td>
-                <Link to={`/wlesson/translates/${props.wlesson.id}`} className="btn mx-2 btn-primary">Manage</Link>
-                <Link to={`/wlesson/edit/${props.wlesson.id}`} className="btn btn-outline-primary mx-2">Update</Link>
-                <button onClick={() => props.remove(props.wlesson.id)} className="btn btn-danger mx-2">Delete</button>
-            </td> */}
         </tr>
     );
 

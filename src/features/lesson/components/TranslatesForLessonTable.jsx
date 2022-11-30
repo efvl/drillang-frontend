@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import TranslatesForLessonTableRow from './TranslatesForLessonTableRow';
 
-const TranslatesForLessonTable = ({trLessons, remove}) => {
+const TranslatesForLessonTable = ({trLessons, deleteAction}) => {
 
     return (
         <Container className="py-2">
@@ -23,7 +23,7 @@ const TranslatesForLessonTable = ({trLessons, remove}) => {
                 </thead>
                 <tbody>
                     {trLessons.map((item, index) =>
-                        <TranslatesForLessonTableRow key={item.id} rowNum={index + 1} twl={item} remove={remove} />
+                        <TranslatesForLessonTableRow key={item.id} rowNum={index + 1} twl={item} deleteAction={deleteAction} />
                     )}
                 </tbody>
             </Table>

@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import WTranslateTableRow from "./WTranslateTableRow";
 
-const WTranslateTable = ({trns, remove}) => {
+const WTranslateTable = ({trns, addAction}) => {
 
     return (
         <Container className="py-2">
@@ -19,7 +19,7 @@ const WTranslateTable = ({trns, remove}) => {
                 </thead>
                 <tbody>
                     {trns.map((item, index) =>
-                        <WTranslateTableRow key={item.id} rowNum={index + 1} translate={item} remove={remove} />
+                        <WTranslateTableRow key={item.id} rowNum={index + 1} translate={item} addAction={addAction} />
                     )}
                 </tbody>
             </Table>

@@ -8,6 +8,11 @@ export default class TranslateService {
         return response;
     }
 
+    static async searchTranslatesForLesson(searchData) {
+        const response = await axios.post("http://localhost:8081/dlang/v1/translate/search/for-lesson", searchData);
+        return response;
+    }
+
     static async addTranslate(translate) {
         const response = await axios.post("http://localhost:8081/dlang/v1/translate", translate);
         return response;
