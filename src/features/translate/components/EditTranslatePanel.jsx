@@ -10,6 +10,9 @@ import PictureFileService from "../../card/services/PictureFileService";
 import { useNavigate, useLocation } from 'react-router-dom';
 import WCardForm from "../../card/components/WCardForm";
 import TranslateService from "../services/TranslateServices";
+import { Square, VolumeUp } from "react-bootstrap-icons";
+import AudioFileService from "../../card/services/AudioFileService";
+import AudioFilePanel from "../../../components/AudioFilePanel";
 
 const EditTranslatePanel = (props) => {
 
@@ -20,6 +23,7 @@ const EditTranslatePanel = (props) => {
         "shortName": "string",
         "fullName": "string"
     });
+    const [audioId, setAudioId] = useState();
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -67,6 +71,15 @@ const EditTranslatePanel = (props) => {
         navigate('/translate');
     }
 
+    const audioFileUploadHandler = async (file) => {
+        const fData = new FormData();
+        fData.append("audFile", file);
+        const result = await AudioFileService.addAudioFile(fData);
+        console.log("create audio file response:");
+        console.log(result.data);
+        setAudioId(result.data.id);
+    }
+
     const cancelTranslation = (wordCard) => {
         navigate('/translate');
     }
@@ -78,20 +91,26 @@ const EditTranslatePanel = (props) => {
                     {translate && <img src={PictureFileService.PICTURE_URL + "/" + translate.word1.pictureId}  width="100%"/>}
                 </Col>
                 <Col md={6}>
-                    <Row className="align-bottom">
-                        <Col md={3} className="py-2">
+                    <Row className="row-cols-auto">
+                        <Col className="py-2">
                             <h5>{translate && translate.word1.language.fullName + ' :'}</h5>
                         </Col>
-                        <Col md={9} className="text-success"> 
+                        <Col className="pt-1">
+                            <VolumeUp color="royalblue" size={36}></VolumeUp>
+                        </Col>
+                        <Col className="text-success"> 
                             <h3>{translate && translate.word1.word}</h3>
                         </Col>
                     </Row>
-                    <Container className="border p-4">
-                        <Row>
-                            <Col className="col-8">Language: {word2Lang ? word2Lang.fullName : ""}</Col>
-                            <Col className="col-4">
+                    <Container className="border p-3">
+                        <Row className="row-cols-auto">
+                            <Col>
                                 <LangDropdown handler={handleSelectLanguage} langs={langs}/>
                             </Col>
+                            <Col><h5>Language: {word2Lang ? word2Lang.fullName : ""}</h5></Col>
+                        </Row>
+                        <Row className="pt-3">
+                            <AudioFilePanel onChangeHandler={audioFileUploadHandler}></AudioFilePanel>
                         </Row>
                         <Row>
                             {translate && <WCardForm isEdit={true} wordcard={translate.word2} submitAction={updateTranslation} cancelAction={cancelTranslation}/>}

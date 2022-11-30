@@ -9,7 +9,7 @@ const WordCards = () => {
 
     const [wcards, setWcards] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(5);
+    const [totalPages, setTotalPages] = useState(10);
     const [languageId, setLanguageId] = useState();
     const [searchData, setSearchData] = useState(
         {
@@ -17,7 +17,7 @@ const WordCards = () => {
             "language": "string",
             "word": "string",
             "curNumPage": 0,
-            "sizeOfPage": 5
+            "sizeOfPage": 10
         }
     );
 

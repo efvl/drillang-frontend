@@ -33,15 +33,15 @@ const WCardActionBar = ({onChangeLang}) => {
 
     return (
         <Container>
-            <Row className="p-2">
-                <Col md={2}>
+            <Row className="p-2 row-cols-auto">
+                <Col>
                     <Link className="btn btn-outline-success" to="/wcard/add">Add Word Card</Link>
                 </Col>
-                <Col md={2}>
+                <Col>
                     <LangDropdown handler={handleSelectLanguage} langs={langs}/>
                 </Col>
-                <Col md={2}>
-                    {filterLanguage}
+                <Col>
+                    <h5>{filterLanguage}</h5>
                 </Col>
             </Row>
         </Container>
