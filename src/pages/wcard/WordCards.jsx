@@ -14,8 +14,8 @@ const WordCards = () => {
     const [searchData, setSearchData] = useState(
         {
             "ids": [ 0 ],
-            "language": "string",
-            "word": "string",
+            "language": "",
+            "word": "",
             "curNumPage": 0,
             "sizeOfPage": 10
         }
@@ -23,7 +23,7 @@ const WordCards = () => {
 
     useEffect(() => {
         fetchWordCards(searchData);
-    }, [searchData]);
+    }, []);
 
     const fetchWordCards = async (searchData) => {
         console.log(searchData);  
@@ -36,14 +36,19 @@ const WordCards = () => {
 
     const handleChangePage = useCallback((page) => {
         console.log(page);
-        setSearchData({...searchData, languageId : languageId, curNumPage : page}); 
-    }, [searchData]);
+        searchData.languageId = languageId;
+        searchData.curNumPage = page;
+        fetchWordCards(searchData);
+    });
 
-    const handleChangeLanguage = useCallback((lang) => {
-        console.log(lang);
+    const handleChangeFilter = useCallback((word, lang) => {
         setLanguageId(lang.id);
-        setSearchData({...searchData, languageId : lang.id, curNumPage : 0});
-    }, [searchData])
+        searchData.languageId = lang.id;
+        searchData.curNumPage = 0;
+        searchData.word = word;
+        console.log(searchData);
+        fetchWordCards(searchData);
+    })
 
     const deleteWordCard = async (id) => {
         await WordCardService.deleteWordCard(id);
@@ -53,7 +58,7 @@ const WordCards = () => {
     return (
         <>
         <Layout>
-            <WCardActionBar onChangeLang={handleChangeLanguage}/>
+            <WCardActionBar onChangeFilter={handleChangeFilter}/>
             <WordCardTable wcards={wcards} remove={deleteWordCard}/>
             <PaginationBar currentPage={currentPage} totalPages={totalPages} onChangePage={handleChangePage}/>
         </Layout>
