@@ -10,6 +10,7 @@ import AddEditTranslation from './pages/translate/AddEditTranslation';
 import WordLessons from './pages/lesson/WordLessons';
 import AddEditWLesson from './pages/lesson/AddEditWLesson';
 import WLessonTranslates from './pages/lesson/WLessonTranslates';
+import WLessonProcess from './pages/lesson/WLessonProcess';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route exact path="/wlesson/add" element={ <AddEditWLesson/> }/>
           <Route exact path="/wlesson/edit/:id" element={ <AddEditWLesson/> }/>
           <Route exact path="/wlesson/translates/:id" element={ <WLessonTranslates/> }/>
+          <Route exact path="/process/wlesson/:id" element={ <WLessonProcess/> }/>
         </Routes>
       </BrowserRouter>
     </div>
