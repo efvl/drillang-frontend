@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Square, VolumeUp, ArrowRepeat } from "react-bootstrap-icons";
+import { Square, VolumeUp, ArrowRepeat, TrophyFill, ArrowRightSquare, CheckSquare, XSquare } from "react-bootstrap-icons";
 import WordLessonService from "../services/WordLessonService";
 import TranslateWLessonService from "../services/TranslateWLessonService";
 import { Button } from "react-bootstrap";
@@ -16,7 +16,7 @@ const LessonStepPanel = (props) => {
     const navigate = useNavigate();
     
     const [wlesson, setWLesson] = useState({});
-    const [trLessons, setTrLessons] = useState([]);
+    const [trLessons, setTrLessons] = useState(new Map());
     const [searchData, setSearchData] = useState(
         {
             "languageId": 0,
@@ -48,7 +48,7 @@ const LessonStepPanel = (props) => {
 
     const fetchTranslatesWLesson = async (wl) => {
         const response = await TranslateWLessonService.getTranslatesOfLesson(wl.id);
-        let translates = response.data;
+        let translates = new Map(response.data.map(item => [item.id, item]));
         setTrLessons(translates);
     }
 
@@ -68,7 +68,7 @@ const LessonStepPanel = (props) => {
     }
 
     const startLesson = () => {
-        initRound(trLessons, wlesson);
+        initRound([...trLessons.values()], wlesson);
         setIsStart(true);
     }
 
@@ -80,9 +80,22 @@ const LessonStepPanel = (props) => {
         if (event.key === 'Enter') {
             console.log('you press enter key')
             event.preventDefault();
-            setNextTranslate(round);
-            setAnswer('');
+            if(answer.length >= wlesson.countChars){
+                calcStatistic();
+                setNextTranslate(round);
+                setAnswer('');
+            }
         }
+    }
+
+    const calcStatistic = () => {
+        let trLesson = trLessons.get(curTranslate.id);
+        trLesson.allAnswer += 1;
+        let correctAnswer = trLesson.word2.substr(0, answer.length);
+        console.log(answer + " ? " + correctAnswer);
+        if(correctAnswer === answer){
+            trLesson.correctAnswer += 1;
+        } 
     }
 
     const getReverseIcon = () => {
@@ -153,12 +166,17 @@ const LessonStepPanel = (props) => {
                         </Row>
                     </Container>
                 </Col>
-                <Col></Col>
+                <Col>
+                    <div><Square/> {curTranslate.allAnswer} (all)</div>
+                    <div><XSquare color="firebrick"/> {curTranslate.allAnswer - curTranslate.correctAnswer} (wrong)</div>
+                    <div><CheckSquare color="limegreen"/> {curTranslate.correctAnswer} (correct)</div>
+                    <div><ArrowRightSquare color="gold"/> {curTranslate.targetAnswer} (target)</div>
+                </Col>
             </Row>
             }
             {!isStart &&
             <Row>
-                <LessonStatisticPanel trns={trLessons}></LessonStatisticPanel>
+                <LessonStatisticPanel trns={[...trLessons.values()]}></LessonStatisticPanel>
             </Row>
             }
         </Container>    
