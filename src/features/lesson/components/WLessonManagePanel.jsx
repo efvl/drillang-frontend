@@ -84,6 +84,20 @@ const WLessonManagePanel = (props) => {
         }
     } 
 
+    const learnAgain = async (twLesson) => {
+        console.log(twLesson);
+        let twl = {
+            id : twLesson.id,
+            translate: { id: twLesson.translateId },
+            wordLesson: wlesson ,
+            correctAnswer: 0,
+        }
+        const response = await TranslateWLessonService.learnAgainTrLesson(twl);
+        if(response.status == 200){
+            refreshData();
+        }
+    }
+
     const deleteFromLesson = async (twlId) => {
         const response = await TranslateWLessonService.deleteTrWLesson(twlId);
         if(response.status == 200){
@@ -134,7 +148,7 @@ const WLessonManagePanel = (props) => {
                     <WTranslateTable trns={trns} addAction={addToLesson}/>
                 </Col>
                 <Col md={7}>
-                    <TranslatesForLessonTable trLessons={trLessons} deleteAction={deleteFromLesson}/>
+                    <TranslatesForLessonTable trLessons={trLessons} deleteAction={deleteFromLesson} again={learnAgain}/>
                 </Col>
             </Row>
         </Container>    

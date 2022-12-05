@@ -7,6 +7,7 @@ import { Square, VolumeUp, ArrowRepeat, TrophyFill, ArrowRightSquare, CheckSquar
 import WordLessonService from "../services/WordLessonService";
 import TranslateWLessonService from "../services/TranslateWLessonService";
 import PictureFileService from "../../card/services/PictureFileService";
+import AudioFileService from "../../card/services/AudioFileService";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import LessonStatisticPanel from "./LessonStatisticPanel";
@@ -20,6 +21,7 @@ const LessonStepPanel = (props) => {
     const [trLessons, setTrLessons] = useState(new Map());
     const [lessonSize, setLessonSize] = useState(0);
     const [lessonReady, setLessonReady] = useState(0);
+    const [isPlayAudio, setIsPlayAudio] = useState(true);
     const [searchData, setSearchData] = useState(
         {
             "languageId": 0,
@@ -35,6 +37,8 @@ const LessonStepPanel = (props) => {
     const [round, setRound] = useState([]);
     const [isStart, setIsStart] = useState(false);
     const [answer, setAnswer] = useState('');
+    const [curAudio1, setCurAudio1] = useState({});
+    const [curAudio2, setCurAudio2] = useState({});
 
     useEffect(() => {
         initData();
@@ -75,13 +79,45 @@ const LessonStepPanel = (props) => {
         setAnswer('');
         setCurCorrect(false);
         if(curRound.length > 0){
-            let gg = curRound.pop();
-            console.log(gg);
-            setCurTranslate(gg);
+            let nextTr = curRound.pop();
+            console.log(nextTr);
+            setCurAudios(nextTr);
+            setCurTranslate(nextTr);
         } else {
             console.log("end round");
             stopLesson();
         }
+    }
+
+    const setCurAudios = (curTransl) => {
+        let audio1 = curTransl.audioId1 != null ? new Audio(AudioFileService.AUDIO_URL + "/" + curTransl.audioId1) : null;
+        setCurAudio1(audio1);
+        let audio2 = curTransl.audioId2 != null ? new Audio(AudioFileService.AUDIO_URL + "/" + curTransl.audioId2) : null;
+        setCurAudio2(audio2);
+        if(wlesson?.reverse && curTransl.audioId2 != null && isPlayAudio){
+            audio2.play();
+        } 
+        if(!wlesson?.reverse && curTransl.audioId1 != null && isPlayAudio) {
+            audio1.play();
+        }
+    }
+
+    const playAudio = (num) => {
+        if(curTranslate.audioId2 != null && num == 2){
+            curAudio2.play();
+        }
+        if(curTranslate.audioId1 != null && num == 1){
+            curAudio1.play();
+        }
+    }
+
+    const getAudioElement = (audioId) => {
+        return audioId &&
+                <div>
+                    <audio controls autoPlay width="100%" src={AudioFileService.AUDIO_URL + "/" + audioId}>
+                        <source src={AudioFileService.AUDIO_URL + "/" + audioId}></source>
+                    </audio>
+                </div>
     }
 
     const startLesson = () => {
@@ -112,7 +148,7 @@ const LessonStepPanel = (props) => {
     const calcStatistic = () => {
         let trLesson = trLessons.get(curTranslate.id);
         trLesson.allAnswer += 1;
-        let correctAnswer = trLesson.word2.substr(0, answer.length);
+        let correctAnswer = trLesson.reverse ? trLesson.word2.substr(0, answer.length) : trLesson.word1.substr(0, answer.length);
         console.log(answer + " ? " + correctAnswer);
         if(correctAnswer === answer){
             trLesson.correctAnswer += 1;
@@ -123,10 +159,20 @@ const LessonStepPanel = (props) => {
         setCurChecked(true);
     }
 
+    const isEmpty = (obj) => {
+        return Object.keys(obj).length === 0;
+    }
+
     const getReverseIcon = () => {
         return wlesson?.reverse
             ? <ArrowRepeat size={18} color="limegreen" className="border"></ArrowRepeat>
             : <Square></Square>
+    }
+
+    const getIsPlayIcon = () => {
+        return isPlayAudio
+            ? <CheckSquare size={18} color="limegreen" className="border"></CheckSquare>
+            : <Square size={18} color="black"></Square>
     }
 
     const greenColor = {
@@ -139,13 +185,13 @@ const LessonStepPanel = (props) => {
 
     return (
         <Container className="mt-3">
-            <Row className="border rounded p-3">
-                <Col md={5}>
+            <Row className="border rounded p-3 justify-content-center">
+                <Col md={5} className="pt-2">
                     <h4 style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4>
                     {!isStart && <Button variant="outline-primary" style={{width: 150}} onClick={startLesson}> Start </Button>}
                     {isStart && <Button variant="outline-primary" style={{width: 150}} onClick={stopLesson}> Stop </Button>}
                 </Col>
-                <Col md={5}>
+                <Col md={5} className="pt-2">
                     <h4 style={indigoColor}>{wlesson?.name}</h4>
                     <div>cards: {lessonSize} ready: {lessonReady}</div>
                 </Col>
@@ -153,25 +199,32 @@ const LessonStepPanel = (props) => {
                     <div>{getReverseIcon()} reverse</div>
                     <div>count done: {wlesson?.countDone}</div>
                     <div>count chars: {wlesson?.countChars}</div>
+                    <div onClick={() => setIsPlayAudio(!isPlayAudio)}>
+                        { getIsPlayIcon() } auto play audio
+                    </div>
                 </Col>
             </Row>
             {isStart &&
             <Row className="border rounded p-3 mt-3">
-                <Col md={4} className="border"> image
+                <Col md={4} className="border">
                     {isStart && curTranslate && <img src={PictureFileService.PICTURE_URL + "/" + curTranslate.pictureId}  width="100%"/>}
                 </Col>
                 <Col md={6}>
                     <Row className="row-cols-auto">
                         <Col className="py-2">
-                            <h5>{wlesson && wlesson.fromLanguage.fullName}</h5>
+                            { wlesson?.reverse 
+                                ? <h5>{wlesson && wlesson.toLanguage.fullName}</h5>
+                                : <h5>{wlesson && wlesson.fromLanguage.fullName}</h5>
+                            }
                         </Col>
                         <Col className="pt-1">
-                            <VolumeUp color="royalblue" size={36}></VolumeUp>
+                            <VolumeUp color="royalblue" size={36} onClick={() => playAudio(wlesson?.reverse ? 2 : 1)}></VolumeUp>
                         </Col>
-                        <Col className="text-success"> 
-                            <h3>
-                                {curTranslate && curTranslate.word1}
-                            </h3>
+                        <Col className="text-success">
+                            { wlesson?.reverse 
+                                ? <h3>{curTranslate && curTranslate.word2}</h3>
+                                : <h3>{curTranslate && curTranslate.word1}</h3>
+                            } 
                         </Col>
                     </Row>
                     <Container className="p-3">
@@ -182,10 +235,19 @@ const LessonStepPanel = (props) => {
                                         value={answer} 
                                         onChange={e => setAnswer(e.target.value)}
                                         onKeyDown={handleAnswerKeyDown} />
-                                    <Form.Control as="textarea" rows={3} disabled readOnly  
-                                        value={isCurChecked ? curTranslate?.word2 : ''}  />
+                                    { wlesson?.reverse 
+                                        ? <Form.Control as="textarea" rows={3} disabled readOnly value={isCurChecked ? curTranslate?.word1 : ''}  />
+                                        : <Form.Control as="textarea" rows={3} disabled readOnly value={isCurChecked ? curTranslate?.word2 : ''}  />
+                                    }
                                 </Form>
                             </Col>
+                        </Row>
+                        <Row className="pt-2 justify-content-center">
+                            <Col></Col>
+                            <Col>
+                                { isCurChecked && isPlayAudio && getAudioElement(wlesson?.reverse ? curTranslate.audioId1 : curTranslate.audio2) }
+                            </Col>
+                            <Col></Col>
                         </Row>
                         <Row className="pt-3 justify-content-center">
                             <Col></Col>
