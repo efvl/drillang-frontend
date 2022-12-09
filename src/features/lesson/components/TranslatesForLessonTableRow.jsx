@@ -21,9 +21,9 @@ const TranslatesForLessonTableRow = (props) => {
             <td>{props.twl.translateId}</td>
             <td>{props.twl.word1}</td>
             <td>{props.twl.word2}</td>
-            <td>{props.twl.targetAnswer}</td>
             <td>{props.twl.allAnswer}</td>
             <td>{props.twl.correctAnswer}</td>
+            <td>{props.twl.countDone}</td>
             <th className="text-center">
                 <ArrowRepeat size={18} color="green" onClick={() => learnAgain(props.twl)}></ArrowRepeat>
             </th>

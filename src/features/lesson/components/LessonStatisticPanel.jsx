@@ -14,7 +14,7 @@ const LessonStatisticPanel = ({trns}) => {
                         <th scope="col">Word2</th>
                         <th scope="col">All Answers</th>
                         <th scope="col">Correct Answer</th>
-                        <th scope="col">Target Answer</th>
+                        <th scope="col">Count Done</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +26,7 @@ const LessonStatisticPanel = ({trns}) => {
                             <td>{item.word2}</td>
                             <td>{item.allAnswer}</td>
                             <td>{item.correctAnswer}</td>
-                            <td>{item.targetAnswer}</td>
+                            <td>{item.countDone}</td>
                         </tr>
                     )}
                 </tbody>

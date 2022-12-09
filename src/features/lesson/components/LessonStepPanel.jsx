@@ -155,6 +155,9 @@ const LessonStepPanel = (props) => {
             setCurCorrect(true);
             let countDone = [...trLessons.values()].filter(item => item.correctAnswer >= wlesson.countDone).length;
             setLessonReady(countDone);
+            if(trLesson.correctAnswer >= wlesson.countDone){
+                trLesson.countDone += 1;
+            }
         } 
         setCurChecked(true);
     }
@@ -188,7 +191,7 @@ const LessonStepPanel = (props) => {
             <Row className="border rounded p-3 justify-content-center">
                 <Col md={5} className="pt-2">
                     <h4 style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4>
-                    {!isStart && <Button variant="outline-primary" style={{width: 150}} onClick={startLesson}> Start </Button>}
+                    {!isStart && <Button variant="outline-primary" style={{width: 150}} onClick={startLesson} disabled={lessonSize == lessonReady}> Start </Button>}
                     {isStart && <Button variant="outline-primary" style={{width: 150}} onClick={stopLesson}> Stop </Button>}
                 </Col>
                 <Col md={5} className="pt-2">

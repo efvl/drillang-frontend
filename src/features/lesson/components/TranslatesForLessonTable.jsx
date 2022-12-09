@@ -15,9 +15,9 @@ const TranslatesForLessonTable = ({trLessons, deleteAction, again}) => {
                         <th scope="col">id</th>
                         <th scope="col">Word1</th>
                         <th scope="col">Word2</th>
-                        <th scope="col">Target Answer</th>
                         <th scope="col">All Answer</th>
                         <th scope="col">Correct Answer</th>
+                        <th scope="col">Count Done</th>
                         <th className="text-center">Again</th>
                     </tr>
                 </thead>
