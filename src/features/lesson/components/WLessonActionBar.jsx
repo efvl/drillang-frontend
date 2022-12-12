@@ -35,7 +35,7 @@ const WLessonActionBar = ({onChangeLang}) => {
         <Container>
             <Row className="p-2">
                 <Col md={2}>
-                    <Link className="btn btn-outline-success" to="/wlesson/add">Add Word Lesson</Link>
+                    <Link className="btn btn-outline-success" to="/wlesson/add" >Add Word Lesson</Link>
                 </Col>
                 <Col md={2}>
                     <LangDropdown handler={handleSelectLanguage} langs={langs}/>

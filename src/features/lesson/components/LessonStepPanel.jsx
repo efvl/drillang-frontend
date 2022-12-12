@@ -129,6 +129,11 @@ const LessonStepPanel = (props) => {
         setIsStart(true);
     }
 
+    const manageLesson = async () => {
+        await stopLesson();
+        navigate(`/wlesson/translates/${wlesson.id}`);
+    }
+
     const stopLesson = async () => {
         setIsStart(false);
         const response = await TranslateWLessonService.updateAllTrWLessons([...trLessons.values()]);
@@ -193,12 +198,13 @@ const LessonStepPanel = (props) => {
     return (
         <Container className="mt-3">
             <Row className="border rounded p-3 justify-content-center">
-                <Col md={5} className="pt-2">
+                <Col md={4} className="pt-2">
                     <h4 style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4>
                     {!isStart && <Button variant="outline-primary" style={{width: 150}} onClick={startLesson} disabled={lessonSize == lessonReady}> Start </Button>}
                     {isStart && <Button variant="outline-primary" style={{width: 150}} onClick={stopLesson}> Stop </Button>}
+                    <Button className="ms-2" variant="outline-primary" style={{width: 150}} onClick={manageLesson}> Manage </Button>
                 </Col>
-                <Col md={5} className="pt-2">
+                <Col md={6} className="pt-2">
                     <h4 style={indigoColor}>{wlesson?.name}</h4>
                     <div>cards: {lessonSize} ready: {lessonReady}</div>
                 </Col>

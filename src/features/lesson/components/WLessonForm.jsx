@@ -74,7 +74,20 @@ const WLessonForm = (props) => {
         wlessonForm.toLanguage = toSelectLang;
         const response = await WordLessonService.addWordLesson(wlessonForm);
         console.log(response.data);
-        navigate('/wlesson');
+        if(location.state.prevPath) {
+            navigate(location.state.prevPath);
+        } else {
+            navigate('/wlesson');
+        }
+    }
+
+    const cancelAction = async (e) => {
+        e.preventDefault();
+        if(location.state.prevPath) {
+            navigate(location.state.prevPath);
+        } else {
+            navigate('/wlesson');
+        }
     }
 
     const isEmpty = (obj) => {
@@ -157,7 +170,7 @@ const WLessonForm = (props) => {
                     </Form.Group>
                     <div className="text-center p-2">
                         <Button variant="outline-primary" style={{width: 150}} type="submit" onClick={submitWordLesson}> Save </Button>
-                        <Link className="btn btn-outline-danger mx-2" style={{width: 150}} to="/wlesson">Cancel</Link>
+                        <Link className="btn btn-outline-danger mx-2" style={{width: 150}} onClick={cancelAction}>Cancel</Link>
                     </div>
                 </Form>
                 </Col>

@@ -128,8 +128,15 @@ const WLessonManagePanel = (props) => {
             <Row>
                 <Col className="border rounded p-3">
                     <Row>
-                        <Col md={5}><h4 style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4></Col>
-                        <Col md={5}><h4 style={indigoColor}>{wlesson?.name}</h4></Col>
+                        <Col md={4}>
+                            <h4 style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4>
+                            <Link to={`/wlesson/edit/${props.wlessonId}`} state={{ prevPath: location.pathname }}
+                                        className="btn btn-outline-primary mx-2" style={{width: 150}}>Update</Link>
+                            <Link to={`/process/wlesson/${props.wlessonId}`} className="btn mx-2 btn-outline-primary" style={{width: 150}}>Start</Link>
+                        </Col>
+                        <Col md={6}>
+                            <h4 style={indigoColor}>{wlesson?.name}</h4>
+                        </Col>
                         <Col md={2}>
                             <div>{getReverseIcon()} reverse</div>
                             <div>count done: {wlesson?.countDone}</div>
