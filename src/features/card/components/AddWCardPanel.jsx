@@ -68,7 +68,7 @@ const AddWCardPanel = () => {
         const response = await WordCardService.createNewWordCard(newCard);
         console.log('add word card response: ');
         console.log(response.data);
-        navigate('/wcard');
+        navigate('/translate/add', { state: { word1: response.data }});
     }
 
     return (

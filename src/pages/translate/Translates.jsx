@@ -14,7 +14,7 @@ const Translates = () => {
             "languageId": 0,
             "word": "string",
             "curNumPage": 0,
-            "sizeOfPage": 5
+            "sizeOfPage": 10
         }
     );
 

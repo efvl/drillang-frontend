@@ -56,7 +56,7 @@ const AddTranslatePanel = (props) => {
         const response = await TranslateService.addTranslate(newTranslation);
         console.log('add translate response: ');
         console.log(response.data);
-        navigate('/translate');
+        navigate('/wcard');
     }
 
     const audioFileUploadHandler = async (file) => {

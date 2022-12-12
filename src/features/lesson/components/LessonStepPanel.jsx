@@ -11,6 +11,7 @@ import AudioFileService from "../../card/services/AudioFileService";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import LessonStatisticPanel from "./LessonStatisticPanel";
+import Utils from "../../Utils"
 
 const LessonStepPanel = (props) => {
 
@@ -70,6 +71,9 @@ const LessonStepPanel = (props) => {
 
     const initRound = (trLs, wl) => {
         let curRound = trLs.filter(item => item.correctAnswer < wl.countDone); 
+        if(curRound.length > 4){
+            Utils.shuffleArray(curRound);
+        }
         setNextTranslate(curRound);
         setRound(curRound);
     }
