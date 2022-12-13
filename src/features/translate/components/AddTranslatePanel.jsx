@@ -6,10 +6,13 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import LangDropdown from "../../card/components/LangDropdown";
+import LessonDropdown from './LessonDropdown';
 import PictureFileService from "../../card/services/PictureFileService";
 import { useNavigate, useLocation } from 'react-router-dom';
 import WCardForm from "../../card/components/WCardForm";
 import TranslateService from "../services/TranslateServices";
+import TranslateWLessonService from "../../lesson/services/TranslateWLessonService";
+import LessonService from '../../lesson/services/WordLessonService';
 import { Square, VolumeUp } from "react-bootstrap-icons";
 import AudioFileService from "../../card/services/AudioFileService";
 import AudioFilePanel from "../../../components/AudioFilePanel";
@@ -23,6 +26,8 @@ const AddTranslatePanel = (props) => {
         "shortName": "string",
         "fullName": "string"
     });
+    const [lessons, setLessons] = useState([]);
+    const [selectedLesson, setSelectedLesson] = useState({});
     const [audioId, setAudioId] = useState();
 
     const location = useLocation();
@@ -31,6 +36,7 @@ const AddTranslatePanel = (props) => {
     useEffect(() => {
         setWord1(location.state.word1);
         loadLanguages(location.state.word1.language);
+        loadLessons(location.state.word1.language);
     }, []);
 
     const loadLanguages = async (lang) => {
@@ -42,8 +48,21 @@ const AddTranslatePanel = (props) => {
         }
     }
 
+    const loadLessons = async (lang) => {
+        const response = await LessonService.getLessonsFromLang(lang.id);
+        console.log(response.data);
+        if(response.data?.length > 0){
+            setLessons(response.data);
+            setSelectedLesson(response.data[0]);
+        }
+    }
+
     const handleSelectLanguage = (e) => {
         setSelectedLanguage(langs.find(item => item.id == e));
+    }
+
+    const handleSelectLesson = (e) => {
+        setSelectedLesson(lessons.find(item => item.id == e));
     }
 
     const createNewTranslation = async (newCard) => {
@@ -56,6 +75,15 @@ const AddTranslatePanel = (props) => {
         const response = await TranslateService.addTranslate(newTranslation);
         console.log('add translate response: ');
         console.log(response.data);
+        if(response.status == 200 && response.data.id && selectedLesson != null){
+            let twl = {
+                translate: { id: response.data.id },
+                wordLesson: selectedLesson,
+                targetAnswer: 3,
+            }
+            const response2 = await TranslateWLessonService.addTrWLesson(twl);
+            console.log(response2);
+        }
         navigate('/wcard');
     }
 
@@ -75,7 +103,18 @@ const AddTranslatePanel = (props) => {
 
     return (
         <Container className="mt-3">
-            <Row>
+            <Row className="border rounded py-2 row-cols-auto">
+                <Col>
+                    <h5>Lesson: </h5>
+                </Col>
+                <Col>
+                    <LessonDropdown handler={handleSelectLesson} lessons={lessons}/>
+                </Col>
+                <Col>
+                    <h5>{selectedLesson?.name}</h5>
+                </Col>
+            </Row>
+            <Row className="py-2">
                 <Col md={4} className="border">
                     {word1 && <img src={PictureFileService.PICTURE_URL + "/" + word1.pictureId}  width="100%"/>}
                 </Col>

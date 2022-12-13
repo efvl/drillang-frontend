@@ -8,6 +8,11 @@ export default class WordLessonService {
         return response;
     }
 
+    static async getLessonsFromLang(fromLangId) {
+        const response = await axios.get("http://localhost:8081/dlang/v1/word-lesson/from-lang/" + fromLangId);
+        return response;
+    }
+
     static async addWordLesson(wordLesson) {
         const response = await axios.post("http://localhost:8081/dlang/v1/word-lesson", wordLesson);
         return response;
