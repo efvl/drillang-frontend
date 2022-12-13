@@ -19,7 +19,7 @@ const WLessonActionBar = ({onChangeLang}) => {
     }, []);
 
     const loadLanguages = async () => {
-        const response = await LangService.searchLanguages();
+        const response = await LangService.searchLanguages({});
         if(response.data?.length > 0){
             setLangs(response.data); 
         }

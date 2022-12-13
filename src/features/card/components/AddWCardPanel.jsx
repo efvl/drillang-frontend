@@ -32,7 +32,7 @@ const AddWCardPanel = () => {
     }, []);
 
     const loadLanguages = async () => {
-        const response = await LangService.searchLanguages();
+        const response = await LangService.searchLanguages({});
         if(response.data?.length > 0){
             setLangs(response.data); 
             setSelectedLanguage(response.data[0]); 

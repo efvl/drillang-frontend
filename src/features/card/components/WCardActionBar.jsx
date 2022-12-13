@@ -22,7 +22,7 @@ const WCardActionBar = ({onChangeFilter}) => {
     }, []);
 
     const initData = async () => {
-        const response = await LangService.searchLanguages();
+        const response = await LangService.searchLanguages({});
         if(response.data?.length > 0){
             setLangs(response.data); 
             setFilterLang(response.data[0]);

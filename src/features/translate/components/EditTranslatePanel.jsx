@@ -41,7 +41,7 @@ const EditTranslatePanel = (props) => {
         let lang2 = response.data.word2.language;
         setWord2Lang(lang2); 
         if(response.data) {
-            const responseLang = await LangService.searchLanguages();
+            const responseLang = await LangService.searchLanguages({});
             console.log(responseLang.data);
             let filteredLangs = responseLang.data.filter(item => item.id != lang1.id);
             setLangs(filteredLangs); 
@@ -49,7 +49,7 @@ const EditTranslatePanel = (props) => {
     }
 
     const loadLanguages = async (lang1, lang2) => {
-        const response = await LangService.searchLanguages();
+        const response = await LangService.searchLanguages({});
         if(response.data?.length > 0){
             let filteredLangs = response.data.filter(item => item.id != lang1.id);
             setLangs(filteredLangs);  

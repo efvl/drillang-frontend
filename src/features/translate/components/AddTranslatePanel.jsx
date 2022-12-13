@@ -34,7 +34,7 @@ const AddTranslatePanel = (props) => {
     }, []);
 
     const loadLanguages = async (lang) => {
-        const response = await LangService.searchLanguages();
+        const response = await LangService.searchLanguages({});
         if(response.data?.length > 0){
             let filteredLangs = response.data.filter(item => item.id != lang.id);
             setLangs(filteredLangs); 

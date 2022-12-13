@@ -32,7 +32,7 @@ const WLessonForm = (props) => {
     }, []);
 
     const loadLanguages = async () => {
-        const response = await LangService.searchLanguages();
+        const response = await LangService.searchLanguages({});
         if(response.data?.length > 0){
             setFromLangs(response.data);
             setToLangs(response.data); 
