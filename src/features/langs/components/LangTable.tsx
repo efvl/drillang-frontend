@@ -1,5 +1,5 @@
 import React from "react";
-import LangTableRow from "../components/LangTableRow";
+import LangTableRow from "./LangTableRow";
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 

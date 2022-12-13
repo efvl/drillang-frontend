@@ -158,8 +158,9 @@ const LessonStepPanel = (props) => {
         let trLesson = trLessons.get(curTranslate.id);
         trLesson.allAnswer += 1;
         let correctAnswer = trLesson.reverse ? trLesson.word2.substr(0, answer.length) : trLesson.word1.substr(0, answer.length);
+        correctAnswer = correctAnswer.toLowerCase();
         console.log(answer + " ? " + correctAnswer);
-        if(correctAnswer === answer){
+        if(correctAnswer === answer.toLowerCase()){
             trLesson.correctAnswer += 1;
             setCurCorrect(true);
             let countDone = [...trLessons.values()].filter(item => item.correctAnswer >= wlesson.countDone).length;
