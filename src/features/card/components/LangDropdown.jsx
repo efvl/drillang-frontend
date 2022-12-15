@@ -5,7 +5,7 @@ const LangDropdown = (props) => {
 
     return (
         <Dropdown onSelect={props.handler}>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
+            <Dropdown.Toggle variant="success-outline" id="dropdown-basic">
                 Languages
             </Dropdown.Toggle>
             <Dropdown.Menu>

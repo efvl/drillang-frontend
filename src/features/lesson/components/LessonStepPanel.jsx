@@ -65,7 +65,7 @@ const LessonStepPanel = (props) => {
     const setupTrLessons = (response) => {
         console.log(response.data);
         setLessonSize(response.data.length);
-        let translates = new Map(response.data.map(item => [item.id, item]));
+        let translates = new Map(response.data.filter(item => !item.skip).map(item => [item.id, item]));
         setTrLessons(translates);
     }
 
@@ -288,7 +288,7 @@ const LessonStepPanel = (props) => {
             }
             {!isStart &&
             <Row>
-                <LessonStatisticPanel trns={[...trLessons.values()]}></LessonStatisticPanel>
+                <LessonStatisticPanel trns={[...trLessons.values()]} lesson={wlesson}></LessonStatisticPanel>
             </Row>
             }
         </Container>    

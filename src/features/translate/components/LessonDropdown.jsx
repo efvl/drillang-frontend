@@ -6,7 +6,7 @@ const LessonDropdown = (props) => {
     return (
         <Dropdown onSelect={props.handler}>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
-                Languages
+                Lesson
             </Dropdown.Toggle>
             <Dropdown.Menu>
                 {props.lessons.map((item, i) =>

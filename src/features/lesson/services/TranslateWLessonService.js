@@ -28,6 +28,11 @@ export default class TranslateWLessonService {
         return response;
     }
 
+    static async skipTrLesson(trWLesson) {
+        const response = await axios.put("http://localhost:8081/dlang/v1/translate-wlesson/skip", trWLesson);
+        return response;
+    }
+
     static async updateAllTrWLessons(trWLessons) {
         const response = await axios.put("http://localhost:8081/dlang/v1/translate-wlesson/bunch", trWLessons);
         return response;

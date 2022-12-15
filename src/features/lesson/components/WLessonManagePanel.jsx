@@ -91,8 +91,23 @@ const WLessonManagePanel = (props) => {
             translate: { id: twLesson.translateId },
             wordLesson: wlesson ,
             correctAnswer: 0,
+            skip: false,
         }
         const response = await TranslateWLessonService.learnAgainTrLesson(twl);
+        if(response.status == 200){
+            refreshData();
+        }
+    }
+
+    const skipLearning = async (twLesson) => {
+        console.log(twLesson);
+        let twl = {
+            id : twLesson.id,
+            translate: { id: twLesson.translateId },
+            wordLesson: wlesson ,
+            skip: true,
+        }
+        const response = await TranslateWLessonService.skipTrLesson(twl);
         if(response.status == 200){
             refreshData();
         }
@@ -155,7 +170,7 @@ const WLessonManagePanel = (props) => {
                     <WTranslateTable trns={trns} addAction={addToLesson}/>
                 </Col>
                 <Col md={7}>
-                    <TranslatesForLessonTable trLessons={trLessons} deleteAction={deleteFromLesson} again={learnAgain}/>
+                    <TranslatesForLessonTable trLessons={trLessons} deleteAction={deleteFromLesson} again={learnAgain} skip={skipLearning} lesson={wlesson}/>
                 </Col>
             </Row>
         </Container>    

@@ -1,8 +1,10 @@
 import React from "react";
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
+import { Square, XSquare, TrophyFill } from "react-bootstrap-icons";
 
-const LessonStatisticPanel = ({trns}) => {
+const LessonStatisticPanel = ({trns, lesson}) => {
+    console.log(lesson);
 
     return (
         <Container className="py-2">
@@ -25,7 +27,13 @@ const LessonStatisticPanel = ({trns}) => {
                             <td>{item.word1}</td>
                             <td>{item.word2}</td>
                             <td>{item.allAnswer}</td>
-                            <td>{item.correctAnswer}</td>
+                            <td>
+                                {lesson?.countDone <= item.correctAnswer 
+                                    ? <TrophyFill color="gold" size={18}/> 
+                                    : <XSquare color="firebrick" size={18}/>
+                                }
+                                <span className="p-2">{item.correctAnswer}</span> 
+                            </td>
                             <td>{item.countDone}</td>
                         </tr>
                     )}
