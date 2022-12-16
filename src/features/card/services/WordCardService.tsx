@@ -1,8 +1,9 @@
 import axios from "axios";
+import { WCardSearchRequest } from "../models/WCardSearchRequest";
 
 export default class WordCardService {
 
-    static async searchWordCards(searchData) {
+    static async searchWordCards(searchData:WCardSearchRequest) {
         const response = await axios.post("http://localhost:8081/dlang/v1/word-card/search", searchData);
         // console.log(response.data);
         return response;
@@ -38,7 +39,7 @@ export default class WordCardService {
         return response;
     }
 
-    static async deleteWordCard(id) {
+    static async deleteWordCard(id:number) {
         const response = await axios.delete("http://localhost:8081/dlang/v1/word-card/" + id);
         return response;
     }

@@ -17,7 +17,6 @@ const LangTableRow = (props:LanguageProps) => {
             <td>{props.lang.shortName}</td>
             <td>{props.lang.fullName}</td>
             <td>
-                <button className="btn btn-primary mx-2">View</button>
                 <Link to={`/lang/edit/${props.lang.id}`} className="btn btn-outline-primary mx-2">Update</Link>
                 <button onClick={() => props.remove(props.lang.id)} className="btn btn-danger mx-2">Delete</button>
             </td>

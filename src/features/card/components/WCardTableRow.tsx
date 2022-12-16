@@ -1,9 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { WCard } from "../models/WCard";
 
-const WCardTableRow = (props) => {
+interface WCardTableRowProps {
+    wcard: WCard,
+    rowNum: number,
+    remove: (id: number) => void,
+}
 
-    const cutString = (str) => {
+const WCardTableRow = (props:WCardTableRowProps) => {
+
+    const cutString = (str:string) => {
         if(str.length > 50){
             return str.substring(0, 50) + ' ...';
         }

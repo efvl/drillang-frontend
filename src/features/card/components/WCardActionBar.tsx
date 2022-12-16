@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -10,12 +10,13 @@ import LangService from "../../langs/services/LangService";
 import { Col } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
+import { Language } from "../../langs/models/Language";
 
 const WCardActionBar = ({onChangeFilter}) => {
 
-    const [langs, setLangs] = useState([]);
-    const [filterLang, setFilterLang] = useState({});
-    const [wordFilter, setWordFilter] = useState('');
+    const [langs, setLangs] = useState<Language[]>([]);
+    const [filterLang, setFilterLang] = useState<Language>({});
+    const [wordFilter, setWordFilter] = useState<string>('');
 
     useEffect(() => {
         initData();
