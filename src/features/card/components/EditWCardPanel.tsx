@@ -89,9 +89,11 @@ const EditWCardPanel = (props:EditWCardPanelProps) => {
         <Container className="mt-3">
             <Row>
                 <Col md={4} className="border">
-                    <PictureFilePanel pictureUrl={pictureId? PictureFileService.PICTURE_URL + "/" + pictureId : null} 
-                                    onChangeHandler={pictureFileUploadHandler}>
-                    </PictureFilePanel>
+                    {pictureId
+                        ? <PictureFilePanel pictureUrl={pictureId? PictureFileService.PICTURE_URL + "/" + pictureId : null} 
+                                onChangeHandler={pictureFileUploadHandler}></PictureFilePanel>
+                        : <PictureFilePanel pictureUrl={null} onChangeHandler={pictureFileUploadHandler}></PictureFilePanel>
+                    }
                     {audioId 
                         ? <AudioFilePanel onChangeHandler={audioFileUploadHandler} soundUrl={AudioFileService.AUDIO_URL + "/" + audioId}></AudioFilePanel>
                         : <AudioFilePanel onChangeHandler={audioFileUploadHandler} soundUrl={null}></AudioFilePanel>

@@ -15,7 +15,7 @@ const AudioFilePanel = (props:AudioFilePanelProps) => {
 
     useEffect(() => {
         console.log(props.soundUrl);
-      }, [props]);
+      }, [props.soundUrl]);
 
     const audioFileSelectedHandler = (e) => {
         setNewSound(true);
@@ -26,8 +26,8 @@ const AudioFilePanel = (props:AudioFilePanelProps) => {
     return (
         <Container>
             <div style={{ width: '100%'}}>
-                {newSound && <div>new audio: <audio controls autoPlay src={presound}><source src={presound}></source></audio></div>}
-                {props.soundUrl && <div>current audio: <audio controls autoPlay><source src={props.soundUrl}></source></audio></div>}
+                {newSound && <div>new audio: <audio controls autoPlay src={presound} style={{ width: '100%'}}><source src={presound}></source></audio></div>}
+                {props.soundUrl && <div>current audio: <audio controls autoPlay style={{ width: '100%'}}><source src={props.soundUrl}></source></audio></div>}
             </div>
             <div className="text-center">
                 <Form.Group controlId="formFile2" className="mb-3">
