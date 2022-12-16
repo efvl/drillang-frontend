@@ -70,7 +70,7 @@ const AddWCardPanel = () => {
             <Row>
                 <Col md={4} className="border">
                     <PictureFilePanel onChangeHandler={pictureFileUploadHandler}></PictureFilePanel>
-                    <AudioFilePanel onChangeHandler={audioFileUploadHandler}></AudioFilePanel>
+                    <AudioFilePanel onChangeHandler={audioFileUploadHandler} soundUrl={null}></AudioFilePanel>
                 </Col>
                 <Col md={6} className="border p-4 ">
                     <h5 className="text-center">Create Word Card</h5>

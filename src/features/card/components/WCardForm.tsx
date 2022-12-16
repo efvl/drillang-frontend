@@ -15,7 +15,8 @@ const WCardForm = (props:WCardFormProps) => {
 
     const [wcardForm, setWcardForm] = useState<WCard>({word:'', transcript:'', example:''});
 
-    const submitWordCard = () => {
+    const submitWordCard = (e) => {
+        e.preventDefault();
         props.submitAction(wcardForm);
     }
 
