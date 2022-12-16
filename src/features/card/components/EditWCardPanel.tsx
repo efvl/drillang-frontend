@@ -10,25 +10,28 @@ import PictureFileService from "../services/PictureFileService";
 import AudioFileService from "../services/AudioFileService";
 import { useNavigate } from 'react-router-dom';
 import WCardForm from "./WCardForm";
-import { VolumeUp } from "react-bootstrap-icons";
 import PictureFilePanel from "../../../components/PictureFilePanel";
 import AudioFilePanel from "../../../components/AudioFilePanel";
+import { WCard } from "../models/WCard";
+import { Language } from "../../langs/models/Language";
 
-const AddWCardPanel = () => {
+interface EditWCardPanelProps {
+    wcardId?:number;
+}
+
+const EditWCardPanel = (props:EditWCardPanelProps) => {
 
     const navigate = useNavigate();
 
-    const [langs, setLangs] = useState([]);
-    const [selectedLanguage, setSelectedLanguage] = useState({
-        "id": 0,
-        "shortName": "string",
-        "fullName": "string"
-    });
-    const [pictureId, setPictureId] = useState();
-    const [audioId, setAudioId] = useState();
+    const [wcard, setWCard] = useState<WCard>({});
+    const [langs, setLangs] = useState<Language[]>([]);
+    const [selectedLanguage, setSelectedLanguage] = useState<Language>({});
+    const [pictureId, setPictureId] = useState<number>();
+    const [audioId, setAudioId] = useState<number>();
 
     useEffect(() => {
         loadLanguages();
+        loadWordCard();  
     }, []);
 
     const loadLanguages = async () => {
@@ -39,11 +42,23 @@ const AddWCardPanel = () => {
         }
     }
 
+    const loadWordCard = async () => {
+        const result = await WordCardService.getWordCardById(props.wcardId);
+        console.log(result.data);  
+        setWCard(result.data);
+        if(result.data) {
+            setSelectedLanguage(result.data.language);
+            setPictureId(result.data.pictureId);
+            setAudioId(result.data.audioId);
+        }
+    }
+
     const handleSelectLanguage = (e) => {
+      console.log(e);
       setSelectedLanguage(langs.find(item => item.id == e));
     }
 
-    const pictureFileUploadHandler = async (file) => {
+    const pictureFileUploadHandler = async (file:File) => {
         const fData = new FormData();
         fData.append("picFile", file);
         const result = await PictureFileService.addPictureFile(fData);
@@ -52,7 +67,7 @@ const AddWCardPanel = () => {
         setPictureId(result.data.id);
     }
 
-    const audioFileUploadHandler = async (file) => {
+    const audioFileUploadHandler = async (file:File) => {
         const fData = new FormData();
         fData.append("audFile", file);
         const result = await AudioFileService.addAudioFile(fData);
@@ -61,36 +76,36 @@ const AddWCardPanel = () => {
         setAudioId(result.data.id);
     }
 
-    const createNewWordCard = async (newCard) => {
-        newCard.language = selectedLanguage;
-        newCard.pictureId = pictureId;
-        newCard.audioId = audioId;
-        const response = await WordCardService.createNewWordCard(newCard);
-        console.log('add word card response: ');
+    const updateWordCard = async (newWCard:WCard) => {
+        newWCard.language = selectedLanguage;
+        newWCard.pictureId = pictureId;
+        newWCard.audioId = audioId;
+        const response = await WordCardService.updateWordCard(newWCard);
         console.log(response.data);
-        navigate('/translate/add', { state: { word1: response.data }});
+        navigate('/wcard');
     }
 
     return (
         <Container className="mt-3">
             <Row>
                 <Col md={4} className="border">
-                    <PictureFilePanel onChangeHandler={pictureFileUploadHandler}></PictureFilePanel>
-                    <AudioFilePanel onChangeHandler={audioFileUploadHandler}></AudioFilePanel>
+                    <PictureFilePanel pictureUrl={pictureId? PictureFileService.PICTURE_URL + "/" + pictureId : null} 
+                                    onChangeHandler={pictureFileUploadHandler}>
+                    </PictureFilePanel>
+                    <AudioFilePanel soundUrl={audioId? AudioFileService.AUDIO_URL + "/" + audioId : null}
+                                    onChangeHandler={audioFileUploadHandler}>
+                    </AudioFilePanel>
                 </Col>
                 <Col md={6} className="border p-4 ">
-                    <h5 className="text-center">Create Word Card</h5>
+                    <h5 className="text-center">Edit Word Card</h5>
                     <Row>
                         <Col className="col-8">Language: {selectedLanguage.fullName}</Col>
                         <Col className="col-4">
                             <LangDropdown handler={handleSelectLanguage} langs={langs}/>
                         </Col>
                     </Row>
-                    <Row >
-                        <VolumeUp color="royalblue" size={36}></VolumeUp>
-                    </Row>
                     <Row>
-                        <WCardForm isEdit={false} submitAction={createNewWordCard}/>
+                        <WCardForm isEdit={true} submitAction={updateWordCard} wordcard={wcard}/>
                     </Row>
                 </Col>
                 <Col></Col>
@@ -99,4 +114,4 @@ const AddWCardPanel = () => {
     );
 };
 
-export default AddWCardPanel;
+export default EditWCardPanel;

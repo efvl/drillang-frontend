@@ -17,7 +17,7 @@ const AddEditWCard = () => {
         <>
         <Layout>
             {params.id
-                ? <EditWCardPanel wcardId={params.id} />
+                ? <EditWCardPanel wcardId={Number(params.id)} />
                 : <AddWCardPanel/>
             }
         </Layout>
