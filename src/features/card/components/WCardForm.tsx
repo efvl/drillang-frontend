@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { WCard } from "../models/WCard";
 
-const WCardForm = (props) => {
 
-    const [wcardForm, setWcardForm] = useState({
-        word: "",
-        transcript: "",
-        example:""
-    });
+interface WCardFormProps {
+    wordcard?:WCard,
+    submitAction?:(wcard:WCard) => void,
+    isEdit?:boolean,
+}
 
-    const submitWordCard = (e) => {
-        e.preventDefault();
+const WCardForm = (props:WCardFormProps) => {
+
+    const [wcardForm, setWcardForm] = useState<WCard>({word:'', transcript:'', example:''});
+
+    const submitWordCard = () => {
         props.submitAction(wcardForm);
     }
 
-    const cancelWordCard = (e) => {
-        e.preventDefault();
-        props.cancelAction(wcardForm);
-    }
-
     useEffect(() => {
-        console.log(props);
         if(props.isEdit){
             setWcardForm(props.wordcard);
         }
-    }, [props.wordcard]);
+    }, [props]);
 
     return (
         <Form>
@@ -34,29 +31,26 @@ const WCardForm = (props) => {
                 <Form.Label>Word</Form.Label>
                 <Form.Control type="text" 
                     placeholder="Enter word"
-                    value={wcardForm.word}
+                    value={wcardForm?.word}
                     onChange={e => setWcardForm({...wcardForm, word: e.target.value})}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="transcript">
                 <Form.Label>Transcription</Form.Label>
                 <Form.Control type="text" 
                     placeholder="Enter word transcription"
-                    value={wcardForm.transcript}
+                    value={wcardForm?.transcript}
                     onChange={e => setWcardForm({...wcardForm, transcript: e.target.value})}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="example">
                 <Form.Label>Example</Form.Label>
                 <Form.Control type="text" 
                     placeholder="Enter example of word using"
-                    value={wcardForm.example}
+                    value={wcardForm?.example}
                     onChange={e => setWcardForm({...wcardForm, example: e.target.value})}/>
             </Form.Group>
             <div className="text-center p-2">
                 <Button variant="outline-primary" style={{width: 150}} type="submit" onClick={submitWordCard}> Save </Button>
-                {props.cancelAction
-                    ? <Button variant="outline-danger mx-2" style={{width: 150}} type="submit" onClick={cancelWordCard}> Cancel </Button>
-                    : <Link className="btn btn-outline-danger mx-2" style={{width: 150}} to="/wcard">Cancel</Link>
-                }
+                <Link className="btn btn-outline-danger mx-2" style={{width: 150}} to="/wcard">Cancel</Link>
             </div>
         </Form>
     );

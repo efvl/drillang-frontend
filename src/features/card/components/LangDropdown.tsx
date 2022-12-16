@@ -1,5 +1,11 @@
 import React from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
+import { Language } from "../../langs/models/Language";
+
+interface LangDropdownProps {
+    langs: Array<Language>,
+    handler: (id: number) => void,
+}
 
 const LangDropdown = (props) => {
 
@@ -9,7 +15,7 @@ const LangDropdown = (props) => {
                 Languages
             </Dropdown.Toggle>
             <Dropdown.Menu>
-                {props.langs.map((item, i) =>
+                {props.langs.map((item:Language, i:number) =>
                     <Dropdown.Item eventKey={item.id} key={i}>{item.fullName}</Dropdown.Item>
                 )}
             </Dropdown.Menu>

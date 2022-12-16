@@ -16,7 +16,7 @@ interface LangFormProps {
 
 const LangForm = (props:LangFormProps) => {
 
-    const [lang, setLang] = useState<Language>({});
+    const [lang, setLang] = useState<Language>({ shortName:'', fullName:'' });
 
     const submitLanguage = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -45,14 +45,14 @@ const LangForm = (props:LangFormProps) => {
                             <Form.Label>Short Name</Form.Label>
                             <Form.Control type="text" 
                                 placeholder="Enter short language name"
-                                value={lang.shortName}
+                                value={lang?.shortName}
                                 onChange={e => setLang({...lang, shortName: e.target.value})}/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="fullName">
                             <Form.Label>Full Name</Form.Label>
                             <Form.Control type="text" 
                                 placeholder="Enter full language name"
-                                value={lang.fullName}
+                                value={lang?.fullName}
                                 onChange={e => setLang({...lang, fullName: e.target.value})}/>
                         </Form.Group>
                         <Button variant="outline-primary" type="submit" onClick={(e) => submitLanguage(e)}>{props.isEdit?' Save ':' Add '} </Button>

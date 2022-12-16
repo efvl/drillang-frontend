@@ -23,7 +23,7 @@ const EditWCardPanel = (props:EditWCardPanelProps) => {
 
     const navigate = useNavigate();
 
-    const [wcard, setWCard] = useState<WCard>({});
+    const [wcard, setWCard] = useState<WCard>({word:'', transcript:'', example:''});
     const [langs, setLangs] = useState<Language[]>([]);
     const [selectedLanguage, setSelectedLanguage] = useState<Language>({});
     const [pictureId, setPictureId] = useState<number>();
@@ -37,7 +37,7 @@ const EditWCardPanel = (props:EditWCardPanelProps) => {
     const loadLanguages = async () => {
         const response = await LangService.searchLanguages({});
         if(response.data?.length > 0){
-            setLangs(response.data); 
+            setLangs(response.data);
             setSelectedLanguage(response.data[0]); 
         }
     }

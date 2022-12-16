@@ -37,7 +37,7 @@ const AddWCardPanel = () => {
         }
     }
 
-    const handleSelectLanguage = (e) => {
+    const handleSelectLanguage = (e:number) => {
       setSelectedLanguage(langs.find(item => item.id == e));
     }
 
