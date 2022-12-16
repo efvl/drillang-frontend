@@ -6,19 +6,17 @@ import TranslatesForLessonTableRow from './TranslatesForLessonTableRow';
 const TranslatesForLessonTable = ({trLessons, deleteAction, again, skip, lesson}) => {
 
     return (
-        <Container className="py-2">
+        <Container className="pt-2 pe-0">
             <Table striped bordered hover className="shadow">
                 <thead>
                     <tr>
                         <th className="text-center">Del</th>
-                        <th scope="col">#</th>
-                        <th scope="col">id</th>
+                        <th scope="col">N</th>
                         <th scope="col">Word1</th>
                         <th scope="col">Word2</th>
                         <th scope="col">All Answer</th>
                         <th scope="col">Correct Answer</th>
                         <th scope="col">Count Done</th>
-                        <th className="text-center">Again</th>
                         <th className="text-center">Skip</th>
                     </tr>
                 </thead>

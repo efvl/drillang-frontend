@@ -120,6 +120,13 @@ const WLessonManagePanel = (props) => {
         }
     } 
 
+    const setLessonLearnAgain = async (wlesson) => {
+        const response = await TranslateWLessonService.setLessonLearnAgain(wlesson);
+        if(response.status == 200){
+            refreshData();
+        }
+    } 
+
     const isEmpty = (obj) => {
         return Object.keys(obj).length === 0;
     }
@@ -145,12 +152,15 @@ const WLessonManagePanel = (props) => {
                     <Row>
                         <Col md={4}>
                             <h4 style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4>
-                            <Link to={`/wlesson/edit/${props.wlessonId}`} state={{ prevPath: location.pathname }}
-                                        className="btn btn-outline-primary mx-2" style={{width: 150}}>Update</Link>
-                            <Link to={`/process/wlesson/${props.wlessonId}`} className="btn mx-2 btn-outline-primary" style={{width: 150}}>Start</Link>
                         </Col>
                         <Col md={6}>
                             <h4 style={indigoColor}>{wlesson?.name}</h4>
+                            <Link to={`/wlesson/edit/${props.wlessonId}`} state={{ prevPath: location.pathname }}
+                                        className="btn btn-outline-primary mx-2" style={{width: 110}}>Update</Link>
+                            <Link to={`/process/wlesson/${props.wlessonId}`} 
+                                        className="btn btn-outline-primary mx-2" style={{width: 110}}>Start</Link>
+                            <Link onClick={() => setLessonLearnAgain(wlesson)}
+                                        className="btn btn-outline-primary mx-2" style={{width: 110}} >Learn again</Link>
                         </Col>
                         <Col md={2}>
                             <div>{getReverseIcon()} reverse</div>
@@ -166,10 +176,10 @@ const WLessonManagePanel = (props) => {
                 </Col>
             </Row>
             <Row>
-                <Col md={5}>
+                <Col md={5} className="p-0">
                     <WTranslateTable trns={trns} addAction={addToLesson}/>
                 </Col>
-                <Col md={7}>
+                <Col md={7} className="p-0">
                     <TranslatesForLessonTable trLessons={trLessons} deleteAction={deleteFromLesson} again={learnAgain} skip={skipLearning} lesson={wlesson}/>
                 </Col>
             </Row>

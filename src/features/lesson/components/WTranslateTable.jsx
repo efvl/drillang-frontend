@@ -6,7 +6,7 @@ import WTranslateTableRow from "./WTranslateTableRow";
 const WTranslateTable = ({trns, addAction}) => {
 
     return (
-        <Container className="py-2">
+        <Container className="pt-2 px-0">
             <Table striped bordered hover className="shadow">
                 <thead>
                     <tr>

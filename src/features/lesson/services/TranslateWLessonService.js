@@ -47,4 +47,10 @@ export default class TranslateWLessonService {
         const response = await axios.get("http://localhost:8081/dlang/v1/translate-wlesson/by-lesson/" + id);
         return response;
     }
+
+    static async setLessonLearnAgain(wlesson) {
+        console.log(wlesson);
+        const response = await axios.put("http://localhost:8081/dlang/v1/translate-wlesson/learn-again", wlesson);
+        return response;
+    }
 }
