@@ -1,15 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import LangActionBar from "../../features/langs/components/LangActionBar";
 import LangTable from "../../features/langs/components/LangTable";
 import LangService from "../../features/langs/services/LangService";
 import Layout from "../../layout/Layout";
 import { Language } from "../../features/langs/models/Language";
+import { AppContext } from "../../models/AppUserContextProvider";
 
 const Langs = () => {
+
+    const { wcardPageSearch, setWCardPageSearch } = useContext(AppContext);
 
     const [langs, setLangs] = useState<Language[]>([]);
 
     useEffect(() => {
+        console.log(wcardPageSearch);
         fetchLanguages();
     }, []);
 

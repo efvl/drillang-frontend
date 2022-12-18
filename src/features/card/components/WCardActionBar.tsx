@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -31,9 +31,9 @@ const WCardActionBar = ({onChangeFilter}) => {
         }
     }
 
-    const handleSearch = () => {
+    const handleSearch = useCallback(() => {
         onChangeFilter(wordFilter, filterLang);
-    }
+    }, [wordFilter, filterLang] );
 
     const handleSelectLanguage = (e) => {
         let lang = langs.find(item => item.id == e);
