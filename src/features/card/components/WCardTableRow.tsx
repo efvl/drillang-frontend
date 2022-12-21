@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { WCard } from "../models/WCard";
 
 interface WCardTableRowProps {
-    wcard: WCard,
-    rowNum: number,
-    remove: (id: number) => void,
+    wcard: WCard;
+    rowNum: number;
+    remove: (id: number) => void;
 }
 
 const WCardTableRow = (props:WCardTableRowProps) => {

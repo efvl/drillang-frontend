@@ -2,8 +2,14 @@ import React from "react";
 import TranslateTableRow from "./TranslateTableRow";
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
+import { Translate } from "../models/Translate";
 
-const TranslateTable = ({trns, remove}) => {
+interface TranslateTableProps {
+    trns:Array<Translate>;
+    remove:(id:number) => void;
+}
+
+const TranslateTable = (props:TranslateTableProps) => {
 
     return (
         <Container className="py-2">
@@ -20,8 +26,8 @@ const TranslateTable = ({trns, remove}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {trns.map((item, index) =>
-                        <TranslateTableRow key={item.id} rowNum={index + 1} translate={item} remove={remove} />
+                    {props.trns.map((item, index) =>
+                        <TranslateTableRow key={item.id} rowNum={index + 1} translate={item} remove={props.remove} />
                     )}
                 </tbody>
             </Table>
