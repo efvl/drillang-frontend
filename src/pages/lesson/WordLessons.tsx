@@ -2,23 +2,17 @@ import React, {useCallback, useEffect, useState} from "react";
 import PaginationBar from "../../components/PaginationBar";
 import WLessonActionBar from "../../features/lesson/components/WLessonActionBar";
 import WLessonTable from "../../features/lesson/components/WLessonTable";
+import { Lesson } from "../../features/lesson/models/Lesson";
+import { LessonSearchRequest } from "../../features/lesson/models/LessonSearchRequest";
 import WordLessonService from '../../features/lesson/services/WordLessonService';
 import Layout from "../../layout/Layout";
 
 const WordLessons = () => {
 
-    const [wlessons, setWLessons] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(5);
-    const [searchData, setSearchData] = useState(
-        {
-            "name": "string",
-            "fromLanguage": 0,
-            "toLanguage": 0,
-            "curNumPage": 0,
-            "sizeOfPage": 5
-        }
-    );
+    const [wlessons, setWLessons] = useState<Lesson[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(0);
+    const [totalPages, setTotalPages] = useState<number>(10);
+    const [searchData, setSearchData] = useState<LessonSearchRequest>({curNumPage:0, sizeOfPage:10});
 
     useEffect(() => {
         console.log(searchData);
@@ -26,7 +20,7 @@ const WordLessons = () => {
     }, [searchData]);
 
 
-    const fetchWordLessons = async (searchData) => {
+    const fetchWordLessons = async (searchData:LessonSearchRequest) => {
         console.log(searchData);
         const response = await WordLessonService.searchWordLessons(searchData);
         console.log(response.data)
@@ -35,12 +29,12 @@ const WordLessons = () => {
         setTotalPages(response.data.totalPages);
     }
 
-    const handleChangePage = useCallback((page) => {
+    const handleChangePage = useCallback((page:number) => {
         console.log(page);
         setSearchData({...searchData, curNumPage : page}); 
     }, []);
 
-    const deleteWordLesson = async (id) => {
+    const deleteWordLesson = async (id:number) => {
         await WordLessonService.deleteWordLesson(id);
         fetchWordLessons(searchData);
     } 

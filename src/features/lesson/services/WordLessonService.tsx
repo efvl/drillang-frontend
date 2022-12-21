@@ -1,9 +1,10 @@
 import axios from "axios";
 import { Lesson } from "../models/Lesson";
+import { LessonSearchRequest } from "../models/LessonSearchRequest";
 
 export default class WordLessonService {
 
-    static async searchWordLessons(searchData) {
+    static async searchWordLessons(searchData:LessonSearchRequest) {
         const response = await axios.post("http://localhost:8081/dlang/v1/word-lesson/search", searchData);
         // console.log(response.data);
         return response;

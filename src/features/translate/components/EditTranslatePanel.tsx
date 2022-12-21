@@ -87,18 +87,18 @@ const EditTranslatePanel = (props) => {
         <Container className="mt-3">
             <Row>
                 <Col md={4} className="border">
-                    {translate && <img src={PictureFileService.PICTURE_URL + "/" + translate.word1.pictureId}  width="100%"/>}
+                    {translate.word1 && <img src={PictureFileService.PICTURE_URL + "/" + translate.word1?.pictureId}  width="100%"/>}
                 </Col>
                 <Col md={6}>
                     <Row className="row-cols-auto">
                         <Col className="py-2">
-                            <h5>{translate && translate.word1.language.fullName + ' :'}</h5>
+                            <h5>{translate && translate.word1?.language.fullName + ' :'}</h5>
                         </Col>
                         <Col className="pt-1">
                             <VolumeUp color="royalblue" size={36}></VolumeUp>
                         </Col>
                         <Col className="text-success"> 
-                            <h3>{translate && translate.word1.word}</h3>
+                            <h3>{translate && translate.word1?.word}</h3>
                         </Col>
                     </Row>
                     <Container className="border p-3">

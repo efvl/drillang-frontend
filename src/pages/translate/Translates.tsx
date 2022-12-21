@@ -1,22 +1,17 @@
 import React, {useCallback, useEffect, useState} from "react";
 import PaginationBar from "../../components/PaginationBar";
 import TranslateTable from "../../features/translate/components/TranslateTable"; 
+import { Translate } from "../../features/translate/models/Translate";
+import { TranslateSearchRequest } from "../../features/translate/models/TranslateSearchRequest";
 import TranslateService from "../../features/translate/services/TranslateServices";
 import Layout from "../../layout/Layout";
 
 const Translates = () => {
 
-    const [trns, setTrns] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(5);
-    const [searchData, setSearchData] = useState(
-        {
-            "languageId": 0,
-            "word": "string",
-            "curNumPage": 0,
-            "sizeOfPage": 10
-        }
-    );
+    const [trns, setTrns] = useState<Translate[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(0);
+    const [totalPages, setTotalPages] = useState<number>(5);
+    const [searchData, setSearchData] = useState<TranslateSearchRequest>({curNumPage:0, sizeOfPage:10});
 
     useEffect(() => {
         fetchTranslations(searchData);
@@ -31,7 +26,7 @@ const Translates = () => {
         setTotalPages(response.data.totalPages);
     }
 
-    const handleChangePage = useCallback((page) => {
+    const handleChangePage = useCallback((page:number) => {
         console.log(page);
         setSearchData({...searchData, curNumPage : page}); 
     }, []);
