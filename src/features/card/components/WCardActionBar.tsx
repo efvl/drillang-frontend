@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -11,8 +11,12 @@ import { Col } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Search } from "react-bootstrap-icons";
 import { Language } from "../../langs/models/Language";
+import { AppUserContext } from "../../../models/AppUserContext";
+import { AppContext } from "../../../models/AppUserContextProvider";
 
 const WCardActionBar = ({onChangeFilter}) => {
+
+    const { wcardPageSearch, setWCardPageSearch } = useContext(AppContext) as AppUserContext;
 
     const [langs, setLangs] = useState<Language[]>([]);
     const [filterLang, setFilterLang] = useState<Language>({});
@@ -26,7 +30,12 @@ const WCardActionBar = ({onChangeFilter}) => {
         const response = await LangService.searchLanguages({});
         if(response.data?.length > 0){
             setLangs(response.data); 
-            setFilterLang(response.data[0]);
+            if(wcardPageSearch.languageId !== undefined){
+                let lang = response.data.find(item => item.id == wcardPageSearch.languageId);
+                setFilterLang(lang);
+            } else {
+                setFilterLang(response.data[0]);
+            }
             handleSearch();
         }
     }
@@ -54,10 +63,10 @@ const WCardActionBar = ({onChangeFilter}) => {
                         <Form.Control type="text" placeholder="Enter word" value={wordFilter} onChange={e => setWordFilter(e.target.value)}/>
                     </Form>
                 </Col>
-                <Col>
+                <Col className="border rounded">
                     <LangDropdown handler={handleSelectLanguage} langs={langs}/>
                 </Col>
-                <Col>
+                <Col className="border rounded">
                     <h5 className="pt-1">{filterLang?.fullName}</h5>
                 </Col>
             </Row>
