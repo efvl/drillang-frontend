@@ -2,18 +2,30 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { ArrowRepeat, ArrowLeftSquare, XSquare, CheckCircle, Circle, TrophyFill, Square } from "react-bootstrap-icons";
+import { TranslateWLessonInfo } from "../models/TranslateWLessonInfo";
+import { Lesson } from "../models/Lesson";
 
-const TranslatesForLessonTableRow = (props) => {
+interface TranslateForLessonTableRowProps {
+    twl?:TranslateWLessonInfo;
+    lesson?:Lesson;
+    rowNum?:number;
+    deleteAction?:(id:number) => void;
+    againAction?:(twl:TranslateWLessonInfo) => void;
+    skipAction?:(twl:TranslateWLessonInfo) => void;
+}
+
+
+const TranslatesForLessonTableRow = (props:TranslateForLessonTableRowProps) => {
 
     const removeTranslationFromLesson = (id) => {
         props.deleteAction(id);
     }
 
-    const learnAgain = (twl) => {
+    const learnAgain = (twl:TranslateWLessonInfo) => {
         props.againAction(twl);
     }
 
-    const skipLearning = (twl) => {
+    const skipLearning = (twl:TranslateWLessonInfo) => {
         props.skipAction(twl);
     }
 

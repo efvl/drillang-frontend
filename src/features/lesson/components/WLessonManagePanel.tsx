@@ -18,6 +18,8 @@ import TranslatesForLessonTable from "./TranslatesForLessonTable";
 import { Lesson } from "../models/Lesson";
 import { Translate } from "../../translate/models/Translate";
 import { TranslateSearchRequest } from "../../translate/models/TranslateSearchRequest";
+import { TranslateWLessonInfo } from "../models/TranslateWLessonInfo";
+import { TranslateWordLesson } from "../models/TranslateWordLesson";
 
 const WLessonManagePanel = (props) => {
 
@@ -26,7 +28,7 @@ const WLessonManagePanel = (props) => {
 
     const [wlesson, setWLesson] = useState<Lesson>({});
     const [trns, setTrns] = useState<Translate[]>([]);
-    const [trLessons, setTrLessons] = useState<Lesson[]>([]);
+    const [trLessons, setTrLessons] = useState<TranslateWLessonInfo[]>([]);
     const [searchData, setSearchData] = useState<TranslateSearchRequest>({curNumPage:0, sizeOfPage:500});
 
     useEffect(() => {
@@ -72,14 +74,14 @@ const WLessonManagePanel = (props) => {
             translate: { id: translateId },
             wordLesson: wlesson,
             targetAnswer: 1,
-        }
+        } as TranslateWordLesson;
         const response = await TranslateWLessonService.addTrWLesson(twl);
         if(response.status == 200){
             refreshData();
         }
     } 
 
-    const learnAgain = async (twLesson) => {
+    const learnAgain = async (twLesson:TranslateWLessonInfo) => {
         console.log(twLesson);
         let twl = {
             id : twLesson.id,
@@ -87,21 +89,21 @@ const WLessonManagePanel = (props) => {
             wordLesson: wlesson ,
             correctAnswer: 0,
             skip: false,
-        }
+        } as TranslateWordLesson;
         const response = await TranslateWLessonService.learnAgainTrLesson(twl);
         if(response.status == 200){
             refreshData();
         }
     }
 
-    const skipLearning = async (twLesson) => {
+    const skipLearning = async (twLesson:TranslateWLessonInfo) => {
         console.log(twLesson);
         let twl = {
             id : twLesson.id,
             translate: { id: twLesson.translateId },
             wordLesson: wlesson ,
             skip: true,
-        }
+        } as TranslateWordLesson;
         const response = await TranslateWLessonService.skipTrLesson(twl);
         if(response.status == 200){
             refreshData();

@@ -1,4 +1,7 @@
 import axios from "axios";
+import { Lesson } from "../models/Lesson";
+import { TranslateWLessonInfo } from "../models/TranslateWLessonInfo";
+import { TranslateWordLesson } from "../models/TranslateWordLesson";
 
 export default class TranslateWLessonService {
 
@@ -8,12 +11,12 @@ export default class TranslateWLessonService {
         return response;
     }
 
-    static async addTrWLesson(trWLesson) {
+    static async addTrWLesson(trWLesson:TranslateWordLesson) {
         const response = await axios.post("http://localhost:8081/dlang/v1/translate-wlesson", trWLesson);
         return response;
     }
 
-    static async getTrWLessonById(id) {
+    static async getTrWLessonById(id:number) {
         const response = await axios.get("http://localhost:8081/dlang/v1/translate-wlesson/" + id);
         return response;
     }
@@ -23,12 +26,12 @@ export default class TranslateWLessonService {
         return response;
     }
 
-    static async learnAgainTrLesson(trWLesson) {
+    static async learnAgainTrLesson(trWLesson:TranslateWordLesson) {
         const response = await axios.put("http://localhost:8081/dlang/v1/translate-wlesson/again", trWLesson);
         return response;
     }
 
-    static async skipTrLesson(trWLesson) {
+    static async skipTrLesson(trWLesson:TranslateWordLesson) {
         const response = await axios.put("http://localhost:8081/dlang/v1/translate-wlesson/skip", trWLesson);
         return response;
     }
@@ -38,17 +41,17 @@ export default class TranslateWLessonService {
         return response;
     }
 
-    static async deleteTrWLesson(id) {
+    static async deleteTrWLesson(id:number) {
         const response = await axios.delete("http://localhost:8081/dlang/v1/translate-wlesson/" + id);
         return response;
     } 
 
-    static async getTranslatesOfLesson(id) {
+    static async getTranslatesOfLesson(id:number) {
         const response = await axios.get("http://localhost:8081/dlang/v1/translate-wlesson/by-lesson/" + id);
         return response;
     }
 
-    static async setLessonLearnAgain(wlesson) {
+    static async setLessonLearnAgain(wlesson:Lesson) {
         console.log(wlesson);
         const response = await axios.put("http://localhost:8081/dlang/v1/translate-wlesson/learn-again", wlesson);
         return response;

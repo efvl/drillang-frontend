@@ -1,9 +1,19 @@
 import React from "react";
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
+import { Lesson } from "../models/Lesson";
+import { TranslateWLessonInfo } from "../models/TranslateWLessonInfo";
 import TranslatesForLessonTableRow from './TranslatesForLessonTableRow';
 
-const TranslatesForLessonTable = ({trLessons, deleteAction, again, skip, lesson}) => {
+interface TranslateForLessonTableProps {
+    trLessons?:Array<TranslateWLessonInfo>;
+    deleteAction?:(id:number) => void;
+    again?:(twl:TranslateWLessonInfo) => void;
+    skip?:(twl:TranslateWLessonInfo) => void; 
+    lesson?:Lesson;
+}
+
+const TranslatesForLessonTable = (props:TranslateForLessonTableProps) => {
 
     return (
         <Container className="pt-2 pe-0">
@@ -21,9 +31,9 @@ const TranslatesForLessonTable = ({trLessons, deleteAction, again, skip, lesson}
                     </tr>
                 </thead>
                 <tbody>
-                    {trLessons.map((item, index) =>
+                    {props.trLessons.map((item, index) =>
                         <TranslatesForLessonTableRow key={item.id} rowNum={index + 1} twl={item} 
-                                deleteAction={deleteAction} againAction={again} skipAction={skip} lesson={lesson}/>
+                                deleteAction={props.deleteAction} againAction={props.again} skipAction={props.skip} lesson={props.lesson}/>
                     )}
                 </tbody>
             </Table>
