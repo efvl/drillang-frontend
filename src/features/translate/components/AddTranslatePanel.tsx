@@ -16,19 +16,18 @@ import LessonService from '../../lesson/services/WordLessonService';
 import { Square, VolumeUp } from "react-bootstrap-icons";
 import AudioFileService from "../../card/services/AudioFileService";
 import AudioFilePanel from "../../../components/AudioFilePanel";
+import { WCard } from "../../card/models/WCard";
+import { Language } from "../../langs/models/Language";
+import { Lesson } from "../../lesson/models/Lesson";
 
 const AddTranslatePanel = (props) => {
 
-    const [word1, setWord1] = useState();
-    const [langs, setLangs] = useState([]);
-    const [selectedLanguage, setSelectedLanguage] = useState({
-        "id": 0,
-        "shortName": "string",
-        "fullName": "string"
-    });
-    const [lessons, setLessons] = useState([]);
-    const [selectedLesson, setSelectedLesson] = useState({});
-    const [audioId, setAudioId] = useState();
+    const [word1, setWord1] = useState<WCard>({});
+    const [langs, setLangs] = useState<Language[]>([]);
+    const [selectedLanguage, setSelectedLanguage] = useState<Language>({});
+    const [lessons, setLessons] = useState<Lesson[]>([]);
+    const [selectedLesson, setSelectedLesson] = useState<Lesson>({});
+    const [audioId, setAudioId] = useState<number>();
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -39,7 +38,7 @@ const AddTranslatePanel = (props) => {
         loadLessons(location.state.word1.language);
     }, []);
 
-    const loadLanguages = async (lang) => {
+    const loadLanguages = async (lang:Language) => {
         const response = await LangService.searchLanguages({});
         if(response.data?.length > 0){
             let filteredLangs = response.data.filter(item => item.id != lang.id);
@@ -48,7 +47,7 @@ const AddTranslatePanel = (props) => {
         }
     }
 
-    const loadLessons = async (lang) => {
+    const loadLessons = async (lang:Language) => {
         const response = await LessonService.getLessonsFromLang(lang.id);
         console.log(response.data);
         if(response.data?.length > 0){
@@ -65,7 +64,7 @@ const AddTranslatePanel = (props) => {
         setSelectedLesson(lessons.find(item => item.id == e));
     }
 
-    const createNewTranslation = async (newCard) => {
+    const createNewTranslation = async (newCard:WCard) => {
         newCard.language = selectedLanguage;
         newCard.pictureId = word1.pictureId;
         let newTranslation = {
@@ -87,7 +86,7 @@ const AddTranslatePanel = (props) => {
         navigate('/wcard');
     }
 
-    const audioFileUploadHandler = async (file) => {
+    const audioFileUploadHandler = async (file:File) => {
         const fData = new FormData();
         fData.append("audFile", file);
         const result = await AudioFileService.addAudioFile(fData);
@@ -96,7 +95,7 @@ const AddTranslatePanel = (props) => {
         setAudioId(result.data.id);
     }
 
-    const cancelTranslation = (wordCard) => {
+    const cancelTranslation = (wordCard:WCard) => {
         navigate('/translate');
     }
 

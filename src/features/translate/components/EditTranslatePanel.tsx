@@ -13,17 +13,16 @@ import TranslateService from "../services/TranslateServices";
 import { Square, VolumeUp } from "react-bootstrap-icons";
 import AudioFileService from "../../card/services/AudioFileService";
 import AudioFilePanel from "../../../components/AudioFilePanel";
+import { Translate } from "../models/Translate";
+import { Language } from "../../langs/models/Language";
+import { WCard } from "../../card/models/WCard";
 
 const EditTranslatePanel = (props) => {
 
-    const [translate, setTranslate] = useState();
-    const [langs, setLangs] = useState([]);
-    const [word2Lang, setWord2Lang] = useState({
-        "id": 0,
-        "shortName": "string",
-        "fullName": "string"
-    });
-    const [audioId, setAudioId] = useState();
+    const [translate, setTranslate] = useState<Translate>({});
+    const [langs, setLangs] = useState<Language[]>([]);
+    const [word2Lang, setWord2Lang] = useState<Language>({});
+    const [audioId, setAudioId] = useState<number>();
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -48,7 +47,7 @@ const EditTranslatePanel = (props) => {
         }
     }
 
-    const loadLanguages = async (lang1, lang2) => {
+    const loadLanguages = async (lang1:WCard, lang2:WCard) => {
         const response = await LangService.searchLanguages({});
         if(response.data?.length > 0){
             let filteredLangs = response.data.filter(item => item.id != lang1.id);
@@ -61,7 +60,7 @@ const EditTranslatePanel = (props) => {
         setWord2Lang(langs.find(item => item.id == e));
     }
 
-    const updateTranslation = async (newCard) => {
+    const updateTranslation = async (newCard:WCard) => {
         console.log(newCard);
         newCard.language = word2Lang;
         translate.word2 = newCard;
@@ -71,7 +70,7 @@ const EditTranslatePanel = (props) => {
         navigate('/translate');
     }
 
-    const audioFileUploadHandler = async (file) => {
+    const audioFileUploadHandler = async (file:File) => {
         const fData = new FormData();
         fData.append("audFile", file);
         const result = await AudioFileService.addAudioFile(fData);
@@ -80,7 +79,7 @@ const EditTranslatePanel = (props) => {
         setAudioId(result.data.id);
     }
 
-    const cancelTranslation = (wordCard) => {
+    const cancelTranslation = (wordCard:WCard) => {
         navigate('/translate');
     }
 

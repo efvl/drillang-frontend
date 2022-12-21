@@ -1,10 +1,16 @@
 import React from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
+import { Lesson } from "../../lesson/models/Lesson";
 
-const LessonDropdown = (props) => {
+interface LessonDropdownProps {
+    lessons:Array<Lesson>;
+    handler:(id:number) => void;
+}
+
+const LessonDropdown = (props:LessonDropdownProps) => {
 
     return (
-        <Dropdown onSelect={props.handler}>
+        <Dropdown onSelect={(e:String) => props.handler(Number(e))}>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Lesson
             </Dropdown.Toggle>

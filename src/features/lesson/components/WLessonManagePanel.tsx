@@ -15,24 +15,19 @@ import Button from 'react-bootstrap/Button';
 import { CheckSquare, Square, ArrowRepeat } from "react-bootstrap-icons";
 import WTranslateTable from "./WTranslateTable";
 import TranslatesForLessonTable from "./TranslatesForLessonTable";
+import { Lesson } from "../models/Lesson";
+import { Translate } from "../../translate/models/Translate";
+import { TranslateSearchRequest } from "../../translate/models/TranslateSearchRequest";
 
 const WLessonManagePanel = (props) => {
 
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [wlesson, setWLesson] = useState({});
-    const [trns, setTrns] = useState([]);
-    const [trLessons, setTrLessons] = useState([]);
-    const [searchData, setSearchData] = useState(
-        {
-            "languageId": 0,
-            "lessonId": 0,
-            "word": "string",
-            "curNumPage": 0,
-            "sizeOfPage": 500
-        }
-    );
+    const [wlesson, setWLesson] = useState<Lesson>({});
+    const [trns, setTrns] = useState<Translate[]>([]);
+    const [trLessons, setTrLessons] = useState<Lesson[]>([]);
+    const [searchData, setSearchData] = useState<TranslateSearchRequest>({curNumPage:0, sizeOfPage:500});
 
     useEffect(() => {
         initData();
@@ -58,21 +53,21 @@ const WLessonManagePanel = (props) => {
         return response.data;
     }
 
-    const fetchTranslations = async (searchData) => {
+    const fetchTranslations = async (searchData:TranslateSearchRequest) => {
         console.log(searchData); 
         const response = await TranslateService.searchTranslatesForLesson(searchData);
         console.log(response.data);
         setTrns(response.data.content);
     }
 
-    const fetchTranslatesWLesson = async (lessonId) => {
+    const fetchTranslatesWLesson = async (lessonId:number) => {
         console.log(searchData);  
         const response = await TranslateWLessonService.getTranslatesOfLesson(lessonId);
         console.log(response.data);
         setTrLessons(response.data);
     }
 
-    const addToLesson = async (translateId) => {
+    const addToLesson = async (translateId:number) => {
         let twl = {
             translate: { id: translateId },
             wordLesson: wlesson,
@@ -113,14 +108,14 @@ const WLessonManagePanel = (props) => {
         }
     }
 
-    const deleteFromLesson = async (twlId) => {
+    const deleteFromLesson = async (twlId:number) => {
         const response = await TranslateWLessonService.deleteTrWLesson(twlId);
         if(response.status == 200){
             refreshData();
         }
     } 
 
-    const setLessonLearnAgain = async (wlesson) => {
+    const setLessonLearnAgain = async (wlesson:Lesson) => {
         const response = await TranslateWLessonService.setLessonLearnAgain(wlesson);
         if(response.status == 200){
             refreshData();
@@ -159,8 +154,8 @@ const WLessonManagePanel = (props) => {
                                         className="btn btn-outline-primary mx-2" style={{width: 110}}>Update</Link>
                             <Link to={`/process/wlesson/${props.wlessonId}`} 
                                         className="btn btn-outline-primary mx-2" style={{width: 110}}>Start</Link>
-                            <Link onClick={() => setLessonLearnAgain(wlesson)}
-                                        className="btn btn-outline-primary mx-2" style={{width: 110}} >Learn again</Link>
+                            <Link onClick={() => setLessonLearnAgain(wlesson)} to={""}
+                                        className="btn btn-outline-primary mx-2" style={{ width: 110 }}>Learn again</Link>
                         </Col>
                         <Col md={2}>
                             <div>{getReverseIcon()} reverse</div>

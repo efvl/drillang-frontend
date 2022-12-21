@@ -2,8 +2,14 @@ import React from "react";
 import WLessonTableRow from './WLessonTableRow';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
+import { Lesson } from "../models/Lesson";
 
-const WLessonTable = ({wlessons, remove}) => {
+interface WLessonTableProps {
+    wlessons?:Array<Lesson>;
+    remove?:(id:number) => void;
+}
+
+const WLessonTable = (props:WLessonTableProps) => {
 
     return (
         <Container className="py-2">
@@ -21,8 +27,8 @@ const WLessonTable = ({wlessons, remove}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {wlessons.map((item, index) =>
-                        <WLessonTableRow key={item.id} rowNum={index + 1} wlesson={item} remove={remove} />
+                    {props.wlessons.map((item, index) =>
+                        <WLessonTableRow key={item.id} rowNum={index + 1} wlesson={item} remove={props.remove} />
                     )}
                 </tbody>
             </Table>

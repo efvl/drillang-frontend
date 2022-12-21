@@ -9,6 +9,7 @@ interface WCardFormProps {
     wordcard?:WCard,
     submitAction?:(wcard:WCard) => void,
     isEdit?:boolean,
+    cancelAction?:(wcard:WCard) => void;
 }
 
 const WCardForm = (props:WCardFormProps) => {

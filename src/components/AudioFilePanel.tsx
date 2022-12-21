@@ -4,8 +4,8 @@ import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from "react";
 
 interface AudioFilePanelProps {
-    soundUrl:string;
-    onChangeHandler: (file: any) => void;
+    soundUrl?:string;
+    onChangeHandler?:(file: any) => void;
 }
 
 const AudioFilePanel = (props:AudioFilePanelProps) => {

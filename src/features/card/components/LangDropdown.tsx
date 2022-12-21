@@ -1,16 +1,17 @@
+import { SelectCallback } from "@restart/ui/esm/types";
 import React from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Language } from "../../langs/models/Language";
 
 interface LangDropdownProps {
     langs: Array<Language>,
-    handler: (id: number) => void,
+    handler: (id:number) => void,
 }
 
-const LangDropdown = (props) => {
+const LangDropdown = (props:LangDropdownProps) => {
 
     return (
-        <Dropdown onSelect={props.handler}>
+        <Dropdown onSelect={(e: string) => props.handler(Number(e))}>
             <Dropdown.Toggle variant="success-outline" id="dropdown-basic">
                 Languages
             </Dropdown.Toggle>

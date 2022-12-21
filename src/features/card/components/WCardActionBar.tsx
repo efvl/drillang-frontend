@@ -44,7 +44,7 @@ const WCardActionBar = ({onChangeFilter}) => {
         onChangeFilter(wordFilter, filterLang);
     }, [wordFilter, filterLang] );
 
-    const handleSelectLanguage = (e) => {
+    const handleSelectLanguage = (e: number) => {
         let lang = langs.find(item => item.id == e);
         setFilterLang(lang);
     }
