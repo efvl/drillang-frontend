@@ -1,8 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRightSquare } from "react-bootstrap-icons";
+import { Translate } from "../../translate/models/Translate";
 
-const WTranslateTableRow = (props) => {
+interface WTranslateTableRowProps {
+    translate:Translate;
+    rowNum:number;
+    addAction:(id:number) => void;
+}
+
+const WTranslateTableRow = (props:WTranslateTableRowProps) => {
 
     const addTranslation = (wordId) => {
         props.addAction(wordId);

@@ -2,8 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CheckSquare, Square } from "react-bootstrap-icons";
 import { useLocation } from "react-router-dom";
+import { Lesson } from "../models/Lesson";
 
-const WLessonTableRow = (props) => {
+interface WLessonTableRowProps {
+    wlesson:Lesson;
+    rowNum:number;
+    remove:(id:number) => void;
+}
+
+const WLessonTableRow = (props:WLessonTableRowProps) => {
 
     const location = useLocation();
 
