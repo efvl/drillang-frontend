@@ -10,19 +10,26 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import WordLessonService from "../services/WordLessonService";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+import { Language } from "../../langs/models/Language";
+import { Lesson } from "../models/Lesson";
 
-const WLessonForm = (props) => {
+interface WLessonFormProps {
+    isEdit?:boolean;
+    wlessonId?:number;
+}
+
+const WLessonForm = (props:WLessonFormProps) => {
 
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [wlessonForm, setWLessonForm] = useState({ name: '', reverse: false, countDone: 1, countChars : 1 });
-    const [fromLangs, setFromLangs] = useState([]);
-    const [fromLabel, setFromLabel] = useState('');
-    const [fromSelectLang, setFromSelectLang] = useState({});
-    const [toLangs, setToLangs] = useState([]);
-    const [toLabel, setToLabel] = useState('');
-    const [toSelectLang, setToSelectLang] = useState({});
+    const [wlessonForm, setWLessonForm] = useState<Lesson>({ name: '', reverse: false, countDone: 1, countChars : 1 });
+    const [fromLangs, setFromLangs] = useState<Language[]>([]);
+    const [fromLabel, setFromLabel] = useState<string>('');
+    const [fromSelectLang, setFromSelectLang] = useState<Language>({});
+    const [toLangs, setToLangs] = useState<Language[]>([]);
+    const [toLabel, setToLabel] = useState<string>('');
+    const [toSelectLang, setToSelectLang] = useState<Language>({});
 
     useEffect(() => {
         if(props.isEdit){
@@ -145,7 +152,6 @@ const WLessonForm = (props) => {
                         <Form.Label column sm="3">Reverse : </Form.Label>
                         <Col sm="9" className="pt-2">
                             <Form.Check type='checkbox' 
-                                    value={wlessonForm?.reverse}
                                     checked={wlessonForm?.reverse} 
                                     onChange={e => setWLessonForm({...wlessonForm, reverse: e.target.checked})}/>
                         </Col>
@@ -170,7 +176,7 @@ const WLessonForm = (props) => {
                     </Form.Group>
                     <div className="text-center p-2">
                         <Button variant="outline-primary" style={{width: 150}} type="submit" onClick={submitWordLesson}> Save </Button>
-                        <Link className="btn btn-outline-danger mx-2" style={{width: 150}} onClick={cancelAction}>Cancel</Link>
+                        <Link className="btn btn-outline-danger mx-2" style={{ width: 150 }} onClick={cancelAction} to={""}>Cancel</Link>
                     </div>
                 </Form>
                 </Col>

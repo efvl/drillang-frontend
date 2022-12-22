@@ -12,17 +12,20 @@ import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import LessonStatisticPanel from "./LessonStatisticPanel";
 import Utils from "../../Utils"
+import { Translate } from "../../translate/models/Translate";
+import { TranslateWLessonInfo } from "../models/TranslateWLessonInfo";
+import { Lesson } from "../models/Lesson";
 
 const LessonStepPanel = (props) => {
 
     const location = useLocation();
     const navigate = useNavigate();
     
-    const [wlesson, setWLesson] = useState({});
+    const [wlesson, setWLesson] = useState<Lesson>({});
     const [trLessons, setTrLessons] = useState(new Map());
-    const [lessonSize, setLessonSize] = useState(0);
-    const [lessonReady, setLessonReady] = useState(0);
-    const [isPlayAudio, setIsPlayAudio] = useState(true);
+    const [lessonSize, setLessonSize] = useState<number>(0);
+    const [lessonReady, setLessonReady] = useState<number>(0);
+    const [isPlayAudio, setIsPlayAudio] = useState<boolean>(true);
     const [searchData, setSearchData] = useState(
         {
             "languageId": 0,
@@ -32,14 +35,14 @@ const LessonStepPanel = (props) => {
             "sizeOfPage": 500
         }
     );
-    const [curTranslate, setCurTranslate] = useState({});
-    const [isCurChecked, setCurChecked] = useState(false);
-    const [isCurCorrect, setCurCorrect] = useState(false);
+    const [curTranslate, setCurTranslate] = useState<TranslateWLessonInfo>({});
+    const [isCurChecked, setCurChecked] = useState<boolean>(false);
+    const [isCurCorrect, setCurCorrect] = useState<boolean>(false);
     const [round, setRound] = useState([]);
     const [isStart, setIsStart] = useState(false);
-    const [answer, setAnswer] = useState('');
-    const [curAudio1, setCurAudio1] = useState({});
-    const [curAudio2, setCurAudio2] = useState({});
+    const [answer, setAnswer] = useState<string>('');
+    const [curAudio1, setCurAudio1] = useState<HTMLAudioElement>();
+    const [curAudio2, setCurAudio2] = useState<HTMLAudioElement>();
 
     useEffect(() => {
         initData();
@@ -50,13 +53,13 @@ const LessonStepPanel = (props) => {
         await fetchTranslatesWLesson(wl);
     }
 
-    const loadWLesson = async (lessonId) => {
+    const loadWLesson = async (lessonId:number) => {
         const response = await WordLessonService.getWordLessonById(lessonId);
         setWLesson(response.data);
         return response.data;
     }
 
-    const fetchTranslatesWLesson = async (wl) => {
+    const fetchTranslatesWLesson = async (wl:Lesson) => {
         const response = await TranslateWLessonService.getTranslatesOfLesson(wl.id);
         setLessonReady(response.data.filter(item => item.correctAnswer >= wl.countDone).length);
         setupTrLessons(response);
@@ -94,7 +97,7 @@ const LessonStepPanel = (props) => {
     }
 
     const setCurAudios = (curTransl) => {
-        let audio1 = curTransl.audioId1 != null ? new Audio(AudioFileService.AUDIO_URL + "/" + curTransl.audioId1) : null;
+        let audio1:HTMLAudioElement = curTransl.audioId1 != null ? new Audio(AudioFileService.AUDIO_URL + "/" + curTransl.audioId1) : null;
         setCurAudio1(audio1);
         let audio2 = curTransl.audioId2 != null ? new Audio(AudioFileService.AUDIO_URL + "/" + curTransl.audioId2) : null;
         setCurAudio2(audio2);
@@ -118,7 +121,7 @@ const LessonStepPanel = (props) => {
     const getAudioElement = (audioId) => {
         return audioId &&
                 <div>
-                    <audio controls autoPlay width="100%" src={AudioFileService.AUDIO_URL + "/" + audioId}>
+                    <audio controls autoPlay src={AudioFileService.AUDIO_URL + "/" + audioId}>
                         <source src={AudioFileService.AUDIO_URL + "/" + audioId}></source>
                     </audio>
                 </div>
@@ -259,7 +262,7 @@ const LessonStepPanel = (props) => {
                         <Row className="pt-2 justify-content-center">
                             <Col></Col>
                             <Col>
-                                { isCurChecked && isPlayAudio && getAudioElement(wlesson?.reverse ? curTranslate.audioId1 : curTranslate.audio2) }
+                                { isCurChecked && isPlayAudio && getAudioElement(wlesson?.reverse ? curTranslate.audioId1 : curTranslate.audioId2) }
                             </Col>
                             <Col></Col>
                         </Row>

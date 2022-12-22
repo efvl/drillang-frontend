@@ -17,7 +17,7 @@ const AddEditWLesson = () => {
         <>
         <Layout>
             {params?.id
-                ? <WLessonForm isEdit={true} wlessonId={params.id} />
+                ? <WLessonForm isEdit={true} wlessonId={Number(params.id)} />
                 : <WLessonForm isEdit={false} />
             }
         </Layout>

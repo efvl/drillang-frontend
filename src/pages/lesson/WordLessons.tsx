@@ -42,7 +42,7 @@ const WordLessons = () => {
     return (
         <>
         <Layout>
-            <WLessonActionBar/>
+            <WLessonActionBar onChangeLang={()=>{}}/>
             <WLessonTable wlessons={wlessons} remove={deleteWordLesson}/>
             <PaginationBar currentPage={currentPage} totalPages={totalPages} onChangePage={handleChangePage}/>
         </Layout>

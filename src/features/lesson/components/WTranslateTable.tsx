@@ -11,7 +11,7 @@ const WTranslateTable = ({trns, addAction}) => {
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">iduuuu</th>
+                        <th scope="col">id</th>
                         <th scope="col">Word1</th>
                         <th scope="col">Word2</th>
                         <th scope="col" className="text-center">Add</th>
