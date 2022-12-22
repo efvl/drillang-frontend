@@ -5,7 +5,7 @@ import { TranslateWordLesson } from "../models/TranslateWordLesson";
 
 export default class TranslateWLessonService {
 
-    static async searchTrWLessons(searchData) {
+    static async searchTrWLessons(searchData:TranslateWordLessonSearchRequest) {
         const response = await axios.post("http://localhost:8081/dlang/v1/translate-wlesson/search", searchData);
         // console.log(response.data);
         return response;

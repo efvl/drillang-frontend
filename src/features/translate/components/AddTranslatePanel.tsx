@@ -120,7 +120,7 @@ const AddTranslatePanel = (props) => {
                 <Col md={6}>
                     <Row className="row-cols-auto">
                         <Col className="py-2">
-                            <h5>{word1 && word1.language.fullName + ' :'}</h5>
+                            <h5>{word1 && (word1.language?.fullName + ' :')}</h5>
                         </Col>
                         <Col className="py-1">
                             <VolumeUp color="royalblue" size={36}></VolumeUp>

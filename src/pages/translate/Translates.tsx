@@ -17,7 +17,7 @@ const Translates = () => {
         fetchTranslations(searchData);
     }, [searchData]);
 
-    const fetchTranslations = async (searchData) => {
+    const fetchTranslations = async (searchData:TranslateSearchRequest) => {
         console.log(searchData);  
         const response = await TranslateService.searchTranslates(searchData);
         console.log(response.data);

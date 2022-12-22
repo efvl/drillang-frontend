@@ -2,8 +2,10 @@ import React from "react";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import { CardList, Umbrella, ArrowLeftRight, House, PencilSquare } from "react-bootstrap-icons";
+import { CardList, Umbrella, ArrowLeftRight, House, PencilSquare, Book } from "react-bootstrap-icons";
 import {LinkContainer} from 'react-router-bootstrap'
+import { NavDropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const TopNavbar = () => {
     return (
@@ -16,9 +18,11 @@ const TopNavbar = () => {
                     <LinkContainer to="/">
                         <Nav.Link><House size={18}/> Home</Nav.Link>
                     </LinkContainer>
-                    <LinkContainer to="/lang">
-                        <Nav.Link><Umbrella size={18}/> Languages</Nav.Link>
-                    </LinkContainer>
+                    <NavDropdown title={<><Book size={18}/> Dictionary</>} id="basic-nav-dropdown" className="bg-dark">
+                        <NavDropdown.Item as={Link} to="/lang">
+                            <Umbrella size={18}/> Languages
+                        </NavDropdown.Item>
+                    </NavDropdown>
                     <LinkContainer to="/wcard">
                         <Nav.Link><CardList size={18}/> Word Cards</Nav.Link>
                     </LinkContainer>
