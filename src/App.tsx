@@ -12,6 +12,8 @@ import AddEditWLesson from './pages/lesson/AddEditWLesson';
 import WLessonTranslates from './pages/lesson/WLessonTranslates';
 import WLessonProcess from './pages/lesson/WLessonProcess';
 import { AppUserContextProvider } from './models/AppUserContextProvider';
+import Tags from './pages/tags/Tags';
+import AddEditTag from './pages/tags/AddEditTag';
 
 
 const App = () => {
@@ -36,6 +38,9 @@ const App = () => {
               <Route path="/wlesson/edit/:id" element={ <AddEditWLesson/> }/>
               <Route path="/wlesson/translates/:id" element={ <WLessonTranslates/> }/>
               <Route path="/process/wlesson/:id" element={ <WLessonProcess/> }/>
+              <Route path="/tags" element={ <Tags/> }/>
+              <Route path="/tags/add" element={ <AddEditTag/> }/>
+              <Route path="/tags/edit/:id" element={ <AddEditTag/> }/>
             </Routes>
           </BrowserRouter>
       </div>
