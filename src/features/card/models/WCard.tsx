@@ -1,4 +1,5 @@
 import { Language } from "../../langs/models/Language";
+import { Tag } from "../../tags/models/Tag";
 
 export interface WCard {
     id?:number;
@@ -9,5 +10,6 @@ export interface WCard {
     pictureId?:number;
     dateCreated?:Date;
     language?:Language;
+    tags?:Array<Tag>;
 }
 

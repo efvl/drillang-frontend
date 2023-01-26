@@ -115,7 +115,7 @@ const AddTranslatePanel = (props) => {
             </Row>
             <Row className="py-2">
                 <Col md={4} className="border">
-                    {word1 && <img src={PictureFileService.PICTURE_URL + "/" + word1.pictureId}  width="100%"/>}
+                    {word1?.pictureId && <img src={PictureFileService.PICTURE_URL + "/" + word1.pictureId}  width="100%"/>}
                 </Col>
                 <Col md={6}>
                     <Row className="row-cols-auto">

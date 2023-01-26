@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { WCard } from "../models/WCard";
-
+import TagDropdownPanel from "./TagDropdownPanel";
+import { Tag } from "../../tags/models/Tag";
+import TagService from "../../tags/services/TagService";
 
 interface WCardFormProps {
     wordcard?:WCard,
@@ -15,17 +17,32 @@ interface WCardFormProps {
 const WCardForm = (props:WCardFormProps) => {
 
     const [wcardForm, setWcardForm] = useState<WCard>({word:'', transcript:'', example:''});
+    const [allTags, setAllTags] = useState<Tag[]>([]);
+
+    useEffect(() => {
+        console.log(props.wordcard);
+        if(props.isEdit){
+            setWcardForm(props.wordcard);
+        } else {
+            selectTags();
+        }
+    }, [props]);
 
     const submitWordCard = (e) => {
         e.preventDefault();
         props.submitAction(wcardForm);
     }
 
-    useEffect(() => {
-        if(props.isEdit){
-            setWcardForm(props.wordcard);
-        }
-    }, [props]);
+    const selectTags = async () => {
+        const response = await TagService.searchTags({});
+        console.log(response.data);
+        setAllTags(response.data);
+    }
+
+    const tagSelectHandler = (tags:Tag[]) => {
+        console.log(tags);
+        setWcardForm({...wcardForm, tags:tags});
+    }
 
     return (
         <Form>
@@ -49,6 +66,15 @@ const WCardForm = (props:WCardFormProps) => {
                     placeholder="Enter example of word using"
                     value={wcardForm?.example}
                     onChange={e => setWcardForm({...wcardForm, example: e.target.value})}/>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="tagsField">
+                <Form.Label>Tags</Form.Label>
+                <div>{props.isEdit 
+                        ? <TagDropdownPanel tags={wcardForm?.tags} handler={tagSelectHandler}/>
+                        : <TagDropdownPanel tags={allTags} handler={tagSelectHandler} />
+                    }
+                </div>
             </Form.Group>
             <div className="text-center p-2">
                 <Button variant="outline-primary" style={{width: 150}} type="submit" onClick={submitWordCard}> Save </Button>
