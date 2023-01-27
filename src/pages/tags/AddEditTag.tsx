@@ -4,7 +4,7 @@ import LangForm from "../../features/langs/components/LangForm";
 import { Language } from "../../features/langs/models/Language";
 import LangService from "../../features/langs/services/LangService";
 import TagForm from "../../features/tags/components/TagForm";
-import { Tag } from "../../features/tags/models/Tag";
+import { WTag } from "../../features/tags/models/WTag";
 import TagService from "../../features/tags/services/TagService";
 import Layout from "../../layout/Layout";
 
@@ -17,13 +17,13 @@ const AddEditTag = () => {
         console.log(params.id);
     }, []);
 
-    const createTag = async (newTag:Tag) => {
+    const createTag = async (newTag:WTag) => {
         const response = await TagService.addTag(newTag);
         console.log(response.data);
         navigate('/tags')
     }
 
-    const toEditTag = async (tag:Tag) => {
+    const toEditTag = async (tag:WTag) => {
         const response = await TagService.editTag(tag);
         console.log(response.data);
         navigate('/tags');

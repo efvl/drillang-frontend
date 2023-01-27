@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import TagActionBar from "../../features/tags/components/TagActionBar";
 import TagTable from "../../features/tags/components/TagTable";
-import { Tag } from "../../features/tags/models/Tag";
+import { WTag } from "../../features/tags/models/WTag";
 import TagService from "../../features/tags/services/TagService";
 import Layout from "../../layout/Layout";
 import { AppContext } from "../../models/AppUserContextProvider";
@@ -9,7 +9,7 @@ import { AppContext } from "../../models/AppUserContextProvider";
 
 const Tags = () => {
 
-    const [tags, setTags] = useState<Tag[]>([]);
+    const [tags, setTags] = useState<WTag[]>([]);
 
     useEffect(() => {
         fetchTags();

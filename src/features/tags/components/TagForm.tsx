@@ -5,18 +5,18 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
-import { Tag } from "../models/Tag";
+import { WTag } from "../models/WTag";
 import TagService from "../services/TagService";
 
 interface TagFormProps {
-    submitAction?:(tag:Tag) => void;
+    submitAction?:(tag:WTag) => void;
     isEdit?:boolean;
     tagId?:number;
 }
 
 const TagForm = (props:TagFormProps) => {
 
-    const [tag, setTag] = useState<Tag>({ name:'', description:''});
+    const [tag, setTag] = useState<WTag>({ name:'', description:''});
 
     const submitTag = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();

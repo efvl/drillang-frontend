@@ -1,10 +1,10 @@
 import { Container, Table } from "react-bootstrap";
 import LangTableRow from "../../langs/components/LangTableRow";
-import { Tag } from "../models/Tag";
+import { WTag } from "../models/WTag";
 import TagTableRow from "./TagTableRow";
 
 interface TagTableProps {
-    tags?:Array<Tag>;
+    tags?:Array<WTag>;
     remove?:(id: number) => void;
 }
 

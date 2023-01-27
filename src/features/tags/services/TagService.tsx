@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Tag } from "../models/Tag";
+import { WTag } from "../models/WTag";
 import { TagSearchRequest } from "../models/TagSearchRequest";
 
 
@@ -10,13 +10,13 @@ export default class TagService {
         return response;
     }
 
-    static async addTag(tag:Tag) {
+    static async addTag(tag:WTag) {
         const response = await axios.post("http://localhost:8081/dlang/v1/tag", tag);
         return response;
     }
 
 
-    static async editTag(tag:Tag) {
+    static async editTag(tag:WTag) {
         const response = await axios.put("http://localhost:8081/dlang/v1/tag", tag);
         return response;
     }

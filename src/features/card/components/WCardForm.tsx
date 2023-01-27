@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { WCard } from "../models/WCard";
 import TagDropdownPanel from "./TagDropdownPanel";
-import { Tag } from "../../tags/models/Tag";
+import { WTag } from "../../tags/models/WTag";
 import TagService from "../../tags/services/TagService";
 
 interface WCardFormProps {
@@ -16,16 +16,15 @@ interface WCardFormProps {
 
 const WCardForm = (props:WCardFormProps) => {
 
-    const [wcardForm, setWcardForm] = useState<WCard>({word:'', transcript:'', example:''});
-    const [allTags, setAllTags] = useState<Tag[]>([]);
+    const [wcardForm, setWcardForm] = useState<WCard>({word:'', transcript:'', example:'', tags:[]});
+    const [allTags, setAllTags] = useState<WTag[]>([]);
 
     useEffect(() => {
         console.log(props.wordcard);
         if(props.isEdit){
             setWcardForm(props.wordcard);
-        } else {
-            selectTags();
-        }
+        } 
+        selectTags();
     }, [props]);
 
     const submitWordCard = (e) => {
@@ -39,7 +38,7 @@ const WCardForm = (props:WCardFormProps) => {
         setAllTags(response.data);
     }
 
-    const tagSelectHandler = (tags:Tag[]) => {
+    const tagSelectHandler = (tags:WTag[]) => {
         console.log(tags);
         setWcardForm({...wcardForm, tags:tags});
     }
@@ -70,11 +69,7 @@ const WCardForm = (props:WCardFormProps) => {
 
             <Form.Group className="mb-3" controlId="tagsField">
                 <Form.Label>Tags</Form.Label>
-                <div>{props.isEdit 
-                        ? <TagDropdownPanel tags={wcardForm?.tags} handler={tagSelectHandler}/>
-                        : <TagDropdownPanel tags={allTags} handler={tagSelectHandler} />
-                    }
-                </div>
+                <TagDropdownPanel wordTags={wcardForm.tags} tags={allTags} handler={tagSelectHandler}/>
             </Form.Group>
             <div className="text-center p-2">
                 <Button variant="outline-primary" style={{width: 150}} type="submit" onClick={submitWordCard}> Save </Button>

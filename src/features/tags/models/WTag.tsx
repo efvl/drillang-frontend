@@ -1,5 +1,5 @@
 
-export interface Tag {
+export interface WTag {
     id?:number;
     name?:string;
     description?:string;

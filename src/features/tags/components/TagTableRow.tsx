@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import Utils from "../../Utils";
-import { Tag } from "../models/Tag";
+import { WTag } from "../models/WTag";
 
 interface TagProps {
-    tag?:Tag,
+    tag?:WTag,
     rowNum?:number,
     remove?:(id: number) => void,
 }
