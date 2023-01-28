@@ -13,6 +13,9 @@ import { Search } from "react-bootstrap-icons";
 import { Language } from "../../langs/models/Language";
 import { AppUserContext } from "../../../models/AppUserContext";
 import { AppContext } from "../../../models/AppUserContextProvider";
+import TagDropdownPanel from "./TagDropdownPanel";
+import TagService from "../../tags/services/TagService";
+import { WTag } from "../../tags/models/WTag";
 
 const WCardActionBar = ({onChangeFilter}) => {
 
@@ -21,12 +24,21 @@ const WCardActionBar = ({onChangeFilter}) => {
     const [langs, setLangs] = useState<Language[]>([]);
     const [filterLang, setFilterLang] = useState<Language>({});
     const [wordFilter, setWordFilter] = useState<string>('');
+    const [allTags, setAllTags] = useState<WTag[]>([]);
+    const [filterTags, setFilterTags] = useState<WTag[]>([]);
 
     useEffect(() => {
         initData();
     }, []);
 
     const initData = async () => {
+        const responseTags = await TagService.searchTags({});
+        if(responseTags.data?.length > 0){
+            setAllTags(responseTags.data);
+            if(wcardPageSearch.tags?.length > 0){
+                setFilterTags(wcardPageSearch.tags);
+            }
+        }
         const response = await LangService.searchLanguages({});
         if(response.data?.length > 0){
             setLangs(response.data); 
@@ -36,13 +48,18 @@ const WCardActionBar = ({onChangeFilter}) => {
             } else {
                 setFilterLang(response.data[0]);
             }
-            handleSearch();
         }
+        handleSearch();
+    }
+
+    const tagSelectHandler = (tags:WTag[]) => {
+        console.log(tags);
+        setFilterTags(tags);
     }
 
     const handleSearch = useCallback(() => {
-        onChangeFilter(wordFilter, filterLang);
-    }, [wordFilter, filterLang] );
+        onChangeFilter(wordFilter, filterLang, filterTags);
+    }, [wordFilter, filterLang, filterTags] );
 
     const handleSelectLanguage = (e: number) => {
         let lang = langs.find(item => item.id == e);
@@ -68,6 +85,11 @@ const WCardActionBar = ({onChangeFilter}) => {
                 </Col>
                 <Col className="border rounded">
                     <h5 className="pt-1">{filterLang?.fullName}</h5>
+                </Col>
+            </Row>
+            <Row className="p-2 row-cols-auto">
+                <Col>
+                    <TagDropdownPanel wordTags={filterTags} tags={allTags} handler={tagSelectHandler}/>
                 </Col>
             </Row>
         </Container>

@@ -9,6 +9,7 @@ import WordCardService from "../../features/card/services/WordCardService";
 import Layout from "../../layout/Layout";
 import { AppUserContext } from "../../models/AppUserContext";
 import { AppContext } from "../../models/AppUserContextProvider";
+import { WTag } from "../../features/tags/models/WTag";
 
 const WordCards = () => {
 
@@ -39,6 +40,10 @@ const WordCards = () => {
         if(searchData.word === undefined){
             searchData.word = wcardPageSearch.word;
         }
+        console.log('searchData.tags.length: ' + searchData.tags?.length);
+        if(searchData.tags === undefined){
+            searchData.tags = wcardPageSearch.tags;
+        }
         const response = await WordCardService.searchWordCards(searchData);
         console.log(response.data);
         setWcards(response.data.content);
@@ -52,6 +57,7 @@ const WordCards = () => {
         let filter = {
             languageId : wcardPageSearch.languageId,
             word : wcardPageSearch.word,
+            tags : wcardPageSearch.tags,
             curNumPage : page,
             sizeOfPage : wcardPageSearch.sizeOfPage,
         } as WCardSearchRequest;
@@ -59,10 +65,11 @@ const WordCards = () => {
         setWCardPageSearch(filter);
     }
 
-    const handleChangeFilter = async (word:string, lang:Language) => {
+    const handleChangeFilter = async (word:string, lang:Language, tags:WTag[]) => {
         let filter = {
             languageId : lang.id,
             word : word,
+            tags: tags,
             curNumPage : 0,
             sizeOfPage : wcardPageSearch.sizeOfPage,
         } as WCardSearchRequest;

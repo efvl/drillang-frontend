@@ -44,7 +44,7 @@ const TagDropdownPanel = (props:TagDropdownProps) => {
     return (
         <Container>
             <Row className="row-cols-auto">
-                <Col sm={3} className="border rounded p-0">
+                <Col className="border rounded p-0">
                     <Dropdown onSelect={(e: string) => selectTagDropdown(Number(e))} >
                         <Dropdown.Toggle variant="success-outline" id="dropdown-basic">
                             <><TagFill/> Select Tags</>
@@ -56,7 +56,7 @@ const TagDropdownPanel = (props:TagDropdownProps) => {
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
-                <Col sm={9}>
+                <Col>
                     <Row className="pt-2 row-cols-auto">
                         <Col>
                             {panelTags?.map((item:WTag, i:number) => 

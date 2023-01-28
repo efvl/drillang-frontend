@@ -20,6 +20,9 @@ import { Translate } from "../../translate/models/Translate";
 import { TranslateSearchRequest } from "../../translate/models/TranslateSearchRequest";
 import { TranslateWLessonInfo } from "../models/TranslateWLessonInfo";
 import { TranslateWordLesson } from "../models/TranslateWordLesson";
+import { WTag } from "../../tags/models/WTag";
+import TagService from "../../tags/services/TagService";
+import TagDropdownPanel from "../../card/components/TagDropdownPanel";
 
 const WLessonManagePanel = (props) => {
 
@@ -30,6 +33,8 @@ const WLessonManagePanel = (props) => {
     const [trns, setTrns] = useState<Translate[]>([]);
     const [trLessons, setTrLessons] = useState<TranslateWLessonInfo[]>([]);
     const [searchData, setSearchData] = useState<TranslateSearchRequest>({curNumPage:0, sizeOfPage:500});
+    const [allTags, setAllTags] = useState<WTag[]>([]);
+    const [filterTags, setFilterTags] = useState<WTag[]>([]);
 
     useEffect(() => {
         initData();
@@ -37,6 +42,7 @@ const WLessonManagePanel = (props) => {
 
     const initData = async () => {
         let wlesson = await loadWLesson();
+        let wTags = await loadTags();
         searchData.languageId = wlesson.fromLanguage.id;
         searchData.lessonId = wlesson.id;
         fetchTranslations(searchData);
@@ -46,6 +52,12 @@ const WLessonManagePanel = (props) => {
     const refreshData = () => {
         fetchTranslations(searchData);
         fetchTranslatesWLesson(wlesson.id);
+    }
+
+    const loadTags = async () => {
+        const responseTags = await TagService.searchTags({});
+        setAllTags(responseTags.data);
+        return responseTags.data;
     }
 
     const loadWLesson = async () => {
@@ -69,6 +81,12 @@ const WLessonManagePanel = (props) => {
         setTrLessons(response.data);
     }
 
+    const tagSelectHandler = (tags:WTag[]) => {
+        console.log(tags);
+        setFilterTags(tags);
+        fetchTranslations({...searchData, tags:tags});
+    }
+    
     const addToLesson = async (translateId:number) => {
         let twl = {
             translate: { id: translateId },
@@ -170,6 +188,11 @@ const WLessonManagePanel = (props) => {
                         <Col md={5}></Col>
                         <Col md={2}></Col>
                     </Row>
+                </Col>
+            </Row>
+            <Row className="p-2 row-cols-auto">
+                <Col>
+                    <TagDropdownPanel wordTags={filterTags} tags={allTags} handler={tagSelectHandler}/>
                 </Col>
             </Row>
             <Row>
