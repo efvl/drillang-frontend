@@ -81,7 +81,7 @@ const WLessonForm = (props:WLessonFormProps) => {
         wlessonForm.toLanguage = toSelectLang;
         const response = await WordLessonService.addWordLesson(wlessonForm);
         console.log(response.data);
-        if(location.state.prevPath) {
+        if(location.state?.prevPath) {
             navigate(location.state.prevPath);
         } else {
             navigate('/wlesson');

@@ -1,11 +1,10 @@
 import { Container, Table } from "react-bootstrap";
-import LangTableRow from "../../langs/components/LangTableRow";
 import { WTag } from "../models/WTag";
 import TagTableRow from "./TagTableRow";
 
 interface TagTableProps {
-    tags?:Array<WTag>;
-    remove?:(id: number) => void;
+    tags:Array<WTag>;
+    remove:(id: number) => void;
 }
 
 const TagTable = (props:TagTableProps) => {
@@ -24,7 +23,7 @@ const TagTable = (props:TagTableProps) => {
                 </thead>
                 <tbody>
                     {props.tags.map((item, index) =>
-                        <TagTableRow key={item.id} rowNum={index + 1} tag={item} remove={props.remove} />
+                        <TagTableRow key={item.id} rowNum={index + 1} wtag={item} remove={props.remove} />
                     )}
                 </tbody>
             </Table>

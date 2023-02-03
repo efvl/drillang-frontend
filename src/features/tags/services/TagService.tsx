@@ -2,7 +2,6 @@ import axios from "axios";
 import { WTag } from "../models/WTag";
 import { TagSearchRequest } from "../models/TagSearchRequest";
 
-
 export default class TagService {
 
     static async getTagById(id:number) {

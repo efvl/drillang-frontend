@@ -84,7 +84,9 @@ const WLessonManagePanel = (props) => {
     const tagSelectHandler = (tags:WTag[]) => {
         console.log(tags);
         setFilterTags(tags);
-        fetchTranslations({...searchData, tags:tags});
+        let search = {...searchData, tags:tags};
+        setSearchData(search)
+        fetchTranslations(search);
     }
     
     const addToLesson = async (translateId:number) => {
