@@ -1,12 +1,27 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import { CardList, Umbrella, ArrowLeftRight, House, PencilSquare, Book, Tag } from "react-bootstrap-icons";
+import { CardList, Umbrella, ArrowLeftRight, House, PencilSquare, Book, Tag, PersonSquare } from "react-bootstrap-icons";
 import {LinkContainer} from 'react-router-bootstrap'
 import { NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AppUserContext } from '../models/AppUserContext';
+import { useContext } from 'react';
+import { AppContext } from '../models/AppUserContextProvider';
+import { observer } from "mobx-react-lite";
 
 const TopNavbar = () => {
+
+    const navigate = useNavigate();
+    const appUserContext = useContext(AppContext) as AppUserContext;
+
+    const doLogout = (e) => {
+        e.preventDefault();
+        console.log('logout' + appUserContext.store.isAuth);
+        appUserContext.store.logout();
+        navigate('/');
+    }
+
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
@@ -35,6 +50,18 @@ const TopNavbar = () => {
                         </NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
+                <Nav>
+                    { appUserContext.store.isAuth 
+                    ?
+                    <LinkContainer to="/home">
+                        <Nav.Link onClick={(e)=> doLogout(e)}>({appUserContext.store?.user?.login}) Logout</Nav.Link>
+                    </LinkContainer>
+                    :
+                    <LinkContainer to="/login">
+                        <Nav.Link><PersonSquare size={18}/> Login</Nav.Link>
+                    </LinkContainer>
+                    }
+                </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>    
@@ -42,4 +69,4 @@ const TopNavbar = () => {
 
 };
 
-export default TopNavbar;
+export default observer(TopNavbar);
