@@ -20,7 +20,9 @@ const Langs = () => {
     async function fetchLanguages() {
         const response = await LangService.searchLanguages({});
         console.log(response.data);
-        setLangs(response.data);
+        if(response.status == 200){
+            setLangs(response.data);
+        }
     }
 
     const deleteLanguage = async (id:number) => {

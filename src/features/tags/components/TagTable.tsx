@@ -8,7 +8,6 @@ interface TagTableProps {
 }
 
 const TagTable = (props:TagTableProps) => {
-
     return (
         <Container className="py-2">
             <Table striped bordered hover className="shadow">
@@ -22,9 +21,12 @@ const TagTable = (props:TagTableProps) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.tags.map((item, index) =>
-                        <TagTableRow key={item.id} rowNum={index + 1} wtag={item} remove={props.remove} />
-                    )}
+                    {props.tags 
+                        ? props.tags.map((item, index) =>
+                            <TagTableRow key={item.id} rowNum={index + 1} wtag={item} remove={props.remove} />
+                          )
+                        : <></>
+                    }
                 </tbody>
             </Table>
         </Container>    

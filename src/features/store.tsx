@@ -26,6 +26,8 @@ export default class Store {
             const response = await AuthService.login(login, password);
             console.log(response.data);
             localStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem('refresh', response.data.refreshToken);
+            localStorage.setItem('login', response.data.user.login);
             this.setAuth(true);
             this.setUser(response.data.user);
         } catch(e) {
@@ -46,10 +48,15 @@ export default class Store {
 
     async logout(){
         try{
-            // const response = await AuthService.logout();
-            localStorage.removeItem('token');
-            this.setAuth(false);
-            this.setUser({} as IUser);
+            const response = await AuthService.logout(this.user.login);
+            console.log(response?.data);
+            if(response.status == 200){
+                localStorage.removeItem('token');
+                localStorage.removeItem('refresh');
+                localStorage.removeItem('login');
+                this.setAuth(false);
+                this.setUser({} as IUser);
+            }
         } catch(e) {
             console.log(e.response?.data);
         }

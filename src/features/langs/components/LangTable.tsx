@@ -24,9 +24,12 @@ const LangTable = (props:LangTableProps) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.langs.map((item, index) =>
-                        <LangTableRow key={item.id} rowNum={index + 1} lang={item} remove={props.remove} />
-                    )}
+                    {props.langs 
+                        ? props.langs.map((item, index) =>
+                            <LangTableRow key={item.id} rowNum={index + 1} lang={item} remove={props.remove} />
+                          )
+                        : <></>
+                    }
                 </tbody>
             </Table>
         </Container>    

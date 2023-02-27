@@ -18,7 +18,9 @@ const Tags = () => {
     async function fetchTags() {
         const response = await TagService.searchTags({});
         console.log(response.data);
-        setTags(response.data);
+        if(response.status == 200){
+            setTags(response.data);
+        }
     }
 
     const deleteTag = async (id:number) => {

@@ -15,10 +15,11 @@ const TopNavbar = () => {
     const navigate = useNavigate();
     const appUserContext = useContext(AppContext) as AppUserContext;
 
-    const doLogout = (e) => {
+    const doLogout = async (e) => {
         e.preventDefault();
-        console.log('logout' + appUserContext.store.isAuth);
-        appUserContext.store.logout();
+        console.log('appUserContext.store.isAuth: ' + appUserContext.store.isAuth);
+        await appUserContext.store.logout();
+        console.log('appUserContext.store.isAuth: ' + appUserContext.store.isAuth);
         navigate('/');
     }
 

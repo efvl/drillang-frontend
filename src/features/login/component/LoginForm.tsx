@@ -44,7 +44,7 @@ const LoginForm = () => {
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="password">
                             <Form.Label column sm="3">Password : </Form.Label>
-                            <Form.Control type="text" 
+                            <Form.Control type="password" 
                                     placeholder="Enter password"
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}/>
