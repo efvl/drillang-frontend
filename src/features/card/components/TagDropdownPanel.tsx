@@ -60,7 +60,7 @@ const TagDropdownPanel = (props:TagDropdownProps) => {
                     <Row className="pt-2 row-cols-auto">
                         <Col>
                             {panelTags?.map((item:WTag, i:number) => 
-                                <Badge pill bg="secondary" id={`tag_${i}`}>
+                                <Badge pill bg="secondary" key={`tag_${i}`}>
                                     {item.name}
                                     <XCircle size={20} color="crimson" onClick={() => {deleteSelectedTag(item)}} className="ms-2"></XCircle>
                                 </Badge>

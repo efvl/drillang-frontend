@@ -1,16 +1,16 @@
-import axios from "axios";
+import { $axiosAuth, API_URL } from "../../../services/auth/instance";
 
 export default class AudioFileService {
 
-    static AUDIO_URL = "http://localhost:8081/dlang/v1/audio";
+    static AUDIO_URL = API_URL + "/audio";
 
     static async addAudioFile(audioFile:FormData) {
-        const response = await axios.post("http://localhost:8081/dlang/v1/audio", audioFile);
+        const response = await $axiosAuth.post("/audio", audioFile);
         return response;
     }
 
     static async getAudioById(id:number) {
-        const response = await axios.get("http://localhost:8081/dlang/v1/audio/" + id);
+        const response = await $axiosAuth.get("/audio/" + id);
         return response;
     }
 

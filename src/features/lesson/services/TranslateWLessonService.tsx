@@ -1,59 +1,57 @@
-import axios from "axios";
 import { Lesson } from "../models/Lesson";
-import { TranslateWLessonInfo } from "../models/TranslateWLessonInfo";
 import { TranslateWordLesson } from "../models/TranslateWordLesson";
+import { $axiosAuth } from "../../../services/auth/instance";
 
 export default class TranslateWLessonService {
 
     static async searchTrWLessons(searchData:TranslateWordLessonSearchRequest) {
-        const response = await axios.post("http://localhost:8081/dlang/v1/translate-wlesson/search", searchData);
-        // console.log(response.data);
+        const response = await $axiosAuth.post("/translate-wlesson/search", searchData);
         return response;
     }
 
     static async addTrWLesson(trWLesson:TranslateWordLesson) {
-        const response = await axios.post("http://localhost:8081/dlang/v1/translate-wlesson", trWLesson);
+        const response = await $axiosAuth.post("/translate-wlesson", trWLesson);
         return response;
     }
 
     static async getTrWLessonById(id:number) {
-        const response = await axios.get("http://localhost:8081/dlang/v1/translate-wlesson/" + id);
+        const response = await $axiosAuth.get("/translate-wlesson/" + id);
         return response;
     }
 
     static async updateTrWLesson(trWLesson) {
-        const response = await axios.put("http://localhost:8081/dlang/v1/translate-wlesson", trWLesson);
+        const response = await $axiosAuth.put("/translate-wlesson", trWLesson);
         return response;
     }
 
     static async learnAgainTrLesson(trWLesson:TranslateWordLesson) {
-        const response = await axios.put("http://localhost:8081/dlang/v1/translate-wlesson/again", trWLesson);
+        const response = await $axiosAuth.put("/translate-wlesson/again", trWLesson);
         return response;
     }
 
     static async skipTrLesson(trWLesson:TranslateWordLesson) {
-        const response = await axios.put("http://localhost:8081/dlang/v1/translate-wlesson/skip", trWLesson);
+        const response = await $axiosAuth.put("/translate-wlesson/skip", trWLesson);
         return response;
     }
 
     static async updateAllTrWLessons(trWLessons) {
-        const response = await axios.put("http://localhost:8081/dlang/v1/translate-wlesson/bunch", trWLessons);
+        const response = await $axiosAuth.put("/translate-wlesson/bunch", trWLessons);
         return response;
     }
 
     static async deleteTrWLesson(id:number) {
-        const response = await axios.delete("http://localhost:8081/dlang/v1/translate-wlesson/" + id);
+        const response = await $axiosAuth.delete("/translate-wlesson/" + id);
         return response;
     } 
 
     static async getTranslatesOfLesson(id:number) {
-        const response = await axios.get("http://localhost:8081/dlang/v1/translate-wlesson/by-lesson/" + id);
+        const response = await $axiosAuth.get("/translate-wlesson/by-lesson/" + id);
         return response;
     }
 
     static async setLessonLearnAgain(wlesson:Lesson) {
         console.log(wlesson);
-        const response = await axios.put("http://localhost:8081/dlang/v1/translate-wlesson/learn-again", wlesson);
+        const response = await $axiosAuth.put("/translate-wlesson/learn-again", wlesson);
         return response;
     }
 }
