@@ -20,7 +20,7 @@ const TopNavbar = () => {
         console.log('appUserContext.store.isAuth: ' + appUserContext.store.isAuth);
         await appUserContext.store.logout();
         console.log('appUserContext.store.isAuth: ' + appUserContext.store.isAuth);
-        navigate('/');
+        navigate('/login');
     }
 
     return (
@@ -29,28 +29,37 @@ const TopNavbar = () => {
                 <Navbar.Brand href="#home">Drill Language</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
-                    <LinkContainer to="/">
-                        <Nav.Link><House size={18}/> Home</Nav.Link>
-                    </LinkContainer>
-                    <LinkContainer to="/wcard">
-                        <Nav.Link><CardList size={18}/> Word Cards</Nav.Link>
-                    </LinkContainer>
-                    <LinkContainer to="/translate">
-                        <Nav.Link><ArrowLeftRight size={18}/> Translations</Nav.Link>
-                    </LinkContainer>
-                    <LinkContainer to="/wlesson">
-                        <Nav.Link><PencilSquare size={18}/> Word Lessons</Nav.Link>
-                    </LinkContainer>
-                    <NavDropdown title={<><Book size={18}/> Dictionary</>} id="basic-nav-dropdown" className="bg-dark">
-                        <NavDropdown.Item as={Link} to="/lang">
-                            <Umbrella size={18}/> Languages
-                        </NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="/tags">
-                            <Tag size={18}/> Tags
-                        </NavDropdown.Item>
-                    </NavDropdown>
-                </Nav>
+                { appUserContext.store.isAuth 
+                    ?
+                    <Nav className="me-auto">
+                        <LinkContainer to="/">
+                            <Nav.Link><House size={18}/> Home</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/wcard">
+                            <Nav.Link><CardList size={18}/> Word Cards</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/translate">
+                            <Nav.Link><ArrowLeftRight size={18}/> Translations</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/wlesson">
+                            <Nav.Link><PencilSquare size={18}/> Word Lessons</Nav.Link>
+                        </LinkContainer>
+                        <NavDropdown title={<><Book size={18}/> Dictionary</>} id="basic-nav-dropdown" className="bg-dark">
+                            <NavDropdown.Item as={Link} to="/lang">
+                                <Umbrella size={18}/> Languages
+                            </NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/tags">
+                                <Tag size={18}/> Tags
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                    :
+                    <Nav className="me-auto">
+                        <LinkContainer to="/">
+                            <Nav.Link><House size={18}/> Home</Nav.Link>
+                        </LinkContainer>
+                    </Nav>
+                }
                 <Nav>
                     { appUserContext.store.isAuth 
                     ?
