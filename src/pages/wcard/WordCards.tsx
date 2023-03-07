@@ -10,10 +10,12 @@ import Layout from "../../layout/Layout";
 import { AppUserContext } from "../../models/AppUserContext";
 import { AppContext } from "../../models/AppUserContextProvider";
 import { WTag } from "../../features/tags/models/WTag";
+import { observer } from "mobx-react-lite";
+import { toJS } from "mobx";
 
 const WordCards = () => {
 
-    const { wcardPageSearch, setWCardPageSearch } = useContext(AppContext) as AppUserContext;
+    const appUserContext = useContext(AppContext) as AppUserContext;
 
     const [wcards, setWcards] = useState<WCard[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(0);
@@ -21,64 +23,39 @@ const WordCards = () => {
 
     useEffect(() => {
         console.log('render');
-    })
+    }, [])
 
-    // ids?:Array<number>;
-    // language?:Language;
-    // languageId?:number;
-    // word?:string;
-    // curNumPage?:number;
-    // sizeOfPage?:number;
-
-    const fetchWordCards = async (searchData:WCardSearchRequest) => {
-        console.log('fetchWordCards: ' + wcardPageSearch.languageId);  
-        console.log('fetchWordCards: ' + searchData.languageId); 
-        if(searchData.languageId  === undefined){
-            searchData.languageId = wcardPageSearch.languageId;
-        }
-        console.log('searchData.languageId: ' + searchData.languageId);
-        if(searchData.word === undefined){
-            searchData.word = wcardPageSearch.word;
-        }
-        console.log('searchData.tags.length: ' + searchData.tags?.length);
-        if(searchData.tags === undefined){
-            searchData.tags = wcardPageSearch.tags;
-        }
-        const response = await WordCardService.searchWordCards(searchData);
+    const fetchWordCards = async () => {
+        console.log(toJS(appUserContext.store));
+        const response = await WordCardService.searchWordCards({...appUserContext.store.wcardPageSearch} as WCardSearchRequest);
         console.log(response.data);
         setWcards(response.data.content);
         setCurrentPage(response.data.number);
         setTotalPages(response.data.totalPages);
-        setWCardPageSearch(searchData);
     }
 
     const handleChangePage = (page:number) => {
         console.log('page ' + page);
-        let filter = {
-            languageId : wcardPageSearch.languageId,
-            word : wcardPageSearch.word,
-            tags : wcardPageSearch.tags,
-            curNumPage : page,
-            sizeOfPage : wcardPageSearch.sizeOfPage,
-        } as WCardSearchRequest;
-        fetchWordCards(filter);
-        setWCardPageSearch(filter);
+        let filter = { ...appUserContext.store.wcardPageSearch, curNumPage : page } as WCardSearchRequest;
+        appUserContext.store.setWCardPageSearch(filter);
+        fetchWordCards();
     }
 
     const handleChangeFilter = async (word:string, lang:Language, tags:WTag[]) => {
-        let filter = {
+        console.log('handleChangeFilter');
+        let filter = { ...appUserContext.store.wcardPageSearch, 
             languageId : lang.id,
             word : word,
             tags: tags,
             curNumPage : 0,
-            sizeOfPage : wcardPageSearch.sizeOfPage,
         } as WCardSearchRequest;
-        fetchWordCards(filter);
+        appUserContext.store.setWCardPageSearch(filter);
+        fetchWordCards();
     }
 
     const deleteWordCard = async (id:number) => {
         await WordCardService.deleteWordCard(id);
-        fetchWordCards(wcardPageSearch);
+        fetchWordCards();
     } 
 
     return (
@@ -93,4 +70,4 @@ const WordCards = () => {
 
 };
 
-export default WordCards;
+export default observer(WordCards);

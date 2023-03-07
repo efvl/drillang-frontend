@@ -10,12 +10,10 @@ const userContext = { store: new Store() } as AppUserContext;
 const AppContext = React.createContext<AppUserContext>(userContext)
 
 const AppUserContextProvider = ({children}) => {
-    const [wcardPageSearch, setWCardPageSearch] = useState<WCardSearchRequest>({curNumPage:0, sizeOfPage:10});
-    const value = useMemo(() => ({...userContext, wcardPageSearch, setWCardPageSearch}), [wcardPageSearch]);
-    console.log(value);
+    console.log({...userContext.store.wcardPageSearch});
 
     return (
-        <AppContext.Provider value={value}>
+        <AppContext.Provider value={userContext}>
             {children}
         </AppContext.Provider>
     );

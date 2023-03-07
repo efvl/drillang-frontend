@@ -5,15 +5,17 @@ import LangService from "../../features/langs/services/LangService";
 import Layout from "../../layout/Layout";
 import { Language } from "../../features/langs/models/Language";
 import { AppContext } from "../../models/AppUserContextProvider";
+import { AppUserContext } from "../../models/AppUserContext";
+import { observer } from "mobx-react-lite";
 
 const Langs = () => {
 
-    const { wcardPageSearch, setWCardPageSearch } = useContext(AppContext);
+    const appUserContext = useContext(AppContext) as AppUserContext;
 
     const [langs, setLangs] = useState<Language[]>([]);
 
     useEffect(() => {
-        console.log(wcardPageSearch);
+        console.log({...appUserContext.store.wcardPageSearch});
         fetchLanguages();
     }, []);
 
@@ -41,4 +43,4 @@ const Langs = () => {
 
 };
 
-export default Langs;
+export default observer(Langs);

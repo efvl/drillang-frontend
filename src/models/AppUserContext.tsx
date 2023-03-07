@@ -2,11 +2,11 @@ import { Dispatch } from "react";
 import { WCardSearchRequest } from "../features/card/models/WCardSearchRequest";
 import Store from "../features/store";
 
-export type AppUserContext = {
+export interface AppUserContext {
 
-    wcardPageSearch?:WCardSearchRequest;
+    // wcardPageSearch?:WCardSearchRequest;
 
-    setWCardPageSearch?: Dispatch<React.SetStateAction<WCardSearchRequest>>;
+    // setWCardPageSearch?: Dispatch<React.SetStateAction<WCardSearchRequest>>;
 
     store: Store;
 

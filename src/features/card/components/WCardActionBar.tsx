@@ -16,10 +16,11 @@ import { AppContext } from "../../../models/AppUserContextProvider";
 import TagDropdownPanel from "./TagDropdownPanel";
 import TagService from "../../tags/services/TagService";
 import { WTag } from "../../tags/models/WTag";
+import { WCardSearchRequest } from "../models/WCardSearchRequest";
 
 const WCardActionBar = ({onChangeFilter}) => {
 
-    const { wcardPageSearch, setWCardPageSearch } = useContext(AppContext) as AppUserContext;
+    const appUserContext = useContext(AppContext) as AppUserContext;
 
     const [langs, setLangs] = useState<Language[]>([]);
     const [filterLang, setFilterLang] = useState<Language>({});
@@ -33,23 +34,34 @@ const WCardActionBar = ({onChangeFilter}) => {
 
     const initData = async () => {
         const responseTags = await TagService.searchTags({});
+        const pageSearch = {...appUserContext.store.wcardPageSearch} as WCardSearchRequest;
+        let contextTags = [] as WTag[];
         if(responseTags.data?.length > 0){
             setAllTags(responseTags.data);
-            if(wcardPageSearch.tags?.length > 0){
-                setFilterTags(wcardPageSearch.tags);
+            if(pageSearch?.tags?.length > 0){
+                setFilterTags(pageSearch.tags);
+                contextTags = pageSearch.tags;
             }
         }
         const response = await LangService.searchLanguages({});
+        let contextLang = {} as Language;
         if(response.data?.length > 0){
             setLangs(response.data); 
-            if(wcardPageSearch.languageId !== undefined){
-                let lang = response.data.find(item => item.id == wcardPageSearch.languageId);
+            if(pageSearch?.languageId !== undefined){
+                let lang = response.data.find(item => item.id == pageSearch.languageId);
                 setFilterLang(lang);
+                contextLang = lang;
             } else {
                 setFilterLang(response.data[0]);
+                contextLang = response.data[0];
             }
         }
-        handleSearch();
+        let contextWord = '';
+        if(pageSearch?.word !== undefined){
+            contextWord = pageSearch.word;
+            setWordFilter(contextWord);
+        }
+        onChangeFilter(contextWord, contextLang, contextTags);
     }
 
     const tagSelectHandler = (tags:WTag[]) => {

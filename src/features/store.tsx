@@ -3,11 +3,13 @@ import { makeAutoObservable } from "mobx";
 import { AuthResponse } from "../services/auth/AuthResponse";
 import $axiosInstance, { $axiosAuth, API_URL } from "../services/auth/instance";
 import AuthService from "../services/AuthService";
+import { WCardSearchRequest } from "./card/models/WCardSearchRequest";
 import { IUser } from "./login/models/IUser";
 
 export default class Store {
     user = {} as IUser;
     isAuth = false;
+    wcardPageSearch = { sizeOfPage:10 } as WCardSearchRequest;
 
     constructor() {
         makeAutoObservable(this);
@@ -19,6 +21,10 @@ export default class Store {
 
     setUser(user: IUser){
         this.user = user;
+    }
+
+    setWCardPageSearch(wcardPageSearch: WCardSearchRequest){
+        this.wcardPageSearch = wcardPageSearch;
     }
 
     async login(login: string, password: string){
