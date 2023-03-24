@@ -17,6 +17,10 @@ import AddEditTag from './pages/tags/AddEditTag';
 import RegisterPage from './pages/login/RegisterPage';
 import { AppUserContext } from './models/AppUserContext';
 import { observer } from 'mobx-react-lite';
+import SourceInfos from './pages/srcinfo/SourceInfos';
+import AddEditSourceInfo from './pages/srcinfo/AddEditSourceInfo';
+import TestCards from './pages/tcard/TestCards';
+import AddEditTCard from './pages/tcard/AddEditTCard';
 
 
 const App = () => {
@@ -44,6 +48,9 @@ const App = () => {
               <Route path="/wcard" element={ <WordCards/> }/>
               <Route path="/wcard/add" element={ <AddEditWCard/> }/>
               <Route path="/wcard/edit/:id" element={ <AddEditWCard/> }/>
+              <Route path="/tcard" element={ <TestCards/> }/>
+              <Route path="/tcard/add" element={ <AddEditTCard/> }/>
+              <Route path="/tcard/edit/:id" element={ <AddEditTCard/> }/>
               <Route path="/translate" element={ <Translates/>} />
               <Route path="/translate/edit/:id" element={ <AddEditTranslation/>} />
               <Route path="/translate/add"  element={ <AddEditTranslation/>} />
@@ -55,6 +62,9 @@ const App = () => {
               <Route path="/tags" element={ <Tags/> }/>
               <Route path="/tags/add" element={ <AddEditTag/> }/>
               <Route path="/tags/edit/:id" element={ <AddEditTag/> }/>
+              <Route path="/srcinfo" element={ <SourceInfos/> }/>
+              <Route path="/srcinfo/add" element={ <AddEditSourceInfo/> }/>
+              <Route path="/srcinfo/edit/:id" element={ <AddEditSourceInfo/> }/>
             </Routes>
           </BrowserRouter>
       </div>

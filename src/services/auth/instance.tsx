@@ -14,7 +14,8 @@ export const $axiosAuth = axios.create({
 $axiosAuth.interceptors.request.use(
     config => {
       config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-      config.headers['Content-Type'] = 'application/json';
+      config.headers['Access-Control-Allow-Origin'] = '*';
+      config.headers['My-header'] = 'ggg';
           return config;
       }
 );

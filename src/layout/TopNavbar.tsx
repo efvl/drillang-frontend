@@ -1,7 +1,7 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import { CardList, Umbrella, ArrowLeftRight, House, PencilSquare, Book, Tag, PersonSquare } from "react-bootstrap-icons";
+import { CardList, Umbrella, ArrowLeftRight, House, PencilSquare, Book, Tag, PersonSquare, Folder2, StickiesFill } from "react-bootstrap-icons";
 import {LinkContainer} from 'react-router-bootstrap'
 import { NavDropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -38,6 +38,9 @@ const TopNavbar = () => {
                         <LinkContainer to="/wcard">
                             <Nav.Link><CardList size={18}/> Word Cards</Nav.Link>
                         </LinkContainer>
+                        <LinkContainer to="/tcard">
+                            <Nav.Link><StickiesFill size={18}/> Test Cards</Nav.Link>
+                        </LinkContainer>
                         <LinkContainer to="/translate">
                             <Nav.Link><ArrowLeftRight size={18}/> Translations</Nav.Link>
                         </LinkContainer>
@@ -50,6 +53,9 @@ const TopNavbar = () => {
                             </NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/tags">
                                 <Tag size={18}/> Tags
+                            </NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/srcinfo">
+                                <Folder2 size={18}/> Sources
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>

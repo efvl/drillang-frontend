@@ -12,7 +12,7 @@ export default class Utils {
     }
 
     static cutString(str:string, len:number) {
-        if(str.length > len){
+        if(str != null && str.length > len){
             return str.substring(0, len) + ' ...';
         }
         return str;
