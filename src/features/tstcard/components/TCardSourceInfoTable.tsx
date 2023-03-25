@@ -22,17 +22,14 @@ const TCardSourceInfoTable = (props:TCardSourceInfoTableProps) => {
                         <th className="text-center">Del</th>
                         <th scope="col">N</th>
                         <th scope="col">Type</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">Name/Authors</th>
                         <th scope="col">Path Link</th>
-                        <th scope="col">Correct Answer</th>
-                        <th scope="col">Authors</th>
-                        <th scope="col">Other</th>
-                        <th className="text-center">Update</th>
+                        <th scope="col">Page/Time</th>
                     </tr>
                 </thead>
                 <tbody>
                     {props.cardSources.map((item, index) =>
-                        <TCardSourceInfoTableRow key={item.id} rowNum={index + 1} tcsInfo={item} 
+                        <TCardSourceInfoTableRow key={item.sourceInfo.id} rowNum={index + 1} tcsInfo={item} 
                             update={props.update} delete={props.delete}/>
                         )
                     }

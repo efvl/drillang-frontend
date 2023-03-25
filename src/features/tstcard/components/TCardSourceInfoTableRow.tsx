@@ -2,8 +2,8 @@ import { SourceInfo } from "../../srcinfo/models/SourceInfo";
 import Utils from "../../Utils";
 import { TCardSourceInfo } from "../models/TCardSourceInfo";
 import { ArrowRepeat, ArrowLeftSquare, XSquare, CheckCircle, Circle, TrophyFill, Square } from "react-bootstrap-icons";
-import { Form } from "react-bootstrap";
-import { useState } from "react";
+import { Container, Form, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
 
 interface SourcesForTCardRowProps {
     tcsInfo: TCardSourceInfo,
@@ -14,12 +14,19 @@ interface SourcesForTCardRowProps {
 
 const TCardSourceInfoTableRow = (props:SourcesForTCardRowProps) => {
 
+    const [rowSrcInfo, setRowSrcInfo] = useState<TCardSourceInfo>({});
+
+    useEffect(() => {
+        setRowSrcInfo(props.tcsInfo);
+    }, [props.tcsInfo]);
+
     const removeSourceFromCard = (id) => {
         props.delete(id);
     }
 
     const saveUpdates = (tsc:TCardSourceInfo) => {
         props.update(tsc);
+        setRowSrcInfo(tsc);
     }
 
     const pointerHover = {
@@ -28,30 +35,32 @@ const TCardSourceInfoTableRow = (props:SourcesForTCardRowProps) => {
 
     return (
         <tr>
-            <th className="text-center">
+            <td className="text-center" width="2%">
                 <span style={pointerHover}>
-                    <ArrowLeftSquare size={18} color="red" onClick={() => removeSourceFromCard(props.tcsInfo.sourceInfo.id)}></ArrowLeftSquare>
+                    <ArrowLeftSquare size={18} color="red" onClick={() => removeSourceFromCard(rowSrcInfo.sourceInfo.id)}></ArrowLeftSquare>
                 </span>
-            </th>
-            <th scope="row">{props.rowNum}</th> 
-            <td>{props.tcsInfo.id}</td>
-            <td>{props.tcsInfo.sourceInfo?.sourceType}</td>
-            <td>{Utils.cutString(props.tcsInfo.sourceInfo?.name, 30)}</td>
-            <td>{Utils.cutString(props.tcsInfo.sourceInfo?.pathLink, 30)}</td>
-            <td>{Utils.cutString(props.tcsInfo.sourceInfo?.authors, 30)}</td>
-            <td>            
-                <Form.Group className="mb-3" controlId="timePage">
+            </td>
+            <td width="2%">{props.rowNum}</td> 
+            <td width="5%">{rowSrcInfo.sourceInfo?.sourceType}</td>
+            <td>
+                <Container>
+                    <Row>{Utils.cutString(rowSrcInfo.sourceInfo?.name, 50)}</Row>
+                    <Row>{Utils.cutString(rowSrcInfo.sourceInfo?.authors, 50)}</Row>
+                </Container>
+                
+            </td>
+            {Utils.isStringLink(rowSrcInfo.sourceInfo?.pathLink) 
+                ? <td><a href={`${rowSrcInfo.sourceInfo?.pathLink}`} target="_blank">{Utils.cutString(rowSrcInfo.sourceInfo?.pathLink, 150)}</a></td>
+                : <td>{Utils.cutString(rowSrcInfo.sourceInfo?.pathLink, 150)}</td>
+            }
+            <td width="20%">            
+                <Form.Group controlId="timePage">
                 <Form.Control type="text" 
                     placeholder="Enter timePage"
-                    value={props.tcsInfo.timePage}
-                    onChange={e => props.update({...props.tcsInfo, timePage: e.target.value})}/>
+                    value={rowSrcInfo.timePage}
+                    onChange={e => props.update({...rowSrcInfo, timePage: e.target.value})}/>
                 </Form.Group>
             </td>
-            <th className="text-center">
-                <span style={pointerHover}>
-                <CheckCircle size={18} color="green" onClick={() => saveUpdates(props.tcsInfo)}></CheckCircle>
-                </span>
-            </th>
         </tr>
     );
 

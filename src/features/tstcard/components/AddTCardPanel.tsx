@@ -70,7 +70,6 @@ const AddTCardPanel = () => {
         tcardForm.pictureId = pictureId;
         tcardForm.codePart = codePart;
         tcardForm.sources = tcardSources;
-        console.log(tcardForm);
         const response = await TestCardService.createNewTestCard(tcardForm);
         navigate('/tcard');
     }
@@ -84,15 +83,15 @@ const AddTCardPanel = () => {
     }
 
     const deleteSourceHandler = async (id:number) => {
-        console.log(id);
         setTCardSources(tcardSources.filter(s => s.sourceInfo.id != id));
     }
 
     const updateSourceHandler = async (tcsi:TCardSourceInfo) => {
-        let updArray = tcardSources.filter(s => s.sourceInfo.id != tcsi.sourceInfo.id);
-        updArray.push(tcsi);
-        setTCardSources(updArray);
-        console.log(tcsi);
+        let i = tcardSources.findIndex(s => s.sourceInfo.id == tcsi.sourceInfo.id);
+        if(i >= 0){
+            tcardSources[i] = tcsi;
+            setTCardSources(tcardSources);
+        }
     }
 
     const handleChangeFilter = async (name:string, authors:string) => {
@@ -155,7 +154,7 @@ const AddTCardPanel = () => {
                 </Col>
             </Row>
             <Row>
-                <Accordion defaultActiveKey={['0']} alwaysOpen>
+                <Accordion defaultActiveKey={['0']} alwaysOpen className="px-0">
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>Sources for Card</Accordion.Header>
                         <Accordion.Body>

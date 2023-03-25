@@ -18,4 +18,11 @@ export default class Utils {
         return str;
     }
 
+    static isStringLink(str:string) {
+        if(str != null && str.length > 5){
+            return str.toLowerCase().startsWith('http://') || str.toLowerCase().startsWith('https://');
+        }
+        return false;
+    }
+
 }
