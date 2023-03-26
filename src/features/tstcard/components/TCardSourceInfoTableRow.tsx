@@ -57,7 +57,7 @@ const TCardSourceInfoTableRow = (props:SourcesForTCardRowProps) => {
                 <Form.Group controlId="timePage">
                 <Form.Control type="text" 
                     placeholder="Enter timePage"
-                    value={rowSrcInfo.timePage}
+                    value={rowSrcInfo?.timePage}
                     onChange={e => props.update({...rowSrcInfo, timePage: e.target.value})}/>
                 </Form.Group>
             </td>

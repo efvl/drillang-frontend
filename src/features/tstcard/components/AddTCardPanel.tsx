@@ -27,14 +27,15 @@ const AddTCardPanel = () => {
 
     const navigate = useNavigate();
 
+    const [tcardForm, setTcardForm] = useState<TCard>({question:'', answer:'', codePart:'', tags:[]});
+    const [pictureId, setPictureId] = useState<number>();
+    const [codePart, setCodePart] = useState<string>('');
+    const [tcardSources, setTCardSources] = useState<TCardSourceInfo[]>([]);
+
     const [sourceInfos, setSourceInfos] = useState<SourceInfo[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(5);
     const [searchRequest, setSearchRequest] = useState<SourceInfoSearchRequest>({curNumPage:0, sizeOfPage:10});
-    const [pictureId, setPictureId] = useState<number>();
-    const [codePart, setCodePart] = useState<string>('');
-    const [tcardSources, setTCardSources] = useState<TCardSourceInfo[]>([]);
-    const [tcardForm, setTcardForm] = useState<TCard>({question:'', answer:'', codePart:'', tags:[]});
     const [allTags, setAllTags] = useState<WTag[]>([]);
 
     useEffect(() => {
