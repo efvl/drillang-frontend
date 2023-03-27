@@ -17,7 +17,7 @@ const LTagTableRow = (props:LTagProps) => {
             <td>{props.ltag?.name}</td>
             <td>{Utils.cutString(props.ltag?.description, 50)}</td>
             <td>
-                <Link to={`/tags/edit/${props.ltag?.id}`} className="btn btn-outline-primary mx-2">Update</Link>
+                <Link to={`/ltags/edit/${props.ltag?.id}`} className="btn btn-outline-primary mx-2">Update</Link>
                 <button onClick={() => props.remove(props.ltag?.id)} className="btn btn-danger mx-2">Delete</button>
             </td>
         </tr>
