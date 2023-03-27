@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import TestLessonService from "../services/TestLessonService";
 import { TestLesson } from "../models/TestLesson";
+import { LTag } from "../../lessontags/models/LTag";
+import LTagDropdownPanel from "./LTagDropdownPanel";
+import LTagService from "../../lessontags/services/LTagService";
 
 interface TestLessonFormProps {
     isEdit?:boolean;
@@ -19,17 +22,25 @@ const TestLessonForm = (props:TestLessonFormProps) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [testLessonForm, setTestLessonForm] = useState<TestLesson>({ name: '', reverse: false, countDone: 1 });
+    const [testLessonForm, setTestLessonForm] = useState<TestLesson>({ name: '', reverse: false, countDone: 1, lessonTags: []});
+    const [allLTags, setAllLTags] = useState<LTag[]>([]);
 
     useEffect(() => {
         if(props.isEdit){
             loadTestLesson();
         }
-    }, []);
+        selectAllLTags();
+    }, [props]);
 
     const loadTestLesson = async () => {
         const response = await TestLessonService.getTestLessonById(props.testLessonId);
         setTestLessonForm(response.data);
+    }
+
+    const selectAllLTags = async () => {
+        const response = await LTagService.searchLTags({});
+        console.log(response.data);
+        setAllLTags(response.data);
     }
 
     const submitTestLesson = async (e) => {
@@ -44,14 +55,15 @@ const TestLessonForm = (props:TestLessonFormProps) => {
         navigate('/testlesson');
     }
 
-    const isEmpty = (obj) => {
-        return Object.keys(obj).length === 0;
-    }
-
     const handleCountDoneChange = event => {
         const result = event.target.value.replace(/\D/g, '');
         setTestLessonForm({...testLessonForm, countDone: result});
     };
+
+    const tagSelectHandler = (tags:LTag[]) => {
+        console.log(tags);
+        setTestLessonForm({...testLessonForm, lessonTags:tags});
+    }
 
     return (
         <Container className="mt-3">
@@ -84,6 +96,10 @@ const TestLessonForm = (props:TestLessonFormProps) => {
                                 value={testLessonForm.countDone}
                                 onChange={handleCountDoneChange}/>
                         </Col>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="tagsField">
+                        <Form.Label>Tags</Form.Label>
+                        <LTagDropdownPanel lessonTags={testLessonForm.lessonTags} tags={allLTags} handler={tagSelectHandler}/>
                     </Form.Group>
                     <div className="text-center p-2">
                         <Button variant="outline-primary" style={{width: 150}} type="submit" onClick={submitTestLesson}> Save </Button>

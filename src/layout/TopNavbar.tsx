@@ -44,12 +44,14 @@ const TopNavbar = () => {
                         <LinkContainer to="/translate">
                             <Nav.Link><ArrowLeftRight size={18}/> Translations</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="/wlesson">
-                            <Nav.Link><PencilSquare size={18}/> Word Lessons</Nav.Link>
-                        </LinkContainer>
-                        <LinkContainer to="/testlesson">
-                            <Nav.Link><PencilSquare size={18}/> Test Lessons</Nav.Link>
-                        </LinkContainer>
+                        <NavDropdown title={<><PencilSquare size={18}/> Lessons</>} id="basic-nav-dropdown" className="bg-dark">
+                            <NavDropdown.Item as={Link} to="/wlesson">
+                                <PencilSquare size={18}/> Word Lessons
+                            </NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/testlesson">
+                                <PencilSquare size={18}/> Test Lessons
+                            </NavDropdown.Item>
+                        </NavDropdown>
                         <NavDropdown title={<><Book size={18}/> Dictionary</>} id="basic-nav-dropdown" className="bg-dark">
                             <NavDropdown.Item as={Link} to="/lang">
                                 <Umbrella size={18}/> Languages
