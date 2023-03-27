@@ -11,7 +11,7 @@ import LTagService from "../services/LTagService";
 interface LTagFormProps {
     submitAction?:(ltag:LTag) => void;
     isEdit?:boolean;
-    tagId?:number;
+    ltagId?:number;
 }
 
 const LTagForm = (props:LTagFormProps) => {
@@ -30,7 +30,7 @@ const LTagForm = (props:LTagFormProps) => {
     }, []);
 
     const loadLTag = async () => {
-        const result = await LTagService.getLTagById(props.tagId);
+        const result = await LTagService.getLTagById(props.ltagId);
         console.log(result.data);
         setLTag(result.data);
     }

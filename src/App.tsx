@@ -21,6 +21,8 @@ import SourceInfos from './pages/srcinfo/SourceInfos';
 import AddEditSourceInfo from './pages/srcinfo/AddEditSourceInfo';
 import TestCards from './pages/tcard/TestCards';
 import AddEditTCard from './pages/tcard/AddEditTCard';
+import AddEditLTag from './pages/lessontag/AddEditLTag';
+import LTags from './pages/lessontag/LTags';
 
 
 const App = () => {
@@ -65,6 +67,9 @@ const App = () => {
               <Route path="/srcinfo" element={ <SourceInfos/> }/>
               <Route path="/srcinfo/add" element={ <AddEditSourceInfo/> }/>
               <Route path="/srcinfo/edit/:id" element={ <AddEditSourceInfo/> }/>
+              <Route path="/ltags" element={ <LTags/> }/>
+              <Route path="/ltags/add" element={ <AddEditLTag/> }/>
+              <Route path="/ltags/edit/:id" element={ <AddEditLTag/> }/>
             </Routes>
           </BrowserRouter>
       </div>
