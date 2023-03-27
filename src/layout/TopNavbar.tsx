@@ -47,6 +47,9 @@ const TopNavbar = () => {
                         <LinkContainer to="/wlesson">
                             <Nav.Link><PencilSquare size={18}/> Word Lessons</Nav.Link>
                         </LinkContainer>
+                        <LinkContainer to="/testlesson">
+                            <Nav.Link><PencilSquare size={18}/> Test Lessons</Nav.Link>
+                        </LinkContainer>
                         <NavDropdown title={<><Book size={18}/> Dictionary</>} id="basic-nav-dropdown" className="bg-dark">
                             <NavDropdown.Item as={Link} to="/lang">
                                 <Umbrella size={18}/> Languages
