@@ -5,28 +5,28 @@ import { LTagSearchRequest } from "../models/LTagSearchRequest";
 
 export default class LTagService {
 
-    static async getTagById(id:number) {
+    static async getLTagById(id:number) {
         const response = await $axiosAuth.get("/lesson-tag/" + id);
         return response;
     }
 
-    static async addTag(lTag:LTag) {
+    static async addLTag(lTag:LTag) {
         const response = await $axiosAuth.post("/lesson-tag", lTag);
         return response;
     }
 
 
-    static async editTag(lTag:LTag) {
+    static async editLTag(lTag:LTag) {
         const response = await $axiosAuth.put("/lesson-tag", lTag);
         return response;
     }
 
-    static async deleteTag(id:number) {
+    static async deleteLTag(id:number) {
         const response = await $axiosAuth.delete("/lesson-tag/" + id);
         return response;
     }
 
-    static async searchTags(searchData:LTagSearchRequest) {
+    static async searchLTags(searchData:LTagSearchRequest) {
         const response = await $axiosAuth.post("/lesson-tag/search", searchData);
         return response;
     }
