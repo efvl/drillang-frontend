@@ -54,6 +54,9 @@ const TopNavbar = () => {
                             <NavDropdown.Item as={Link} to="/tags">
                                 <Tag size={18}/> Tags
                             </NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/ltags">
+                                <Tag size={18}/> Lesson Tags
+                            </NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/srcinfo">
                                 <Folder2 size={18}/> Sources
                             </NavDropdown.Item>
