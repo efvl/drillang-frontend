@@ -140,7 +140,6 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
         let i = tcardSources.findIndex(s => s.sourceInfo.id == tcsi.sourceInfo.id);
         console.log(tcsi);
         if(i >= 0){
-            // tcardSources[i] = tcsi;
             setTCardSources([...tcardSources.slice(0, i), tcsi, ...tcardSources.slice(i + 1)]);
         }
     }
