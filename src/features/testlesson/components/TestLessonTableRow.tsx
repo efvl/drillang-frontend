@@ -30,6 +30,7 @@ const TestLessonTableRow = (props:TestLessonTableRowProps) => {
             <td>
                 <Link to={`/testlesson/edit/${props.testLesson.id}`} state={{ prevPath: location.pathname }}
                              className="btn btn-outline-primary mx-2">Update</Link>
+                <Link to={`/testlesson/cards/${props.testLesson.id}`} className="btn mx-2 btn-primary">Manage</Link>
                 <button onClick={() => props.remove(props.testLesson.id)} className="btn btn-danger mx-2">Delete</button>
             </td>
         </tr>
