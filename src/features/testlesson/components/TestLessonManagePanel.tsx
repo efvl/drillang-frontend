@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Badge, InputGroup } from "react-bootstrap";
-import LangDropdown from "../../card/components/LangDropdown";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { CheckSquare, Square, ArrowRepeat } from "react-bootstrap-icons";
@@ -13,8 +12,14 @@ import TagDropdownPanel from "../../card/components/TagDropdownPanel";
 import TestCardTestLessonService from "../services/TestCardTestLessonService";
 import LTagService from "../../lessontags/services/LTagService";
 import { TestLesson } from "../models/TestLesson";
+import { TestCardTestLesson } from "../models/TestCardTestLesson"
 import TestLessonService from "../services/TestLessonService";
 import { LTag } from "../../lessontags/models/LTag";
+import { TCard } from "../../tstcard/models/TCard";
+import { TCardSearchRequest } from "../../tstcard/models/TCardSearchRequest";
+import TestCardService from "../../tstcard/services/TestCardService";
+import { TestCardTestLessonSearchRequest } from "../models/TestCardTestLessonSearchRequest";
+import AllTCardsTable from "./AllTCardsTable";
 
 const TestLessonManagePanel = (props) => {
 
@@ -22,6 +27,8 @@ const TestLessonManagePanel = (props) => {
     const navigate = useNavigate();
 
     const [testLesson, setTestLesson] = useState<TestLesson>({});
+    const [tCards, setTCards] = useState<TCard[]>([]);
+    const [tCardSearchData, setTCardSearchData] = useState<TestCardTestLessonSearchRequest>({curNumPage:0, sizeOfPage:500});
     const [allWTags, setAllWTags] = useState<WTag[]>([]);
     const [filterWTags, setFilterWTags] = useState<WTag[]>([]);
 
@@ -32,6 +39,7 @@ const TestLessonManagePanel = (props) => {
     const initData = async () => {
         let tlesson = await loadTestLesson();
         let wTags = await loadWTags();
+        fetchTCards(tCardSearchData);
     }
 
     const loadTestLesson = async () => {
@@ -47,9 +55,16 @@ const TestLessonManagePanel = (props) => {
         return responseTags.data;
     }
 
-
     const refreshData = () => {
         console.log('refresh');
+        fetchTCards(tCardSearchData);
+    }
+
+    const fetchTCards = async (searchData:TCardSearchRequest) => {
+        console.log(searchData); 
+        const response = await TestCardService.searchTestCards(searchData);
+        console.log(response.data);
+        setTCards(response.data.content);
     }
 
     const tagSelectHandler = (tags:WTag[]) => {
@@ -59,6 +74,18 @@ const TestLessonManagePanel = (props) => {
     
     const setLessonLearnAgain = async (tlesson:TestLesson) => {
         const response = await TestCardTestLessonService.setTCardTLessonLearnAgain(tlesson);
+        if(response.status == 200){
+            refreshData();
+        }
+    } 
+
+    const addToLesson = async (tcardId:number) => {
+        let tctl = {
+            testCard: { id: tcardId },
+            testLesson: testLesson,
+            targetAnswer: 1,
+        } as TestCardTestLesson;
+        const response = await TestCardTestLessonService.addTCardTLesson(tctl);
         if(response.status == 200){
             refreshData();
         }
@@ -120,6 +147,14 @@ const TestLessonManagePanel = (props) => {
             <Row className="p-2 row-cols-auto">
                 <Col>
                     <TagDropdownPanel wordTags={filterWTags} tags={allWTags} handler={tagSelectHandler}/>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={5} className="p-0">
+                    <AllTCardsTable tCards={tCards} addAction={addToLesson}/>
+                </Col>
+                <Col md={7} className="p-0">
+                    {/* <TranslatesForLessonTable trLessons={trLessons} deleteAction={deleteFromLesson} again={learnAgain} skip={skipLearning} lesson={wlesson}/> */}
                 </Col>
             </Row>
         </Container>    
