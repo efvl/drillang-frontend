@@ -40,7 +40,7 @@ export default class TestCardTestLessonService {
         return response;
     }
 
-    static async deleteTCardTLesson(id:number) {
+    static async deleteTCardFromTLesson(id:number) {
         const response = await $axiosAuth.delete("/tcard-tlesson/" + id);
         return response;
     } 

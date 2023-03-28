@@ -20,15 +20,23 @@ import { TCardSearchRequest } from "../../tstcard/models/TCardSearchRequest";
 import TestCardService from "../../tstcard/services/TestCardService";
 import { TestCardTestLessonSearchRequest } from "../models/TestCardTestLessonSearchRequest";
 import AllTCardsTable from "./AllTCardsTable";
+import CurLessonTCardsTable from "./CurLessonTCardsTable";
+import { TCardTLessonInfo } from "../models/TCardTLessonInfo";
 
-const TestLessonManagePanel = (props) => {
+
+interface TestLessonManagePanelProps {
+    tlessonId: number;
+}
+
+const TestLessonManagePanel = (props: TestLessonManagePanelProps) => {
 
     const location = useLocation();
     const navigate = useNavigate();
 
     const [testLesson, setTestLesson] = useState<TestLesson>({});
     const [tCards, setTCards] = useState<TCard[]>([]);
-    const [tCardSearchData, setTCardSearchData] = useState<TestCardTestLessonSearchRequest>({curNumPage:0, sizeOfPage:500});
+    const [tcInfos, setTcInfos] = useState<TCardTLessonInfo[]>([]);
+    const [tCardSearchData, setTCardSearchData] = useState<TestCardTestLessonSearchRequest>({ curNumPage: 0, sizeOfPage: 500 });
     const [allWTags, setAllWTags] = useState<WTag[]>([]);
     const [filterWTags, setFilterWTags] = useState<WTag[]>([]);
 
@@ -39,7 +47,8 @@ const TestLessonManagePanel = (props) => {
     const initData = async () => {
         let tlesson = await loadTestLesson();
         let wTags = await loadWTags();
-        fetchTCards(tCardSearchData);
+        fetchAllTCards(tCardSearchData);
+        fetchCardInfosOfLesson(props.tlessonId);
     }
 
     const loadTestLesson = async () => {
@@ -57,39 +66,82 @@ const TestLessonManagePanel = (props) => {
 
     const refreshData = () => {
         console.log('refresh');
-        fetchTCards(tCardSearchData);
+        fetchAllTCards(tCardSearchData);
+        fetchCardInfosOfLesson(testLesson.id);
     }
 
-    const fetchTCards = async (searchData:TCardSearchRequest) => {
-        console.log(searchData); 
+    const fetchAllTCards = async (searchData: TCardSearchRequest) => {
+        console.log(searchData);
         const response = await TestCardService.searchTestCards(searchData);
         console.log(response.data);
         setTCards(response.data.content);
     }
 
-    const tagSelectHandler = (tags:WTag[]) => {
+    const fetchCardInfosOfLesson = async (lessonId: number) => {
+        const response = await TestCardTestLessonService.getTCardsOfTLesson(lessonId);
+        console.log(response.data);
+        setTcInfos(response.data);
+    }
+
+    const tagSelectHandler = (tags: WTag[]) => {
         console.log(tags);
         setFilterWTags(tags);
     }
-    
-    const setLessonLearnAgain = async (tlesson:TestLesson) => {
+
+    const setLessonLearnAgain = async (tlesson: TestLesson) => {
         const response = await TestCardTestLessonService.setTCardTLessonLearnAgain(tlesson);
+        if (response.status == 200) {
+            refreshData();
+        }
+    }
+
+    const learnAgain = async (tLessonInfo:TCardTLessonInfo) => {
+        console.log(tLessonInfo);
+        let tctl = {
+            id : tLessonInfo.id,
+            testCard: { id: tLessonInfo.testCardId },
+            testLesson: testLesson,
+            correctAnswer: 0,
+            skip: false,
+        } as TestCardTestLesson;
+        const response = await TestCardTestLessonService.learnAgainTCardTLesson(tctl);
         if(response.status == 200){
             refreshData();
         }
-    } 
+    }
 
-    const addToLesson = async (tcardId:number) => {
+    const skipLearning = async (tLessonInfo:TCardTLessonInfo) => {
+        console.log(tLessonInfo);
+        let tctl = {
+            id : tLessonInfo.id,
+            testCard: { id: tLessonInfo.testCardId },
+            testLesson: testLesson,
+            skip: true,
+        } as TestCardTestLesson;
+        const response = await TestCardTestLessonService.skipTCardTLesson(tctl);
+        if(response.status == 200){
+            refreshData();
+        }
+    }
+
+    const addToLesson = async (tcardId: number) => {
         let tctl = {
             testCard: { id: tcardId },
             testLesson: testLesson,
             targetAnswer: 1,
         } as TestCardTestLesson;
         const response = await TestCardTestLessonService.addTCardTLesson(tctl);
+        if (response.status == 200) {
+            refreshData();
+        }
+    }
+
+    const deleteFromLesson = async (cardId: number) => {
+        const response = await TestCardTestLessonService.deleteTCardFromTLesson(cardId);
         if(response.status == 200){
             refreshData();
         }
-    } 
+    }
 
     const isEmpty = (obj) => {
         return Object.keys(obj).length === 0;
@@ -102,10 +154,10 @@ const TestLessonManagePanel = (props) => {
     }
 
     const getLessonTagsLabel = () => {
-        return testLesson.lessonTags?.map((item:LTag, i:number) => 
-                    <Badge pill bg="secondary" key={`tag_${i}`}>
-                        {item.name}
-                    </Badge>
+        return testLesson.lessonTags?.map((item: LTag, i: number) =>
+            <Badge pill bg="secondary" key={`tag_${i}`}>
+                {item.name}
+            </Badge>
         )
     }
 
@@ -128,9 +180,9 @@ const TestLessonManagePanel = (props) => {
                         <Col md={6}>
                             <h4 style={indigoColor}>{testLesson?.name}</h4>
                             <Link to={`/testlesson/edit/${props.tlessonId}`} state={{ prevPath: location.pathname }}
-                                        className="btn btn-outline-primary mx-2" style={{width: 110}}>Update</Link>
+                                className="btn btn-outline-primary mx-2" style={{ width: 110 }}>Update</Link>
                             <Link onClick={() => setLessonLearnAgain(testLesson)} to={""}
-                                        className="btn btn-outline-primary mx-2" style={{ width: 110 }}>Learn again</Link>
+                                className="btn btn-outline-primary mx-2" style={{ width: 110 }}>Learn again</Link>
                         </Col>
                         <Col md={2}>
                             <div>{getReverseIcon()} reverse</div>
@@ -146,18 +198,18 @@ const TestLessonManagePanel = (props) => {
             </Row>
             <Row className="p-2 row-cols-auto">
                 <Col>
-                    <TagDropdownPanel wordTags={filterWTags} tags={allWTags} handler={tagSelectHandler}/>
+                    <TagDropdownPanel wordTags={filterWTags} tags={allWTags} handler={tagSelectHandler} />
                 </Col>
             </Row>
             <Row>
                 <Col md={5} className="p-0">
-                    <AllTCardsTable tCards={tCards} addAction={addToLesson}/>
+                    <AllTCardsTable tCards={tCards} addAction={addToLesson} />
                 </Col>
                 <Col md={7} className="p-0">
-                    {/* <TranslatesForLessonTable trLessons={trLessons} deleteAction={deleteFromLesson} again={learnAgain} skip={skipLearning} lesson={wlesson}/> */}
+                    <CurLessonTCardsTable tcInfos={tcInfos} deleteAction={deleteFromLesson} again={learnAgain} skip={skipLearning} tlesson={testLesson}/>
                 </Col>
             </Row>
-        </Container>    
+        </Container>
     );
 };
 

@@ -17,7 +17,7 @@ const TestCardTestLesson = () => {
     return (
         <>
         <Layout>
-            <TestLessonManagePanel tlessonId={params.id} />
+            <TestLessonManagePanel tlessonId={Number(params.id)} />
         </Layout>
         </>
     );
