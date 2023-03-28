@@ -1,4 +1,5 @@
 import { $axiosAuth } from "../../../services/auth/instance";
+import { TCardTLessonInfo } from "../models/TCardTLessonInfo";
 import { TestCardTestLesson } from "../models/TestCardTestLesson";
 import { TestCardTestLessonSearchRequest } from "../models/TestCardTestLessonSearchRequest";
 import { TestLesson } from "../models/TestLesson";
@@ -30,8 +31,8 @@ export default class TestCardTestLessonService {
         return response;
     }
 
-    static async skipTCardTLesson(tctLesson:TestCardTestLesson) {
-        const response = await $axiosAuth.put("/tcard-tlesson/skip", tctLesson);
+    static async skipTCardTLesson(tCardTLessonInfo:TCardTLessonInfo) {
+        const response = await $axiosAuth.put("/tcard-tlesson/skip", tCardTLessonInfo);
         return response;
     }
 

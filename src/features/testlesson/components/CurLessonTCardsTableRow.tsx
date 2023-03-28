@@ -53,15 +53,15 @@ const CurLessonTCardsTableRow = (props:CurLessonTCardsTableRowProps) => {
             </td>
             <td>{props.tctl.countDone}</td>
             { props.tctl.skip ?
-                <th className="text-center">
-                    <CheckCircle size={18} color="red"></CheckCircle>
-                </th>
+                <td className="text-center">
+                    <CheckCircle size={18} color="red" onClick={() => skipLearning(props.tctl)}></CheckCircle> 
+                </td>
                 :
-                <th className="text-center">
+                <td className="text-center">
                     <span style={pointerHover}>
                         <Circle size={18} color="gray" onClick={() => skipLearning(props.tctl)}></Circle>
                     </span>
-                </th>
+                </td>
             }
         </tr>
     );

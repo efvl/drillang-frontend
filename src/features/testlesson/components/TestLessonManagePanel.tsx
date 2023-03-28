@@ -116,9 +116,8 @@ const TestLessonManagePanel = (props: TestLessonManagePanelProps) => {
             id : tLessonInfo.id,
             testCard: { id: tLessonInfo.testCardId },
             testLesson: testLesson,
-            skip: true,
         } as TestCardTestLesson;
-        const response = await TestCardTestLessonService.skipTCardTLesson(tctl);
+        const response = await TestCardTestLessonService.skipTCardTLesson(tLessonInfo);
         if(response.status == 200){
             refreshData();
         }
