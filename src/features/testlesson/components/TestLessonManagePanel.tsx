@@ -36,7 +36,7 @@ const TestLessonManagePanel = (props: TestLessonManagePanelProps) => {
     const [testLesson, setTestLesson] = useState<TestLesson>({});
     const [tCards, setTCards] = useState<TCard[]>([]);
     const [tcInfos, setTcInfos] = useState<TCardTLessonInfo[]>([]);
-    const [tCardSearchData, setTCardSearchData] = useState<TestCardTestLessonSearchRequest>({ curNumPage: 0, sizeOfPage: 500 });
+    const [tCardSearchData, setTCardSearchData] = useState<TestCardTestLessonSearchRequest>({ curNumPage: 0, sizeOfPage: 500, lessonId: props.tlessonId });
     const [allWTags, setAllWTags] = useState<WTag[]>([]);
     const [filterWTags, setFilterWTags] = useState<WTag[]>([]);
 
@@ -70,9 +70,9 @@ const TestLessonManagePanel = (props: TestLessonManagePanelProps) => {
         fetchCardInfosOfLesson(testLesson.id);
     }
 
-    const fetchAllTCards = async (searchData: TCardSearchRequest) => {
+    const fetchAllTCards = async (searchData: TestCardTestLessonSearchRequest) => {
         console.log(searchData);
-        const response = await TestCardService.searchTestCards(searchData);
+        const response = await TestCardService.searchTestCardsForLesson(searchData);
         console.log(response.data);
         setTCards(response.data.content);
     }
@@ -86,6 +86,9 @@ const TestLessonManagePanel = (props: TestLessonManagePanelProps) => {
     const tagSelectHandler = (tags: WTag[]) => {
         console.log(tags);
         setFilterWTags(tags);
+        let searchData = {...tCardSearchData, tags:tags}
+        setTCardSearchData(searchData);
+        fetchAllTCards(searchData);
     }
 
     const setLessonLearnAgain = async (tlesson: TestLesson) => {

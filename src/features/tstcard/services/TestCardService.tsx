@@ -1,4 +1,5 @@
 import { $axiosAuth } from "../../../services/auth/instance";
+import { TestCardTestLessonSearchRequest } from "../../testlesson/models/TestCardTestLessonSearchRequest";
 import { TCard } from "../models/TCard";
 import { TCardSearchRequest } from "../models/TCardSearchRequest";
 
@@ -6,6 +7,11 @@ export default class TestCardService {
 
     static async searchTestCards(searchData:TCardSearchRequest) {
         const response = await $axiosAuth.post("/test-card/search", searchData);
+        return response;
+    }
+
+    static async searchTestCardsForLesson(searchData:TestCardTestLessonSearchRequest) {
+        const response = await $axiosAuth.post("/test-card/search/for-lesson", searchData);
         return response;
     }
 
