@@ -8,6 +8,8 @@ export interface TranslateWLessonInfo {
     translateId?:number;
     word1?:string;
     word2?:string;
+    example1?:string;
+    example2?:string;
     allAnswer?:number;
     correctAnswer?:number;
     targetAnswer?:number;
