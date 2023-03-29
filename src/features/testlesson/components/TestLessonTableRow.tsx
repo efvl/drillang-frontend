@@ -28,6 +28,7 @@ const TestLessonTableRow = (props:TestLessonTableRowProps) => {
             <td className="text-center">{getReverseIcon()}</td>
             <td className="text-center">{props.testLesson.countDone}</td>
             <td>
+                <Link to={`/process/testlesson/${props.testLesson.id}`} className="btn mx-2 btn-primary">Start</Link>
                 <Link to={`/testlesson/edit/${props.testLesson.id}`} state={{ prevPath: location.pathname }}
                              className="btn btn-outline-primary mx-2">Update</Link>
                 <Link to={`/testlesson/cards/${props.testLesson.id}`} className="btn mx-2 btn-primary">Manage</Link>

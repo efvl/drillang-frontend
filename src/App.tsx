@@ -26,6 +26,7 @@ import LTags from './pages/lessontag/LTags';
 import TestLessons from './pages/testlesson/TestLessons';
 import AddEditTestLesson from './pages/testlesson/AddEditTestLesson';
 import TestCardTestLesson from './pages/testlesson/TestCardTestLesson';
+import TestLessonProcess from './pages/testlesson/TestLessonProcess';
 
 
 const App = () => {
@@ -77,6 +78,7 @@ const App = () => {
               <Route path="/testlesson/add" element={ <AddEditTestLesson/> }/>
               <Route path="/testlesson/edit/:id" element={ <AddEditTestLesson/> }/>
               <Route path="/testlesson/cards/:id" element={ <TestCardTestLesson/> }/>
+              <Route path="/process/testlesson/:id" element={ <TestLessonProcess/> }/>
             </Routes>
           </BrowserRouter>
       </div>

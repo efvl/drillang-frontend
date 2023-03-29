@@ -183,6 +183,8 @@ const TestLessonManagePanel = (props: TestLessonManagePanelProps) => {
                             <h4 style={indigoColor}>{testLesson?.name}</h4>
                             <Link to={`/testlesson/edit/${props.tlessonId}`} state={{ prevPath: location.pathname }}
                                 className="btn btn-outline-primary mx-2" style={{ width: 110 }}>Update</Link>
+                            <Link to={`/process/testlesson/${props.tlessonId}`} 
+                                className="btn btn-outline-primary mx-2" style={{width: 110}}>Start</Link>
                             <Link onClick={() => setLessonLearnAgain(testLesson)} to={""}
                                 className="btn btn-outline-primary mx-2" style={{ width: 110 }}>Learn again</Link>
                         </Col>
