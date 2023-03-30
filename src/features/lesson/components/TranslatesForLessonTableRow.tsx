@@ -57,7 +57,7 @@ const TranslatesForLessonTableRow = (props:TranslateForLessonTableRowProps) => {
             <td>{props.twl.countDone}</td>
             { props.twl.skip ?
                 <th className="text-center">
-                    <CheckCircle size={18} color="red"></CheckCircle>
+                    <CheckCircle size={18} color="red" onClick={() => skipLearning(props.twl)}></CheckCircle>
                 </th>
                 :
                 <th className="text-center">
