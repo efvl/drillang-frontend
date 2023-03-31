@@ -19,15 +19,18 @@ const TranslatesForLessonTable = (props:TranslateForLessonTableProps) => {
         <Container className="pt-2 pe-0">
             <Table striped bordered hover className="shadow">
                 <thead>
-                    <tr>
-                        <th className="text-center">Del</th>
-                        <th scope="col">N</th>
-                        <th scope="col">Word1</th>
-                        <th scope="col">Word2</th>
-                        <th scope="col">All Answer</th>
-                        <th scope="col">Correct Answer</th>
-                        <th scope="col">Count Done</th>
-                        <th className="text-center">Skip</th>
+                    <tr style={{ textAlign: "center", verticalAlign: "middle" }}>
+                        <th rowSpan={2} className="text-center">Del</th>
+                        <th rowSpan={2} scope="col">N</th>
+                        <th rowSpan={2} scope="col">Word1</th>
+                        <th rowSpan={2} scope="col">Word2</th>
+                        <th colSpan={2} scope="col">Answers</th>
+                        <th rowSpan={2} scope="col">Done</th>
+                        <th rowSpan={2} className="text-center">Skip</th>
+                    </tr>
+                    <tr style={{ textAlign: "center" }}>
+                        <th scope="col">All</th>
+                        <th scope="col">Correct</th>
                     </tr>
                 </thead>
                 <tbody>

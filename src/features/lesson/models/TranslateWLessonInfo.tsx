@@ -6,6 +6,8 @@ export interface TranslateWLessonInfo {
     audioId2?:number;
     lessonId?:number;
     translateId?:number;
+    card1Id?:number;
+    card2Id?:number;
     word1?:string;
     word2?:string;
     example1?:string;

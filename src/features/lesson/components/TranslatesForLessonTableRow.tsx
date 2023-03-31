@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Popover } from "react-bootstrap";
 import { ArrowRepeat, ArrowLeftSquare, XSquare, CheckCircle, Circle, TrophyFill, Square } from "react-bootstrap-icons";
 import { TranslateWLessonInfo } from "../models/TranslateWLessonInfo";
 import { Lesson } from "../models/Lesson";
+import Utils from "../../Utils";
 
 interface TranslateForLessonTableRowProps {
     twl?:TranslateWLessonInfo;
@@ -33,6 +34,15 @@ const TranslatesForLessonTableRow = (props:TranslateForLessonTableRowProps) => {
         cursor: 'pointer',
      };
 
+     const popover = (
+        <Popover id="popover-basic">
+        <Popover.Body>
+            <div>{props.twl.word1}</div> 
+            <div>{props.twl.word2}</div>
+        </Popover.Body>
+      </Popover>
+      );
+
     return ( 
         <tr>
             <th className="text-center">
@@ -41,10 +51,12 @@ const TranslatesForLessonTableRow = (props:TranslateForLessonTableRowProps) => {
                 </span>
             </th>
             <th scope="row">{props.rowNum}</th> 
-            <td>{props.twl.word1}</td>
-            <td>{props.twl.word2}</td>
-            <td>{props.twl.allAnswer}</td>
-            <td>
+            <OverlayTrigger trigger="hover" placement="top-start" overlay={popover}>
+                <td>{Utils.cutString(props.twl?.word1, 100)}</td>
+            </OverlayTrigger>
+            <td>{Utils.cutString(props.twl?.word2, 100)}</td>
+            <td width="1%" align="center">{props.twl.allAnswer}</td>
+            <td width="12%">
                 {props.lesson?.countDone <= props.twl.correctAnswer 
                                     ? <TrophyFill color="gold" size={18} /> 
                                     : <Square color="gray" size={18} />
@@ -54,7 +66,7 @@ const TranslatesForLessonTableRow = (props:TranslateForLessonTableRowProps) => {
                     <ArrowRepeat size={18} color="green" onClick={() => learnAgain(props.twl)} className="border rounded border-secondary"></ArrowRepeat>
                 </span>
             </td>
-            <td>{props.twl.countDone}</td>
+            <td width="1%" align="center">{props.twl.countDone}</td>
             { props.twl.skip ?
                 <th className="text-center">
                     <CheckCircle size={18} color="red" onClick={() => skipLearning(props.twl)}></CheckCircle>
