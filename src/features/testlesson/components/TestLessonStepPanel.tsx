@@ -205,7 +205,6 @@ const TestLessonStepPanel = (props:TestLessonStepPanelProps) => {
             <Row className="border rounded p-3 mt-3">
                 <Col md={4} className="border">
                     {isStart && curCardInfo && curCardInfo.pictureId && <img src={PictureFileService.PICTURE_URL + "/" + curCardInfo.pictureId}  width="100%"/>}
-                    <span>GGG</span>
                 </Col>
                 <Col md={6}>
                     <Row className="row-cols-auto">
