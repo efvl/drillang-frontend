@@ -160,7 +160,7 @@ const LessonStepPanel = (props) => {
     const calcStatistic = () => {
         let trLesson = trLessons.get(curTranslate.id);
         trLesson.allAnswer += 1;
-        let correctAnswer = trLesson.reverse ? trLesson.word2.substr(0, answer.length) : trLesson.word1.substr(0, answer.length);
+        let correctAnswer = wlesson.reverse ? trLesson.word1.substr(0, answer.length) : trLesson.word2.substr(0, answer.length);
         correctAnswer = correctAnswer.toLowerCase();
         console.log(answer + " ? " + correctAnswer);
         if(correctAnswer === answer.toLowerCase()){
