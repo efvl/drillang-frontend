@@ -69,7 +69,7 @@ const WCardForm = (props:WCardFormProps) => {
 
             <Form.Group className="mb-3" controlId="tagsField">
                 <Form.Label>Tags</Form.Label>
-                <TagDropdownPanel wordTags={wcardForm.tags} tags={allTags} handler={tagSelectHandler}/>
+                <TagDropdownPanel wordTags={wcardForm?.tags} tags={allTags} handler={tagSelectHandler}/>
             </Form.Group>
             <div className="text-center p-2">
                 <Button variant="outline-primary" style={{width: 150}} type="submit" onClick={submitWordCard}> Save </Button>
