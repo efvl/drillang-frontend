@@ -9,6 +9,7 @@ import { Language } from "../../features/langs/models/Language";
 import { WTag } from "../../features/tags/models/WTag";
 import { AppUserContext } from "../../models/AppUserContext";
 import { AppContext } from "../../models/AppUserContextProvider";
+import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import TranslateActionBar from "../../features/translate/components/TranslateActionBar";
 
@@ -70,4 +71,4 @@ const Translates = () => {
 
 };
 
-export default Translates;
+export default observer(Translates);

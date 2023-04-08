@@ -32,7 +32,7 @@ const TranslateActionBar = ({onChangeFilter}) => {
 
     const initData = async () => {
         const responseTags = await TagService.searchTags({});
-        const pageSearch = {...appUserContext.store.wcardPageSearch} as TranslateSearchRequest;
+        const pageSearch = {...appUserContext.store.translatePageSearch} as TranslateSearchRequest;
         let contextTags = [] as WTag[];
         if(responseTags.data?.length > 0){
             setAllTags(responseTags.data);
@@ -79,9 +79,6 @@ const TranslateActionBar = ({onChangeFilter}) => {
     return (
         <Container>
             <Row className="p-2 row-cols-auto">
-                <Col>
-                    <Link className="btn btn-outline-success" to="/wcard/add">Add Word Card</Link>
-                </Col>
                 <Col className="btn border rounded pt-1 shadow-sm" onClick={handleSearch}>
                     <Search size={24}></Search>
                 </Col>
