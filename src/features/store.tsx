@@ -5,11 +5,13 @@ import $axiosInstance, { $axiosAuth, API_URL } from "../services/auth/instance";
 import AuthService from "../services/AuthService";
 import { WCardSearchRequest } from "./card/models/WCardSearchRequest";
 import { IUser } from "./login/models/IUser";
+import { TranslateSearchRequest } from "./translate/models/TranslateSearchRequest";
 
 export default class Store {
     user = {} as IUser;
     isAuth = false;
     wcardPageSearch = { sizeOfPage:10 } as WCardSearchRequest;
+    translatePageSearch = {sizeOfPage:10 } as TranslateSearchRequest;
 
     constructor() {
         makeAutoObservable(this);
@@ -25,6 +27,10 @@ export default class Store {
 
     setWCardPageSearch(wcardPageSearch: WCardSearchRequest){
         this.wcardPageSearch = wcardPageSearch;
+    }
+
+    setTranslatePageSearch(translatePageSearch: TranslateSearchRequest){
+        this.translatePageSearch = translatePageSearch;
     }
 
     async login(login: string, password: string){
