@@ -61,7 +61,7 @@ const WCardForm = (props:WCardFormProps) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="example">
                 <Form.Label>Example</Form.Label>
-                <Form.Control as="textarea" rows={3} 
+                <Form.Control as="textarea" rows={5} 
                     placeholder="Enter example of word using"
                     value={wcardForm?.example}
                     onChange={e => setWcardForm({...wcardForm, example: e.target.value})}/>

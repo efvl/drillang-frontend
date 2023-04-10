@@ -257,8 +257,8 @@ const LessonStepPanel = (props) => {
                                         : <Form.Control as="textarea" rows={3} disabled readOnly value={isCurChecked ? curTranslate?.word2 : ''}  />
                                     }
                                     { wlesson?.reverse 
-                                        ? <Form.Control as="textarea" rows={3} disabled readOnly value={isCurChecked ? curTranslate?.example1 : ''}  />
-                                        : <Form.Control as="textarea" rows={3} disabled readOnly value={isCurChecked ? curTranslate?.example2 : ''}  />
+                                        ? <Form.Control as="textarea" rows={5} disabled readOnly value={isCurChecked ? curTranslate?.example1 : ''}  />
+                                        : <Form.Control as="textarea" rows={5} disabled readOnly value={isCurChecked ? curTranslate?.example2 : ''}  />
                                     }
                                 </Form>
                             </Col>

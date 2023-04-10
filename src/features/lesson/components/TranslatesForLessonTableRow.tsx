@@ -51,7 +51,7 @@ const TranslatesForLessonTableRow = (props:TranslateForLessonTableRowProps) => {
                 </span>
             </th>
             <th scope="row">{props.rowNum}</th> 
-            <OverlayTrigger trigger="hover" placement="top-start" overlay={popover}>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover}>
                 <td>{Utils.cutString(props.twl?.word1, 100)}</td>
             </OverlayTrigger>
             <td>{Utils.cutString(props.twl?.word2, 100)}</td>
