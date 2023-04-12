@@ -33,8 +33,8 @@ const WLessonTableRow = (props:WLessonTableRowProps) => {
             <td>{props.wlesson.name}</td>
             <td className="text-center">{getFromToLanguageLabel()}</td>
             <td className="text-center">{getReverseIcon()}</td>
-            <td className="text-center">{props.wlesson.countDone}</td>
-            <td className="text-center">{props.wlesson.countChars}</td>
+            <td width="1%" className="text-center">{props.wlesson.countDone}</td>
+            <td width="1%" className="text-center">{props.wlesson.countChars}</td>
             <td>
                 <Link to={`/process/wlesson/${props.wlesson.id}`} className="btn mx-2 btn-primary">Start</Link>
                 <Link to={`/wlesson/translates/${props.wlesson.id}`} className="btn mx-2 btn-primary">Manage</Link>
