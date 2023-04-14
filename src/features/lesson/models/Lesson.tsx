@@ -8,4 +8,5 @@ export interface Lesson {
     reverse?:boolean;
     fromLanguage?:Language;
     toLanguage?:Language;
+    translatesCount?:number;
 }

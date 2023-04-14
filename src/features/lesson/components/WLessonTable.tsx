@@ -16,9 +16,9 @@ const WLessonTable = (props:WLessonTableProps) => {
             <Table striped bordered hover className="shadow">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
                     <th scope="col">id</th>
                     <th scope="col">Name</th>
+                    <th scope="col">words</th>
                     <th scope="col" className="text-center">From To Lang</th>
                     <th scope="col" className="text-center">Reverse</th>
                     <th scope="col" className="text-center">Count Done</th>

@@ -28,9 +28,9 @@ const WLessonTableRow = (props:WLessonTableRowProps) => {
 
     return ( 
         <tr>
-            <th scope="row">{props.rowNum}</th> 
             <td>{props.wlesson.id}</td>
             <td>{props.wlesson.name}</td>
+            <td>{props.wlesson.translatesCount}</td>
             <td className="text-center">{getFromToLanguageLabel()}</td>
             <td className="text-center">{getReverseIcon()}</td>
             <td width="1%" className="text-center">{props.wlesson.countDone}</td>
