@@ -72,7 +72,7 @@ const TranslatesForLessonTableRow = (props:TranslateForLessonTableRowProps) => {
             </td>
             <td>
                 <InputGroup>
-                    <FormControl type="text" className="p-1 justify-content-center"
+                    <FormControl type="text" className="p-1 justify-content-center" style={{width: 30}}
                         value={wlOrder} 
                         onChange={updateOrder} 
                         onKeyDown={handleAnswerKeyDown}/>

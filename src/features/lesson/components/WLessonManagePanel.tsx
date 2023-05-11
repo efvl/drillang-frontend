@@ -12,7 +12,7 @@ import TranslateService from '../../translate/services/TranslateServices';
 import TranslateWLessonService from '../services/TranslateWLessonService';
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-import { CheckSquare, Square, ArrowRepeat } from "react-bootstrap-icons";
+import { CheckCircle, Square, ArrowRepeat, Circle } from "react-bootstrap-icons";
 import WTranslateTable from "./WTranslateTable";
 import TranslatesForLessonTable from "./TranslatesForLessonTable";
 import { Lesson } from "../models/Lesson";
@@ -171,6 +171,12 @@ const WLessonManagePanel = (props) => {
             : <Square></Square>
     }
 
+    const geUseOrderIcon = () => {
+        return wlesson?.useOrder
+            ? <CheckCircle size={16} color="limegreen"></CheckCircle>
+            : <Circle size={14} color="gray"></Circle>
+    }
+
     const greenColor = {
         color: 'limegreen',
     };
@@ -184,11 +190,11 @@ const WLessonManagePanel = (props) => {
             <Row>
                 <Col className="border rounded p-3">
                     <Row>
-                        <Col md={4}>
-                            <h4 style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4>
+                        <Col md={4} >
+                            <h4 className="text-center" style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4>
                         </Col>
                         <Col md={6}>
-                            <h4 style={indigoColor}>{wlesson?.name}</h4>
+                            <h4 className="text-center" style={indigoColor}>{wlesson?.name}</h4>
                             <Link to={`/wlesson/edit/${props.wlessonId}`} state={{ prevPath: location.pathname }}
                                         className="btn btn-outline-primary mx-2" style={{width: 110}}>Update</Link>
                             <Link to={`/process/wlesson/${props.wlessonId}`} 
@@ -198,16 +204,13 @@ const WLessonManagePanel = (props) => {
                             <span> {countWords} cards </span>
                         </Col>
                         <Col md={2}>
-                            <div>{getReverseIcon()} reverse</div>
-                            <div>count done: {wlesson?.countDone}</div>
-                            <div>count chars: {wlesson?.countChars}</div>
+                                <div>{getReverseIcon()} reverse</div>
+                                <div>{geUseOrderIcon()} useOrder</div>
+                                <div>count done: {wlesson?.countDone}</div>
+                                <div>count chars: {wlesson?.countChars}</div>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col md={5}></Col>
-                        <Col md={5}></Col>
-                        <Col md={2}></Col>
-                    </Row>
+
                 </Col>
             </Row>
             <Row className="p-2 row-cols-auto">

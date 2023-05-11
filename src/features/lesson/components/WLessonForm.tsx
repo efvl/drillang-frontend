@@ -79,8 +79,12 @@ const WLessonForm = (props:WLessonFormProps) => {
         }
         wlessonForm.fromLanguage = fromSelectLang;
         wlessonForm.toLanguage = toSelectLang;
-        const response = await WordLessonService.addWordLesson(wlessonForm);
-        console.log(response.data);
+        if(props.isEdit) {
+            await WordLessonService.updateWordLesson(wlessonForm);
+        } else {
+            const response = await WordLessonService.addWordLesson(wlessonForm);
+            console.log(response.data);
+        }
         if(location.state?.prevPath) {
             navigate(location.state.prevPath);
         } else {
@@ -174,8 +178,16 @@ const WLessonForm = (props:WLessonFormProps) => {
                                 onChange={handleCountCharsChange}/>
                         </Col>
                     </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="useOrder">
+                        <Form.Label column sm="3">Use Order : </Form.Label>
+                        <Col sm="9" className="pt-2">
+                            <Form.Check type='checkbox' 
+                                    checked={wlessonForm?.useOrder} 
+                                    onChange={e => setWLessonForm({...wlessonForm, useOrder: e.target.checked})}/>
+                        </Col>
+                    </Form.Group>
                     <div className="text-center p-2">
-                        <Button variant="outline-primary" style={{width: 150}} type="submit" onClick={submitWordLesson}> Save </Button>
+                        <Button variant="outline-primary" style={{width: 150}} type="submit" onClick={submitWordLesson}>{props.isEdit?' Save ':' Add '}</Button>
                         <Link className="btn btn-outline-danger mx-2" style={{ width: 150 }} onClick={cancelAction} to={""}>Cancel</Link>
                     </div>
                 </Form>

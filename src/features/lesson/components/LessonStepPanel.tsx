@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Square, VolumeUp, ArrowRepeat, TrophyFill, ArrowRightSquare, CheckSquare, XSquare } from "react-bootstrap-icons";
+import { Square, VolumeUp, ArrowRepeat, TrophyFill, ArrowRightSquare, CheckSquare, XSquare, CheckCircle, Circle } from "react-bootstrap-icons";
 import WordLessonService from "../services/WordLessonService";
 import TranslateWLessonService from "../services/TranslateWLessonService";
 import PictureFileService from "../../card/services/PictureFileService";
@@ -74,7 +74,7 @@ const LessonStepPanel = (props) => {
 
     const initRound = (trLs, wl) => {
         let curRound = trLs.filter(item => item.correctAnswer < wl.countDone); 
-        if(curRound.length > 4){
+        if(curRound.length > 4 && !wlesson.useOrder){
             Utils.shuffleArray(curRound);
         }
         setNextTranslate(curRound);
@@ -86,7 +86,7 @@ const LessonStepPanel = (props) => {
         setAnswer('');
         setCurCorrect(false);
         if(curRound.length > 0){
-            let nextTr = curRound.pop();
+            let nextTr = curRound.shift();
             console.log(nextTr);
             setCurAudios(nextTr);
             setCurTranslate(nextTr);
@@ -191,6 +191,12 @@ const LessonStepPanel = (props) => {
             : <Square size={18} color="black"></Square>
     }
 
+    const getUseOrderIcon = () => {
+        return wlesson?.useOrder
+            ? <CheckCircle size={16} color="limegreen"></CheckCircle>
+            : <Circle size={14} color="gray"></Circle>
+    }
+
     const greenColor = {
         color: 'limegreen',
     };
@@ -208,17 +214,20 @@ const LessonStepPanel = (props) => {
                     {isStart && <Button variant="outline-primary" style={{width: 150}} onClick={stopLesson}> Stop </Button>}
                     <Button className="ms-2" variant="outline-primary" style={{width: 150}} onClick={manageLesson}> Manage </Button>
                 </Col>
-                <Col md={6} className="pt-2">
+                <Col md={4} className="pt-2">
                     <h4 style={indigoColor}>{wlesson?.name}</h4>
                     <div>cards: {lessonSize} ready: {lessonReady}</div>
                 </Col>
                 <Col md={2}>
                     <div>{getReverseIcon()} reverse</div>
-                    <div>count done: {wlesson?.countDone}</div>
-                    <div>count chars: {wlesson?.countChars}</div>
+                    <div>{getUseOrderIcon()} use Order</div>
                     <div onClick={() => setIsPlayAudio(!isPlayAudio)}>
                         { getIsPlayIcon() } auto play audio
                     </div>
+                </Col>
+                <Col md={2}>
+                    <div>count done: {wlesson?.countDone}</div>
+                    <div>count chars: {wlesson?.countChars}</div>
                 </Col>
             </Row>
             {isStart &&

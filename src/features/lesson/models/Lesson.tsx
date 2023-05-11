@@ -9,4 +9,5 @@ export interface Lesson {
     fromLanguage?:Language;
     toLanguage?:Language;
     translatesCount?:number;
+    useOrder?:boolean;
 }
