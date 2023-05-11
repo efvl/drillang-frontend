@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Square, VolumeUp, ArrowRepeat, TrophyFill, ArrowRightSquare, CheckSquare, XSquare, CheckCircle, Circle } from "react-bootstrap-icons";
 import WordLessonService from "../services/WordLessonService";
 import TranslateWLessonService from "../services/TranslateWLessonService";
@@ -207,27 +207,35 @@ const LessonStepPanel = (props) => {
 
     return (
         <Container className="mt-3">
-            <Row className="border rounded p-3 justify-content-center">
-                <Col md={4} className="pt-2">
-                    <h4 style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4>
-                    {!isStart && <Button variant="outline-primary" style={{width: 150}} onClick={startLesson} disabled={lessonSize == lessonReady}> Start </Button>}
-                    {isStart && <Button variant="outline-primary" style={{width: 150}} onClick={stopLesson}> Stop </Button>}
-                    <Button className="ms-2" variant="outline-primary" style={{width: 150}} onClick={manageLesson}> Manage </Button>
-                </Col>
-                <Col md={4} className="pt-2">
-                    <h4 style={indigoColor}>{wlesson?.name}</h4>
-                    <div>cards: {lessonSize} ready: {lessonReady}</div>
-                </Col>
-                <Col md={2}>
-                    <div>{getReverseIcon()} reverse</div>
-                    <div>{getUseOrderIcon()} use Order</div>
-                    <div onClick={() => setIsPlayAudio(!isPlayAudio)}>
-                        { getIsPlayIcon() } auto play audio
-                    </div>
-                </Col>
-                <Col md={2}>
-                    <div>count done: {wlesson?.countDone}</div>
-                    <div>count chars: {wlesson?.countChars}</div>
+            <Row>
+                <Col className="border rounded p-3">
+                    <Row>
+                        <h4 className="text-center" style={indigoColor}>{wlesson?.name}</h4>
+                    </Row>
+                    <Row className="justify-content-center">
+                        <Col md={4} className="pt-2">
+                            <h4 style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4>
+                            <Link to={`/wlesson/edit/${wlesson?.id}`} state={{ prevPath: location.pathname }}
+                                        className="btn btn-outline-primary mx-2" style={{width: 100}}>Update</Link>
+                            {!isStart && <Button variant="outline-primary" style={{width: 100}} onClick={startLesson} disabled={lessonSize == lessonReady}> Start </Button>}
+                            {isStart && <Button variant="outline-primary" style={{width: 100}} onClick={stopLesson}> Stop </Button>}
+                            <Button className="ms-2" variant="outline-primary" style={{width: 100}} onClick={manageLesson}> Manage </Button>
+                        </Col>
+                        <Col md={4} className="pt-2">
+                            <div className="text-center">cards: {lessonSize} ready: {lessonReady}</div>
+                        </Col>
+                        <Col md={2}>
+                            <div>{getReverseIcon()} reverse</div>
+                            <div>{getUseOrderIcon()} use Order</div>
+                            <div onClick={() => setIsPlayAudio(!isPlayAudio)}>
+                                { getIsPlayIcon() } auto play audio
+                            </div>
+                        </Col>
+                        <Col md={2}>
+                            <div>count done: {wlesson?.countDone}</div>
+                            <div>count chars: {wlesson?.countChars}</div>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
             {isStart &&

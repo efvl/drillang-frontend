@@ -190,18 +190,20 @@ const WLessonManagePanel = (props) => {
             <Row>
                 <Col className="border rounded p-3">
                     <Row>
+                        <h4 className="text-center" style={indigoColor}>{wlesson?.name}</h4>
+                    </Row>
+                    <Row>
                         <Col md={4} >
-                            <h4 className="text-center" style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4>
-                        </Col>
-                        <Col md={6}>
-                            <h4 className="text-center" style={indigoColor}>{wlesson?.name}</h4>
+                            <h4 style={greenColor}>{wlesson?.fromLanguage?.fullName}-{wlesson?.toLanguage?.fullName}</h4>
                             <Link to={`/wlesson/edit/${props.wlessonId}`} state={{ prevPath: location.pathname }}
                                         className="btn btn-outline-primary mx-2" style={{width: 110}}>Update</Link>
                             <Link to={`/process/wlesson/${props.wlessonId}`} 
                                         className="btn btn-outline-primary mx-2" style={{width: 110}}>Start</Link>
                             <Link onClick={() => setLessonLearnAgain(wlesson)} to={""}
                                         className="btn btn-outline-primary mx-2" style={{ width: 110 }}>Learn again</Link>
-                            <span> {countWords} cards </span>
+                        </Col>
+                        <Col md={6}>
+                            <div className="text-center"> {countWords} cards </div>
                         </Col>
                         <Col md={2}>
                                 <div>{getReverseIcon()} reverse</div>
