@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, OverlayTrigger, Popover } from "react-bootstrap";
+import { Button, FormControl, InputGroup, OverlayTrigger, Popover } from "react-bootstrap";
 import { ArrowRepeat, ArrowLeftSquare, XSquare, CheckCircle, Circle, TrophyFill, Square } from "react-bootstrap-icons";
 import { TranslateWLessonInfo } from "../models/TranslateWLessonInfo";
 import { Lesson } from "../models/Lesson";
@@ -13,10 +13,17 @@ interface TranslateForLessonTableRowProps {
     deleteAction?:(id:number) => void;
     againAction?:(twl:TranslateWLessonInfo) => void;
     skipAction?:(twl:TranslateWLessonInfo) => void;
+    updOrder?:(twl:TranslateWLessonInfo) => void;
 }
 
 
 const TranslatesForLessonTableRow = (props:TranslateForLessonTableRowProps) => {
+
+    const [wlOrder, setWlOrder] = useState<number>(0);
+
+    useEffect(() => {
+        setWlOrder(props.twl?.wlOrder)
+    }, []);
 
     const removeTranslationFromLesson = (id) => {
         props.deleteAction(id);
@@ -28,6 +35,19 @@ const TranslatesForLessonTableRow = (props:TranslateForLessonTableRowProps) => {
 
     const skipLearning = (twl:TranslateWLessonInfo) => {
         props.skipAction(twl);
+    }
+
+    const updateOrder = (event) => {
+        event.preventDefault();
+        const result = event.target.value.replace(/\D/g, '');
+        setWlOrder(result);
+    };
+
+    const handleAnswerKeyDown = (event) => {
+        if(event.key === 'Enter'){
+            event.preventDefault();
+            props.updOrder({...props.twl, wlOrder: wlOrder});
+        }
     }
 
     const pointerHover = {
@@ -45,12 +65,19 @@ const TranslatesForLessonTableRow = (props:TranslateForLessonTableRowProps) => {
 
     return ( 
         <tr>
-            <th className="text-center">
+            <td className="text-center">
                 <span style={pointerHover}>
                     <ArrowLeftSquare size={18} color="red" onClick={() => removeTranslationFromLesson(props.twl.id)}></ArrowLeftSquare>
                 </span>
-            </th>
-            <th scope="row">{props.rowNum}</th> 
+            </td>
+            <td>
+                <InputGroup>
+                    <FormControl type="text" className="p-1 justify-content-center"
+                        value={wlOrder} 
+                        onChange={updateOrder} 
+                        onKeyDown={handleAnswerKeyDown}/>
+                </InputGroup>
+            </td> 
             <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover}>
                 <td>{Utils.cutString(props.twl?.word1, 100)}</td>
             </OverlayTrigger>

@@ -9,4 +9,5 @@ export interface TranslateWordLesson {
     allAnswer?:number;
     correctAnswer?:number;
     countDone?:number;
+    wlOrder?:number;
 }

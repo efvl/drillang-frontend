@@ -35,6 +35,7 @@ const WLessonManagePanel = (props) => {
     const [searchData, setSearchData] = useState<TranslateSearchRequest>({curNumPage:0, sizeOfPage:500});
     const [allTags, setAllTags] = useState<WTag[]>([]);
     const [filterTags, setFilterTags] = useState<WTag[]>([]);
+    const [countWords, setCountWords] = useState<number>(0);
 
     useEffect(() => {
         initData();
@@ -79,6 +80,7 @@ const WLessonManagePanel = (props) => {
         const response = await TranslateWLessonService.getTranslatesOfLesson(lessonId);
         console.log(response.data);
         setTrLessons(response.data);
+        setCountWords(response.data.length);
     }
 
     const tagSelectHandler = (tags:WTag[]) => {
@@ -94,6 +96,7 @@ const WLessonManagePanel = (props) => {
             translate: { id: translateId },
             wordLesson: wlesson,
             targetAnswer: 1,
+            wlOrder: countWords + 1
         } as TranslateWordLesson;
         const response = await TranslateWLessonService.addTrWLesson(twl);
         if(response.status == 200){
@@ -125,6 +128,20 @@ const WLessonManagePanel = (props) => {
             skip: true,
         } as TranslateWordLesson;
         const response = await TranslateWLessonService.skipTrLesson(twl);
+        if(response.status == 200){
+            refreshData();
+        }
+    }
+
+    const updateWLOrder = async (twLesson:TranslateWLessonInfo) => {
+        console.log(twLesson);
+        let twl = {
+            id : twLesson.id,
+            translate: { id: twLesson.translateId },
+            wordLesson: wlesson,
+            wlOrder: twLesson.wlOrder,
+        } as TranslateWordLesson;
+        const response = await TranslateWLessonService.updOrderTrLesson(twl);
         if(response.status == 200){
             refreshData();
         }
@@ -178,6 +195,7 @@ const WLessonManagePanel = (props) => {
                                         className="btn btn-outline-primary mx-2" style={{width: 110}}>Start</Link>
                             <Link onClick={() => setLessonLearnAgain(wlesson)} to={""}
                                         className="btn btn-outline-primary mx-2" style={{ width: 110 }}>Learn again</Link>
+                            <span> {countWords} cards </span>
                         </Col>
                         <Col md={2}>
                             <div>{getReverseIcon()} reverse</div>
@@ -202,7 +220,8 @@ const WLessonManagePanel = (props) => {
                     <WTranslateTable trns={trns} addAction={addToLesson}/>
                 </Col>
                 <Col md={7} className="p-0">
-                    <TranslatesForLessonTable trLessons={trLessons} deleteAction={deleteFromLesson} again={learnAgain} skip={skipLearning} lesson={wlesson}/>
+                    <TranslatesForLessonTable trLessons={trLessons} 
+                        deleteAction={deleteFromLesson} again={learnAgain} skip={skipLearning} updOrder={updateWLOrder} lesson={wlesson}/>
                 </Col>
             </Row>
         </Container>    

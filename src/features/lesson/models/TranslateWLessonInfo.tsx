@@ -17,4 +17,5 @@ export interface TranslateWLessonInfo {
     targetAnswer?:number;
     countDone?:number;
     skip?:boolean;
+    wlOrder?:number;
 }

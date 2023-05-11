@@ -34,6 +34,11 @@ export default class TranslateWLessonService {
         return response;
     }
 
+    static async updOrderTrLesson(trWLesson:TranslateWordLesson) {
+        const response = await $axiosAuth.put("/translate-wlesson/order", trWLesson);
+        return response;
+    }
+
     static async updateAllTrWLessons(trWLessons) {
         const response = await $axiosAuth.put("/translate-wlesson/bunch", trWLessons);
         return response;

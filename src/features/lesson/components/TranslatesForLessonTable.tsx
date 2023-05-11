@@ -10,6 +10,7 @@ interface TranslateForLessonTableProps {
     deleteAction?:(id:number) => void;
     again?:(twl:TranslateWLessonInfo) => void;
     skip?:(twl:TranslateWLessonInfo) => void; 
+    updOrder?:(twl:TranslateWLessonInfo) => void;
     lesson?:Lesson;
 }
 
@@ -36,7 +37,7 @@ const TranslatesForLessonTable = (props:TranslateForLessonTableProps) => {
                 <tbody>
                     {props.trLessons.map((item, index) =>
                         <TranslatesForLessonTableRow key={item.id} rowNum={index + 1} twl={item} 
-                                deleteAction={props.deleteAction} againAction={props.again} skipAction={props.skip} lesson={props.lesson}/>
+                                deleteAction={props.deleteAction} againAction={props.again} skipAction={props.skip} updOrder={props.updOrder} lesson={props.lesson}/>
                     )}
                 </tbody>
             </Table>
