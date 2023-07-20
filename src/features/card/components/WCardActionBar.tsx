@@ -79,7 +79,7 @@ const WCardActionBar = ({onChangeFilter}) => {
     }
 
     return (
-        <Container>
+        <Container className="py-2">
             <Row className="p-2 row-cols-auto">
                 <Col>
                     <Link className="btn btn-outline-success" to="/wcard/add">Add Word Card</Link>

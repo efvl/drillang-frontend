@@ -155,27 +155,27 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
                 <Col><h5 className="text-center">Edit Test Card</h5></Col>
             </Row>
             <Row>
-                <Col className="border p-4">
+                <Col className="border p-1">
                 <Form>
-                    <Form.Group className="mb-3" controlId="question">
+                    <Form.Group className="mb-2" controlId="question">
                         <Form.Label>Question</Form.Label>
-                        <Form.Control as="textarea" rows={5} 
+                        <Form.Control as="textarea" rows={2} 
                             placeholder="Enter question"
                             value={tcardForm?.question}
                             onChange={e => setTcardForm({...tcardForm, question: e.target.value})}/>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="answer">
+                    <Form.Group className="mb-2" controlId="answer">
                         <Form.Label>Answer</Form.Label>
-                        <Form.Control as="textarea" rows={5} 
+                        <Form.Control as="textarea" rows={6} 
                             placeholder="Enter answer"
                             value={tcardForm?.answer}
                             onChange={e => setTcardForm({...tcardForm, answer: e.target.value})}/>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="sourcesField">
+                    <Form.Group className="mb-2" controlId="sourcesField">
                         <Form.Label>Sources</Form.Label>
                         <TCardSourceInfoTable cardSources={tcardSources} delete={deleteSourceHandler} update={updateSourceHandler}/>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="tagsField">
+                    <Form.Group className="mb-2" controlId="tagsField">
                         <Form.Label>Tags</Form.Label>
                         <TagDropdownPanel wordTags={tcardForm.tags} tags={allTags} handler={tagSelectHandler}/>
                     </Form.Group>
@@ -190,8 +190,8 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
                 <Accordion defaultActiveKey={['0']} alwaysOpen className="px-0">
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>Sources for Card</Accordion.Header>
-                        <Accordion.Body>
-                            <Container>
+                        <Accordion.Body className="px-0">
+                            <Container className="px-0">
                             <Row>
                                 <SourceInfoActionBar onChangeFilter={handleChangeFilter}/>
                                 <SourcesForTCardTable srcInfos={sourceInfos} addToCard={addSourceToCard}/>
@@ -221,7 +221,7 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
                     <Accordion.Item eventKey="2">
                         <Accordion.Header>Code part</Accordion.Header>
                         <Accordion.Body>
-                            <Form.Group className="mb-3" controlId="codepart">
+                            <Form.Group className="mb-2" controlId="codepart">
                             <Form.Control as="textarea" rows={5} 
                                 placeholder="Enter code part"
                                 value={codePart}

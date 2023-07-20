@@ -14,7 +14,7 @@ interface TCardSourceInfoTableProps {
 const TCardSourceInfoTable = (props:TCardSourceInfoTableProps) => {
 
     return (
-        <Container className="pt-2 pe-0">
+        <Container className="pt-2 px-0">
             {props.cardSources ? 
             <Table striped bordered hover className="shadow">
                 <thead>

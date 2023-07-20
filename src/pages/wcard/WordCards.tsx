@@ -12,6 +12,7 @@ import { AppContext } from "../../models/AppUserContextProvider";
 import { WTag } from "../../features/tags/models/WTag";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
+import { Container } from "react-bootstrap";
 
 const WordCards = () => {
 
@@ -59,13 +60,13 @@ const WordCards = () => {
     } 
 
     return (
-        <>
-        <Layout>
-            <WCardActionBar onChangeFilter={handleChangeFilter}/>
-            <WordCardTable wcards={wcards} remove={deleteWordCard}/>
-            {totalPages > 0 && <PaginationBar currentPage={currentPage} totalPages={totalPages} onChangePage={handleChangePage}/>}
-        </Layout>
-        </>
+        <div>
+            <Layout>
+                <WCardActionBar onChangeFilter={handleChangeFilter}/>
+                <WordCardTable wcards={wcards} remove={deleteWordCard}/>
+                {totalPages > 0 && <PaginationBar currentPage={currentPage} totalPages={totalPages} onChangePage={handleChangePage}/>}
+            </Layout>
+        </div>
     );
 
 };

@@ -186,7 +186,7 @@ const WLessonManagePanel = (props) => {
     }
 
     return (
-        <Container className="mt-3">
+        <Container className="mt-2">
             <Row>
                 <Col className="border rounded p-3">
                     <Row>

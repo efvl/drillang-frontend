@@ -4,12 +4,12 @@ import TopNavbar from "./TopNavbar"
 
 const Layout = ({children}) => {
     return (
-        <>
         <div>
-            <TopNavbar/>
+            <div>
+                <TopNavbar/>
+            </div>
+            <main>{children}</main>
         </div>
-        <main>{children}</main>
-        </>
     );
 
 };
