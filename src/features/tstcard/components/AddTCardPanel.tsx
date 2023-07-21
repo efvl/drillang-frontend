@@ -22,6 +22,7 @@ import { WTag } from "../../tags/models/WTag";
 import TagService from "../../tags/services/TagService";
 import TagDropdownPanel from "../../card/components/TagDropdownPanel";
 import TCardSourceInfoTable from "./TCardSourceInfoTable";
+import TCardEditor from "./TCardEditor";
 
 const AddTCardPanel = () => {
 
@@ -132,6 +133,7 @@ const AddTCardPanel = () => {
                             value={tcardForm?.question}
                             onChange={e => setTcardForm({...tcardForm, question: e.target.value})}/>
                     </Form.Group>
+                    <TCardEditor/>
                     <Form.Group className="mb-3" controlId="answer">
                         <Form.Label>Answer</Form.Label>
                         <Form.Control as="textarea" rows={5} 
