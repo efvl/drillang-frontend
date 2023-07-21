@@ -7,7 +7,7 @@ const TCardEditorMenuBar = ({editor}) => {
 
 
     return (
-        <div className='editor_menu py-2'>
+        <div className='editor_menu pb-2'>
             <button 
                 onClick={(e) => 
                     { 

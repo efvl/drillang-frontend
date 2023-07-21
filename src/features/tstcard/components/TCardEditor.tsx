@@ -1,22 +1,17 @@
-import { EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
+import { Editor, EditorContent, useEditor } from "@tiptap/react";
 import TCardEditorMenuBar from "./TCardEditorMenuBar";
 
+interface TCardEditorProps {
+    isEdit?:boolean,
+    editor?:Editor;
+}
 
-
-const TCardEditor = () => {
-
-    const editor = useEditor({
-        extensions: [
-            StarterKit,
-        ],
-        content: `<p>text here</p>`,
-    })
+const TCardEditor = (props:TCardEditorProps) => {
 
     return (
-        <div>
-            <TCardEditorMenuBar editor={editor} />
-            <EditorContent editor={editor}/>
+        <div className="border rounded">
+            <TCardEditorMenuBar editor={props.editor} />
+            <EditorContent editor={props.editor}/>
         </div>
     );
 };

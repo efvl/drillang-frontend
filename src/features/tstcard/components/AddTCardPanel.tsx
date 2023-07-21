@@ -23,6 +23,8 @@ import TagService from "../../tags/services/TagService";
 import TagDropdownPanel from "../../card/components/TagDropdownPanel";
 import TCardSourceInfoTable from "./TCardSourceInfoTable";
 import TCardEditor from "./TCardEditor";
+import { useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 
 const AddTCardPanel = () => {
 
@@ -43,6 +45,13 @@ const AddTCardPanel = () => {
         fetchSourceInfos(searchRequest);
         selectTags();
     }, []);
+
+    const editor = useEditor({
+        extensions: [
+            StarterKit,
+        ],
+        content: `<p>content here</p>`,
+    })
 
     const fetchSourceInfos = async (searchData:SourceInfoSearchRequest) => {
         console.log(searchData);  
@@ -72,6 +81,7 @@ const AddTCardPanel = () => {
         tcardForm.pictureId = pictureId;
         tcardForm.codePart = codePart;
         tcardForm.sources = tcardSources;
+        tcardForm.editorContent = editor.getHTML();
         const response = await TestCardService.createNewTestCard(tcardForm);
         navigate('/tcard');
     }
@@ -133,7 +143,7 @@ const AddTCardPanel = () => {
                             value={tcardForm?.question}
                             onChange={e => setTcardForm({...tcardForm, question: e.target.value})}/>
                     </Form.Group>
-                    <TCardEditor/>
+                    <TCardEditor isEdit={true} editor={editor}/>
                     <Form.Group className="mb-3" controlId="answer">
                         <Form.Label>Answer</Form.Label>
                         <Form.Control as="textarea" rows={5} 
