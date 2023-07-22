@@ -51,7 +51,7 @@ const AddTCardPanel = () => {
             StarterKit,
         ],
         content: `<p>content here</p>`,
-    })
+    });
 
     const fetchSourceInfos = async (searchData:SourceInfoSearchRequest) => {
         console.log(searchData);  
@@ -129,34 +129,34 @@ const AddTCardPanel = () => {
     }
 
     return (
-        <Container className="mt-3">
+        <Container className="mt-2">
             <Row>
                 <Col><h5 className="text-center">Create Test Card</h5></Col>
             </Row>
             <Row>
-                <Col className="border p-4">
+                <Col className="p-0">
                 <Form>
-                    <Form.Group className="mb-3" controlId="question">
-                        <Form.Label>Question</Form.Label>
-                        <Form.Control as="textarea" rows={5} 
+                    <Form.Group className="mb-2" controlId="question">
+                        <Form.Label>Question :</Form.Label>
+                        <Form.Control as="textarea" rows={3} 
                             placeholder="Enter question"
                             value={tcardForm?.question}
                             onChange={e => setTcardForm({...tcardForm, question: e.target.value})}/>
                     </Form.Group>
                     <TCardEditor isEdit={true} editor={editor}/>
-                    <Form.Group className="mb-3" controlId="answer">
-                        <Form.Label>Answer</Form.Label>
+                    <Form.Group className="mb-2" controlId="answer">
+                        <Form.Label>Answer :</Form.Label>
                         <Form.Control as="textarea" rows={5} 
                             placeholder="Enter answer"
                             value={tcardForm?.answer}
                             onChange={e => setTcardForm({...tcardForm, answer: e.target.value})}/>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="sourcesField">
-                        <Form.Label>Sources</Form.Label>
+                    <Form.Group className="mb-2" controlId="sourcesField">
+                        <Form.Label>Sources :</Form.Label>
                         <TCardSourceInfoTable cardSources={tcardSources} delete={deleteSourceHandler} update={updateSourceHandler}/>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="tagsField">
-                        <Form.Label>Tags</Form.Label>
+                    <Form.Group className="mb-2" controlId="tagsField">
+                        <Form.Label>Tags :</Form.Label>
                         <TagDropdownPanel wordTags={tcardForm.tags} tags={allTags} handler={tagSelectHandler}/>
                     </Form.Group>
                     <div className="text-center p-2">

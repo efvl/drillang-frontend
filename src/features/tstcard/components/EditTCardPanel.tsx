@@ -21,6 +21,9 @@ import SourceInfoService from "../../srcinfo/services/SourceInfoService";
 import TagService from "../../tags/services/TagService";
 import TCardSourceInfoTable from "./TCardSourceInfoTable";
 import TagDropdownPanel from "../../card/components/TagDropdownPanel";
+import { useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import TCardEditor from "./TCardEditor";
 
 interface EditTCardPanelProps {
     tcardId?:number;
@@ -47,6 +50,17 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
         fetchSourceInfos(searchRequest);
         selectTags(); 
     }, []);
+
+    const editor = useEditor({
+        extensions: [
+            StarterKit,
+        ],
+        content: tcardForm.editorContent,
+    });
+
+    useEffect(() => {
+        editor?.commands.setContent(tcardForm.editorContent);
+      }, [tcardForm.editorContent]);
 
     const loadTestCard = async () => {
         let result = await TestCardService.getTestCardById(props.tcardId);
@@ -122,6 +136,7 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
         tcardForm.pictureId = pictureId;
         tcardForm.codePart = codePart;
         tcardForm.sources = tcardSources;
+        tcardForm.editorContent = editor.getHTML();
         const response = await TestCardService.updateTestCard(tcardForm);
         console.log(response.data);
         navigate('/tcard');
@@ -155,28 +170,29 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
                 <Col><h5 className="text-center">Edit Test Card</h5></Col>
             </Row>
             <Row>
-                <Col className="border p-1">
+                <Col className="p-0">
                 <Form>
                     <Form.Group className="mb-2" controlId="question">
-                        <Form.Label>Question</Form.Label>
+                        <Form.Label>Question :</Form.Label>
                         <Form.Control as="textarea" rows={2} 
                             placeholder="Enter question"
                             value={tcardForm?.question}
                             onChange={e => setTcardForm({...tcardForm, question: e.target.value})}/>
                     </Form.Group>
+                    <TCardEditor isEdit={true} editor={editor} tcardForm={tcardForm}/>
                     <Form.Group className="mb-2" controlId="answer">
-                        <Form.Label>Answer</Form.Label>
+                        <Form.Label>Answer :</Form.Label>
                         <Form.Control as="textarea" rows={6} 
                             placeholder="Enter answer"
                             value={tcardForm?.answer}
                             onChange={e => setTcardForm({...tcardForm, answer: e.target.value})}/>
                     </Form.Group>
                     <Form.Group className="mb-2" controlId="sourcesField">
-                        <Form.Label>Sources</Form.Label>
+                        <Form.Label>Sources :</Form.Label>
                         <TCardSourceInfoTable cardSources={tcardSources} delete={deleteSourceHandler} update={updateSourceHandler}/>
                     </Form.Group>
                     <Form.Group className="mb-2" controlId="tagsField">
-                        <Form.Label>Tags</Form.Label>
+                        <Form.Label>Tags :</Form.Label>
                         <TagDropdownPanel wordTags={tcardForm.tags} tags={allTags} handler={tagSelectHandler}/>
                     </Form.Group>
                     <div className="text-center p-2">
