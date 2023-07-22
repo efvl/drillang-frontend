@@ -1,19 +1,34 @@
 /* Basic editor styles */
 .ProseMirror {
     > * + * {
-      margin-top: 0.75em;
+      margin-top: 0.5em;
+    }
+
+    blockquote {
+      border-left: 3px solid rgba(#0d0d0d, 0.1);
+      padding-left: 1rem;
+    }  
+    
+    code {
+      background-color: rgba(#616161, 0.1);
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      color: #616161;
+      font-size: 0.9rem;
+      padding: 0.25em;
     }
 
     hr {
-        border: none;
-        border-top: 2px solid rgba(#0D0D0D, 0.1);
-        margin: 2rem 0;
-      }    
+      border: none;
+      border-top: 1px solid rgba(#0D0D0D, 0.1);
+      margin: 2rem 0;
+    } 
 }
 
 .editor_menu {
   button {
     border-radius: 0.5rem;
+    border-width: 1px;
 
     &.is-active {
       font-weight: 700;

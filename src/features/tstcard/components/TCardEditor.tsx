@@ -12,7 +12,7 @@ interface TCardEditorProps {
 const TCardEditor = (props:TCardEditorProps) => {
     
     return (
-        <div className="border rounded">
+        <div className="border rounded p-2">
             {props?.isEdit 
                 ? <TCardEditorMenuBar editor={props.editor} />
                 : <></>
