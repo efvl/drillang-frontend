@@ -24,6 +24,15 @@ const TCardEditorMenuBar = ({editor}) => {
                 }
                 className={editor.isActive('bold') ? 'is-active' : ''}
             >bold</button>
+            <button
+                onClick={(e) => 
+                    {
+                        e.preventDefault();
+                        editor.chain().focus().toggleItalic().run();
+                    }
+                }
+                className={editor.isActive('italic') ? 'is-active' : ''}
+            >italic</button>
         </div>
     );
 };
