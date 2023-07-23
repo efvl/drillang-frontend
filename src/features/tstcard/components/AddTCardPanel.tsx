@@ -23,8 +23,7 @@ import TagService from "../../tags/services/TagService";
 import TagDropdownPanel from "../../card/components/TagDropdownPanel";
 import TCardSourceInfoTable from "./TCardSourceInfoTable";
 import TCardEditor from "./TCardEditor";
-import { useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
+import TextEditorPanel from "../../../components/TextEditorPanel";
 
 const AddTCardPanel = () => {
 
@@ -34,6 +33,7 @@ const AddTCardPanel = () => {
     const [pictureId, setPictureId] = useState<number>();
     const [codePart, setCodePart] = useState<string>('');
     const [tcardSources, setTCardSources] = useState<TCardSourceInfo[]>([]);
+    const [editorLink, setEditorLink] = useState<any>({});
 
     const [sourceInfos, setSourceInfos] = useState<SourceInfo[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(0);
@@ -45,13 +45,6 @@ const AddTCardPanel = () => {
         fetchSourceInfos(searchRequest);
         selectTags();
     }, []);
-
-    const editor = useEditor({
-        extensions: [
-            StarterKit,
-        ],
-        content: `<p>content here</p>`,
-    });
 
     const fetchSourceInfos = async (searchData:SourceInfoSearchRequest) => {
         console.log(searchData);  
@@ -81,7 +74,7 @@ const AddTCardPanel = () => {
         tcardForm.pictureId = pictureId;
         tcardForm.codePart = codePart;
         tcardForm.sources = tcardSources;
-        tcardForm.editorContent = editor.getHTML();
+        tcardForm.editorContent = editorLink.getHTML();
         const response = await TestCardService.createNewTestCard(tcardForm);
         navigate('/tcard');
     }
@@ -128,6 +121,10 @@ const AddTCardPanel = () => {
         setTcardForm({...tcardForm, tags:tags});
     }
 
+    const updateContentLink = (editorLink:any) => {
+        setEditorLink(editorLink);
+    }
+
     return (
         <Container className="mt-2">
             <Row>
@@ -143,7 +140,7 @@ const AddTCardPanel = () => {
                             value={tcardForm?.question}
                             onChange={e => setTcardForm({...tcardForm, question: e.target.value})}/>
                     </Form.Group>
-                    <TCardEditor isEdit={true} editor={editor}/>
+                    <TextEditorPanel isEdit={true} editorContent="<p>content here</p>" updateEditorLink={updateContentLink}/>
                     <Form.Group className="mb-2" controlId="answer">
                         <Form.Label>Answer :</Form.Label>
                         <Form.Control as="textarea" rows={5} 
