@@ -21,10 +21,26 @@ import SourceInfoService from "../../srcinfo/services/SourceInfoService";
 import TagService from "../../tags/services/TagService";
 import TCardSourceInfoTable from "./TCardSourceInfoTable";
 import TagDropdownPanel from "../../card/components/TagDropdownPanel";
-import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import TCardEditor from "./TCardEditor";
+import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import { EditorContent, ReactNodeViewRenderer, useEditor } from '@tiptap/react'
+import css from 'highlight.js/lib/languages/css'
+import js from 'highlight.js/lib/languages/javascript'
+import ts from 'highlight.js/lib/languages/typescript'
+import html from 'highlight.js/lib/languages/xml'
+import java from 'highlight.js/lib/languages/java'
+// load all highlight.js languages
+import { lowlight } from 'lowlight'
+
+import CodeBlockComponent from "../../../components/CodeBlockComponent";
+
+lowlight.registerLanguage('html', html)
+lowlight.registerLanguage('css', css)
+lowlight.registerLanguage('js', js)
+lowlight.registerLanguage('java', java)
+lowlight.registerLanguage('ts', ts)
 
 interface EditTCardPanelProps {
     tcardId?:number;
@@ -56,6 +72,13 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
         extensions: [
             StarterKit,
             Underline,
+            CodeBlockLowlight
+                .extend({
+                    addNodeView() {
+                        return ReactNodeViewRenderer(CodeBlockComponent)
+                    },
+                })
+                .configure({ lowlight }),
         ],
         content: tcardForm.editorContent,
     });

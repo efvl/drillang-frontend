@@ -1,4 +1,3 @@
-import '../../../myeditor.scss';
 
 const TCardEditorMenuBar = ({editor}) => {
     if(!editor){
@@ -69,8 +68,11 @@ const TCardEditorMenuBar = ({editor}) => {
             <button 
                 onClick={(e) => { e.preventDefault(); editor.chain().focus().clearNodes().run(); } }>clear nodes</button>   
             <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().toggleCode().run(); } }
-                className={editor.isActive('code') ? 'is-active' : ''}>code</button>                       
+                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleCode().run(); } }
+                className={editor.isActive('code') ? 'is-active' : ''}>code</button> 
+            <button
+                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleCodeBlock().run(); } }
+                className={editor.isActive('codeBlock') ? 'is-active' : ''}>code block</button>                       
         </div>
     );
 };
