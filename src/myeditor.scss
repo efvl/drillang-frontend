@@ -20,7 +20,7 @@
 
     pre {
       background: #2b2b2b;
-      color: #FFF;
+      color: #f8f8f8;
       font-family: 'JetBrainsMono', monospace;
       padding: 0.75rem 1rem;
       border-radius: 0.5rem;
@@ -47,15 +47,18 @@
         }
         .hljs-title {
           &.class_ {
-            color: #ffffff;
+            color: #f8f8f8;
           }
         }
         .hljs-operator {
-          color: #ffffff
+          color: #f8f8f8
         }
         .hljs-section,
         .hljs-variable {
           color: #faf594;
+        }
+        .hljs-meta {
+          color: #C2C71F;
         }
       }
       
@@ -84,7 +87,7 @@
       .hljs-literal,
       .hljs-type,
       .hljs-params {
-        color: #fbbc88;
+        color: #e9bcb1;
       }
   
       .hljs-string,

@@ -1,10 +1,10 @@
 import './CodeBlockComponent.scss'
 import { NodeViewContent, NodeViewWrapper } from '@tiptap/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const CodeBlockComponent = ({ node: { attrs: { language: defaultLanguage } }, updateAttributes, extension }) => {
 
-  const [curLang, setCurLang] = useState('auto');
+  const [curLang, setCurLang] = useState(defaultLanguage);
   const langs = Array.from(['java', 'js', 'ts', 'html', 'css']);
 
   return (

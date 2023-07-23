@@ -21,26 +21,8 @@ import SourceInfoService from "../../srcinfo/services/SourceInfoService";
 import TagService from "../../tags/services/TagService";
 import TCardSourceInfoTable from "./TCardSourceInfoTable";
 import TagDropdownPanel from "../../card/components/TagDropdownPanel";
-import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline";
-import TCardEditor from "./TCardEditor";
-import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
-import { EditorContent, ReactNodeViewRenderer, useEditor } from '@tiptap/react'
-import css from 'highlight.js/lib/languages/css'
-import js from 'highlight.js/lib/languages/javascript'
-import ts from 'highlight.js/lib/languages/typescript'
-import html from 'highlight.js/lib/languages/xml'
-import java from 'highlight.js/lib/languages/java'
-// load all highlight.js languages
-import { lowlight } from 'lowlight'
-
-import CodeBlockComponent from "../../../components/CodeBlockComponent";
-
-lowlight.registerLanguage('html', html)
-lowlight.registerLanguage('css', css)
-lowlight.registerLanguage('js', js)
-lowlight.registerLanguage('java', java)
-lowlight.registerLanguage('ts', ts)
+import TextEditorPanel from "../../../components/TextEditorPanel";
+import { Editor } from "@tiptap/react";
 
 interface EditTCardPanelProps {
     tcardId?:number;
@@ -55,6 +37,7 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
     const [codePart, setCodePart] = useState<string>('');
     const [tcardSources, setTCardSources] = useState<TCardSourceInfo[]>([]);
     const [stackSources, setStackSources] = useState<TCardSourceInfo[]>([]);
+    const [editorLink, setEditorLink] = useState<any>({});
 
     const [sourceInfos, setSourceInfos] = useState<SourceInfo[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(0);
@@ -67,25 +50,6 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
         fetchSourceInfos(searchRequest);
         selectTags(); 
     }, []);
-
-    const editor = useEditor({
-        extensions: [
-            StarterKit,
-            Underline,
-            CodeBlockLowlight
-                .extend({
-                    addNodeView() {
-                        return ReactNodeViewRenderer(CodeBlockComponent)
-                    },
-                })
-                .configure({ lowlight }),
-        ],
-        content: tcardForm.editorContent,
-    });
-
-    useEffect(() => {
-        editor?.commands.setContent(tcardForm.editorContent);
-      }, [tcardForm.editorContent]);
 
     const loadTestCard = async () => {
         let result = await TestCardService.getTestCardById(props.tcardId);
@@ -155,13 +119,12 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
         setSearchRequest({...searchRequest, curNumPage : page}); 
     }, []);
 
-// 
     const updateTestCard = async (e) => {
         e.preventDefault();
         tcardForm.pictureId = pictureId;
         tcardForm.codePart = codePart;
         tcardForm.sources = tcardSources;
-        tcardForm.editorContent = editor.getHTML();
+        tcardForm.editorContent = editorLink.getHTML();
         const response = await TestCardService.updateTestCard(tcardForm);
         console.log(response.data);
         navigate('/tcard');
@@ -189,6 +152,10 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
         setTcardForm({...tcardForm, tags:tags});
     }
 
+    const updateContentLink = (editorLink:any) => {
+        setEditorLink(editorLink);
+    }
+
     return (
         <Container className="mt-3">
             <Row>
@@ -204,7 +171,7 @@ const EditTCardPanel = (props:EditTCardPanelProps) => {
                             value={tcardForm?.question}
                             onChange={e => setTcardForm({...tcardForm, question: e.target.value})}/>
                     </Form.Group>
-                    <TCardEditor isEdit={true} editor={editor} tcardForm={tcardForm}/>
+                    <TextEditorPanel isEdit={true} editorContent={tcardForm.editorContent} updateEditorLink={updateContentLink}/>
                     <Form.Group className="mb-2" controlId="answer">
                         <Form.Label>Answer :</Form.Label>
                         <Form.Control as="textarea" rows={6} 
