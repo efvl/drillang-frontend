@@ -3,6 +3,8 @@ import TextEditorMenuBar from "./TextEditorMenuBar";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import { Color } from '@tiptap/extension-color';
+import TextStyle from '@tiptap/extension-text-style';
 // import css from 'highlight.js/lib/languages/css'
 // import js from 'highlight.js/lib/languages/javascript'
 // import ts from 'highlight.js/lib/languages/typescript'
@@ -31,6 +33,8 @@ const TextEditorPanel = (props:TextEditorProps) => {
         extensions: [
             StarterKit,
             Underline,
+            TextStyle, 
+            Color,
             CodeBlockLowlight
                 .extend({
                     addNodeView() {

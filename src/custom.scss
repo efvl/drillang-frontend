@@ -6,6 +6,12 @@ $gg: #c719aa;
     color: white;
 }
 
+.form-inline {
+    &.form-control {
+        display: inline-block;
+    }
+}
+
 // import bootstrap styles at the bottom!
 @import '~bootstrap/scss/bootstrap.scss';
 

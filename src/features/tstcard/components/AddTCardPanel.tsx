@@ -22,7 +22,6 @@ import { WTag } from "../../tags/models/WTag";
 import TagService from "../../tags/services/TagService";
 import TagDropdownPanel from "../../card/components/TagDropdownPanel";
 import TCardSourceInfoTable from "./TCardSourceInfoTable";
-import TCardEditor from "./TCardEditor";
 import TextEditorPanel from "../../../components/TextEditorPanel";
 
 const AddTCardPanel = () => {
