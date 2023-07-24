@@ -5,6 +5,7 @@ import Underline from "@tiptap/extension-underline";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { Color } from '@tiptap/extension-color';
 import TextStyle from '@tiptap/extension-text-style';
+import Highlight from '@tiptap/extension-highlight';
 // import css from 'highlight.js/lib/languages/css'
 // import js from 'highlight.js/lib/languages/javascript'
 // import ts from 'highlight.js/lib/languages/typescript'
@@ -35,6 +36,7 @@ const TextEditorPanel = (props:TextEditorProps) => {
             Underline,
             TextStyle, 
             Color,
+            Highlight.configure({ multicolor: true }),
             CodeBlockLowlight
                 .extend({
                     addNodeView() {

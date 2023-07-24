@@ -18,6 +18,13 @@
       padding: 0.25em;
     }
 
+    mark {
+      background-color: #ffe066;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      padding: 0.125em 0;
+    }
+
     pre {
       background: #2b2b2b;
       color: #f8f8f8;
