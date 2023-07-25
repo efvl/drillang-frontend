@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { Form } from "react-bootstrap";
-import { Brush, BrushFill } from "react-bootstrap-icons";
+import { Brush, BrushFill, Dice1, Dice2, Dice3, Dice4, Dice5, Dice6, Justify, ListOl, ListUl, PSquare, Quote, Table, TextCenter, TextLeft, TextRight, TypeBold, TypeH1, TypeH2, TypeItalic, TypeStrikethrough, TypeUnderline, Youtube } from "react-bootstrap-icons";
 
 const TextEditorMenuBar = ({editor}) => {
     const widthRef = React.useRef(null);
@@ -53,52 +53,76 @@ const TextEditorMenuBar = ({editor}) => {
 
     return (
         <div className='editor_menu pb-2'>
-            <button 
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleBold().run(); } }
-                disabled={ !editor.can().chain().focus().toggleBold().run() }
-                className={editor.isActive('bold') ? 'is-active' : ''}>Bold</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleItalic().run(); } }
-                disabled={ !editor.can().chain().focus().toggleItalic().run() }
-                className={editor.isActive('italic') ? 'is-active' : ''}>Italic</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleUnderline().run(); } }
-                disabled={ !editor.can().chain().focus().toggleUnderline().run() }
-                className={editor.isActive('underline') ? 'is-active' : ''}>Underline</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleStrike().run(); } }
-                disabled={ !editor.can().chain().focus().toggleStrike().run() }
-                className={editor.isActive('strike') ? 'is-active' : ''}>Strike</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().setParagraph().run(); } }
-                className={editor.isActive('paragraph') ? 'is-active' : ''}>paragraph</button>    
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleHeading({ level: 1 }).run(); } }
-                className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}>h1</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleHeading({ level: 2 }).run(); } }
-                className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}>h2</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleHeading({ level: 3 }).run(); } }
-                className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}>h3</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleHeading({ level: 4 }).run(); } }
-                className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}>h4</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleHeading({ level: 5 }).run(); } }
-                className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}>h5</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleHeading({ level: 6 }).run(); } }
-                className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}>h6</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleBulletList().run(); } }
-                className={editor.isActive('bulletList') ? 'is-active' : ''}>bullet list</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleOrderedList().run(); } }
-                className={editor.isActive('orderedList') ? 'is-active' : ''}>ordered list</button>  
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleBlockquote().run(); } }
-                className={editor.isActive('blockquote') ? 'is-active' : ''}>blockquote</button>
+            <span style={pointerHover} aria-disabled={ !editor.can().chain().focus().toggleBold().run() }>
+                <TypeBold size={30} 
+                    onClick={() => editor.chain().focus().toggleBold().run()}  
+                    className={editor.isActive('bold') ? 'is-active' : ''}></TypeBold>
+            </span>
+            <span style={pointerHover}>
+                <TypeItalic size={30} 
+                    onClick={() => editor.chain().focus().toggleItalic().run()}  
+                    className={editor.isActive('italic') ? 'is-active' : ''}></TypeItalic>
+            </span>
+            <span style={pointerHover}>
+                <TypeUnderline size={30} 
+                    onClick={() => editor.chain().focus().toggleUnderline().run()}  
+                    className={editor.isActive('underline') ? 'is-active' : ''}></TypeUnderline>
+            </span>
+            <span style={pointerHover}>
+                <TypeStrikethrough size={30} 
+                    onClick={() => editor.chain().focus().toggleStrike().run()}  
+                    className={editor.isActive('strike') ? 'is-active' : ''}></TypeStrikethrough>
+            </span>
+            <span style={pointerHover}>
+                <PSquare size={30} 
+                    onClick={() => editor.chain().focus().setParagraph().run()}  
+                    className={editor.isActive('paragraph') ? 'is-active' : ''}></PSquare>
+            </span> 
+            <span style={pointerHover}>
+                <Dice1 size={30} 
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}  
+                    className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}></Dice1>
+            </span> 
+            <span style={pointerHover}>
+                <Dice2 size={30} 
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}  
+                    className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}></Dice2>
+            </span> 
+            <span style={pointerHover}>
+                <Dice3 size={30} 
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}  
+                    className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}></Dice3>
+            </span> 
+            <span style={pointerHover}>
+                <Dice4 size={30} 
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}  
+                    className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}></Dice4>
+            </span> 
+            <span style={pointerHover}>
+                <Dice5 size={30} 
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}  
+                    className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}></Dice5>
+            </span> 
+            <span style={pointerHover}>
+                <Dice6 size={30} 
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}  
+                    className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}></Dice6>
+            </span> 
+            <span style={pointerHover}>
+                <ListUl size={30} 
+                    onClick={() => editor.chain().focus().toggleBulletList().run()} 
+                    className={editor.isActive('bulletList') ? 'is-active' : ''}></ListUl>
+            </span>
+            <span style={pointerHover}>
+                <ListOl size={30} 
+                    onClick={() => editor.chain().focus().toggleOrderedList().run()} 
+                    className={editor.isActive('orderedList') ? 'is-active' : ''}></ListOl>
+            </span>  
+            <span style={pointerHover}>
+                <Quote size={30} 
+                    onClick={() => editor.chain().focus().toggleBlockquote().run()} 
+                    className={editor.isActive('blockquote') ? 'is-active' : ''}></Quote>
+            </span>  
             <button 
                 onClick={(e) => { e.preventDefault(); editor.chain().focus().setHorizontalRule().run(); } }>horizontal rule</button>
             <button 
@@ -187,22 +211,31 @@ const TextEditorMenuBar = ({editor}) => {
             <button
                 onClick={(e) => { e.preventDefault();  editor.chain().focus().unsetHighlight().run(); } }
                 disabled={!editor.isActive('highlight')}>unsetHighlight</button>
-            <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().setTextAlign('left').run(); } }
-                className={editor.isActive({ textAlign: 'left' }) ? 'is-active' : ''}>left</button>
-            <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().setTextAlign('center').run(); } }
-                className={editor.isActive({ textAlign: 'center' }) ? 'is-active' : ''}>center</button>
-            <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().setTextAlign('right').run(); } }
-                className={editor.isActive({ textAlign: 'right' }) ? 'is-active' : ''}>right</button>
-            <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().setTextAlign('justify').run(); } }
-                className={editor.isActive({ textAlign: 'justify' }) ? 'is-active' : ''}>justify</button>
+            <span style={pointerHover}>
+                <TextLeft size={30}
+                    onClick={() => editor.chain().focus().setTextAlign('left').run()} 
+                    className={editor.isActive({ textAlign: 'left' }) ? 'is-active' : ''}></TextLeft>
+            </span>
+            <span style={pointerHover}>
+                <TextCenter size={30}
+                    onClick={() => editor.chain().focus().setTextAlign('center').run()} 
+                    className={editor.isActive({ textAlign: 'center' }) ? 'is-active' : ''}></TextCenter>
+            </span>
+            <span style={pointerHover}>
+                <TextRight size={30}
+                    onClick={() => editor.chain().focus().setTextAlign('right').run()} 
+                    className={editor.isActive({ textAlign: 'right' }) ? 'is-active' : ''}></TextRight>
+            </span>
+            <span style={pointerHover}>
+                <Justify size={30}
+                    onClick={() => editor.chain().focus().setTextAlign('justify').run()} 
+                    className={editor.isActive({ textAlign: 'justify' }) ? 'is-active' : ''}></Justify>
+            </span>
             <button 
                 onClick={(e) => { e.preventDefault();  editor.chain().focus().unsetTextAlign().run(); } }>unsetTextAlign</button>    
-            <button id="add" 
-                onClick={addYoutubeVideo}>Add YouTube video</button>
+            <span style={pointerHover}> 
+                <Youtube id="add" size={30} color="#f54242" onClick={addYoutubeVideo} ></Youtube>
+            </span>    
             <input id="width" type="number" className="form-inline" min="320" max="1024" ref={widthRef} placeholder="width"/>  
             <input id="height" type="number" className="form-inline" min="320" max="1024" ref={heightRef} placeholder="height"/> 
             <button 
@@ -211,8 +244,10 @@ const TextEditorMenuBar = ({editor}) => {
             <button 
                 onClick={(e) => { e.preventDefault();  editor.chain().focus().unsetLink().run(); } }
                 disabled={!editor.isActive('link')}>unsetLink</button>     
-            <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();}}>insertTable</button>
+            <span style={pointerHover}>
+                <Table size={30}
+                    onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}></Table>
+            </span>
             <button 
                 onClick={(e) => { e.preventDefault();  editor.chain().focus().addColumnBefore().run();}}>addColumnBefore</button>
             <button 
