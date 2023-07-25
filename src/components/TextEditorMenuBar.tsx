@@ -187,7 +187,43 @@ const TextEditorMenuBar = ({editor}) => {
                 className={editor.isActive('link') ? 'is-active' : ''}>setLink</button>
             <button 
                 onClick={(e) => { e.preventDefault();  editor.chain().focus().unsetLink().run(); } }
-                disabled={!editor.isActive('link')}>unsetLink</button>                
+                disabled={!editor.isActive('link')}>unsetLink</button>     
+            <button
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();}}>insertTable</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().addColumnBefore().run();}}>addColumnBefore</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().addColumnAfter().run();}}>addColumnAfter</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().deleteColumn().run();}}>deleteColumn</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().addRowBefore().run();}}>addRowBefore</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().addRowAfter().run();}}>addRowAfter</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().deleteRow().run();}}>deleteRow</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().deleteTable().run();}}>deleteTable</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().mergeCells().run();}}>mergeCells</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().splitCell().run();}}>splitCell</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().toggleHeaderColumn().run();}}>toggleHeaderColumn</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().toggleHeaderRow().run();}}>toggleHeaderRow</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().toggleHeaderCell().run();}}>toggleHeaderCell</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().mergeOrSplit().run();}}>mergeOrSplit</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().setCellAttribute('colspan', 2).run();}}>setCellAttribute</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().fixTables().run();}}>fixTables</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().goToNextCell().run();}}>goToNextCell</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().goToPreviousCell().run();}}>goToPreviousCell</button>               
         </div>
     );
 };

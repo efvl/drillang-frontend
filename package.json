@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@tiptap/extension-code-block-lowlight": "^2.0.4",
     "@tiptap/extension-color": "^2.0.4",
+    "@tiptap/extension-gapcursor": "^2.0.4",
     "@tiptap/extension-highlight": "^2.0.4",
     "@tiptap/extension-link": "^2.0.4",
     "@tiptap/extension-table": "^2.0.4",

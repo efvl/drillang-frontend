@@ -9,6 +9,11 @@ import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
 import Youtube from '@tiptap/extension-youtube';
 import Link from '@tiptap/extension-link';
+import Gapcursor from '@tiptap/extension-gapcursor';
+import Table from '@tiptap/extension-table';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TableRow from '@tiptap/extension-table-row';
 // import css from 'highlight.js/lib/languages/css'
 // import js from 'highlight.js/lib/languages/javascript'
 // import ts from 'highlight.js/lib/languages/typescript'
@@ -42,13 +47,20 @@ const TextEditorPanel = (props:TextEditorProps) => {
             Highlight.configure({ multicolor: true }),
             TextAlign.configure({
                 types: ['heading', 'paragraph'],
-              }),
+            }),
             Youtube.configure({
-            controls: true,
+                controls: true,
             }),
             Link.configure({
                 openOnClick: true,
-              }),
+            }),
+            Gapcursor,
+            Table.configure({
+                resizable: true,
+            }),
+            TableRow,
+            TableHeader,
+            TableCell,  
             CodeBlockLowlight
                 .extend({
                     addNodeView() {
