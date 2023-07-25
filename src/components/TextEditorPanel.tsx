@@ -7,6 +7,7 @@ import { Color } from '@tiptap/extension-color';
 import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
+import Youtube from '@tiptap/extension-youtube';
 // import css from 'highlight.js/lib/languages/css'
 // import js from 'highlight.js/lib/languages/javascript'
 // import ts from 'highlight.js/lib/languages/typescript'
@@ -41,6 +42,9 @@ const TextEditorPanel = (props:TextEditorProps) => {
             TextAlign.configure({
                 types: ['heading', 'paragraph'],
               }),
+            Youtube.configure({
+            controls: true,
+            }),
             CodeBlockLowlight
                 .extend({
                     addNodeView() {

@@ -1,9 +1,33 @@
+import React from "react";
 import { Form } from "react-bootstrap";
 
 const TextEditorMenuBar = ({editor}) => {
+    const widthRef = React.useRef(null)
+    const heightRef = React.useRef(null)
+  
+    React.useEffect(() => {
+      if (widthRef.current && heightRef.current) {
+        widthRef.current.value = 640
+        heightRef.current.value = 480
+      }
+    }, [widthRef.current, heightRef.current])
+
     if(!editor){
         return null;
     }
+
+    const addYoutubeVideo = (e) => {
+        e.preventDefault();
+        const url = prompt('Enter YouTube URL')
+    
+        if (url) {
+          editor.commands.setYoutubeVideo({
+            src: url,
+            width: Math.max(320, parseInt(widthRef.current.value, 10)) || 640,
+            height: Math.max(180, parseInt(heightRef.current.value, 10)) || 480,
+          })
+        }
+      }
 
     return (
         <div className='editor_menu pb-2'>
@@ -136,7 +160,10 @@ const TextEditorMenuBar = ({editor}) => {
                 onClick={(e) => { e.preventDefault();  editor.chain().focus().setTextAlign('justify').run(); } }
                 className={editor.isActive({ textAlign: 'justify' }) ? 'is-active' : ''}>justify</button>
             <button 
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().unsetTextAlign().run(); } }>unsetTextAlign</button>            
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().unsetTextAlign().run(); } }>unsetTextAlign</button>    
+            <button id="add" onClick={addYoutubeVideo}>Add YouTube video</button>
+            <input id="width" type="number" className="form-inline" min="320" max="1024" ref={widthRef} placeholder="width"/>  
+            <input id="height" type="number" className="form-inline" min="320" max="1024" ref={heightRef} placeholder="height"/>                 
         </div>
     );
 };
