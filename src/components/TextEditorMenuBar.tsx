@@ -1,10 +1,11 @@
 import React, { useCallback } from "react";
 import { Form } from "react-bootstrap";
+import { Brush, BrushFill } from "react-bootstrap-icons";
 
 const TextEditorMenuBar = ({editor}) => {
-    const widthRef = React.useRef(null)
-    const heightRef = React.useRef(null)
-  
+    const widthRef = React.useRef(null);
+    const heightRef = React.useRef(null);
+
     React.useEffect(() => {
       if (widthRef.current && heightRef.current) {
         widthRef.current.value = 640
@@ -23,7 +24,7 @@ const TextEditorMenuBar = ({editor}) => {
             height: Math.max(180, parseInt(heightRef.current.value, 10)) || 480,
           })
         }
-      }
+    }
 
     const setLink = useCallback(() => {
         const previousUrl = editor.getAttributes('link').href
@@ -45,6 +46,10 @@ const TextEditorMenuBar = ({editor}) => {
     if(!editor){
         return null;
     }
+
+    const pointerHover = {
+        cursor: 'pointer',
+     };
 
     return (
         <div className='editor_menu pb-2'>
@@ -114,32 +119,50 @@ const TextEditorMenuBar = ({editor}) => {
             <button
                 onClick={(e) => { e.preventDefault(); editor.chain().focus().toggleCodeBlock().run(); } }
                 className={editor.isActive('codeBlock') ? 'is-active' : ''}>code block</button> 
-            <Form.Control type="color" className="form-inline"
-                                value={editor.getAttributes('textStyle').color}
-                                onChange={e => editor.chain().focus().setColor(e.target.value).run()}/>    
-            <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().setColor('#958DF1').run(); } }
-                className={editor.isActive('textStyle', { color: '#958DF1' }) ? 'is-active' : ''}>purple</button>
-            <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().setColor('#F98181').run(); } }
-                className={editor.isActive('textStyle', { color: '#F98181' }) ? 'is-active' : ''}>red</button>
-            <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().setColor('#FBBC88').run(); } }
-                className={editor.isActive('textStyle', { color: '#FBBC88' }) ? 'is-active' : ''}>orange</button>
-            <button
-                onClick={(e) => { e.preventDefault(); editor.chain().focus().setColor('#FAF594').run(); } }
-                className={editor.isActive('textStyle', { color: '#FAF594' }) ? 'is-active' : ''}>yellow</button>
-            <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().setColor('#70CFF8').run(); } }
-                className={editor.isActive('textStyle', { color: '#70CFF8' }) ? 'is-active' : ''}>blue</button>
-            <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().setColor('#94FADB').run(); } }
-                className={editor.isActive('textStyle', { color: '#94FADB' }) ? 'is-active' : ''}>teal</button>
-            <button
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().setColor('#B9F18D').run(); } }
-                className={editor.isActive('textStyle', { color: '#B9F18D' }) ? 'is-active' : ''}>green</button>
-            <button 
-                onClick={(e) => { e.preventDefault();  editor.chain().focus().unsetColor().run(); } }>unsetColor</button>
+            <span className="color-picker">    
+                <input type="color" className="form-inline"
+                                    value={editor.getAttributes('textStyle').color}
+                                    onChange={e => editor.chain().focus().setColor(e.target.value).run()}/>    
+            </span>
+            <span style={pointerHover}>
+                <Brush size={30} color="#958DF1" 
+                    onClick={() => editor.chain().focus().setColor('#958DF1').run()} 
+                    className={editor.isActive('textStyle', { color: '#958DF1' }) ? 'is-active' : ''}></Brush>
+            </span>    
+            <span style={pointerHover}>
+                <Brush size={30} color="#F98181" 
+                    onClick={() => editor.chain().focus().setColor('#F98181').run()} 
+                    className={editor.isActive('textStyle', { color: '#F98181' }) ? 'is-active' : ''}></Brush>
+            </span>
+            <span style={pointerHover}>
+                <Brush size={30} color="#FBBC88" 
+                    onClick={() => editor.chain().focus().setColor('#FBBC88').run()} 
+                    className={editor.isActive('textStyle', { color: '#FBBC88' }) ? 'is-active' : ''}></Brush>
+            </span>
+            <span style={pointerHover}>
+                <Brush size={30} color="#FAF594" 
+                    onClick={() => editor.chain().focus().setColor('#FAF594').run()} 
+                    className={editor.isActive('textStyle', { color: '#FAF594' }) ? 'is-active' : ''}></Brush>
+            </span>
+            <span style={pointerHover}>
+                <Brush size={30} color="#70CFF8" 
+                    onClick={() => editor.chain().focus().setColor('#70CFF8').run()} 
+                    className={editor.isActive('textStyle', { color: '#70CFF8' }) ? 'is-active' : ''}></Brush>
+            </span>
+            <span style={pointerHover}>
+                <Brush size={30} color="#94FADB" 
+                    onClick={() => editor.chain().focus().setColor('#94FADB').run()} 
+                    className={editor.isActive('textStyle', { color: '#94FADB' }) ? 'is-active' : ''}></Brush>
+            </span>
+            <span style={pointerHover}>
+                <Brush size={30} color="#B9F18D" 
+                    onClick={() => editor.chain().focus().setColor('#B9F18D').run()} 
+                    className={editor.isActive('textStyle', { color: '#B9F18D' }) ? 'is-active' : ''}></Brush>
+            </span>
+            <span style={pointerHover}>
+                <Brush size={30}  
+                    onClick={() => editor.chain().focus().unsetColor().run()}></Brush>
+            </span>
             <button
                 onClick={(e) => { e.preventDefault();  editor.chain().focus().toggleHighlight().run(); } }
                 className={editor.isActive('highlight') ? 'is-active' : ''}>toggleHighlight</button>

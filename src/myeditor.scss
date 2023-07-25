@@ -225,9 +225,31 @@
   button {
     border-radius: 0.5rem;
     border-width: 1px;
-
     &.is-active {
       font-weight: 700;
+      background-color: #adf;
+    }
+  }
+  svg {
+    margin: 3px;
+    padding: 1px;
+    border: 1px solid black;
+    border-radius: 5px;
+    &.is-active {
+      background-color: rgb(230, 235, 238);
+      box-shadow: 2px 2px 5px black;
+    }
+  }
+  // color picker
+  .color-picker {
+    padding: 1px;
+    .form-inline {
+      width: 30px;
+      height: 30px;
+      border: 1px solid black;
+      border-radius: 5px;
+      display: inline-block;
+      cursor: pointer;
     }
   }
 }
