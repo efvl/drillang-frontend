@@ -6,6 +6,7 @@ import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { Color } from '@tiptap/extension-color';
 import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
+import TextAlign from '@tiptap/extension-text-align';
 // import css from 'highlight.js/lib/languages/css'
 // import js from 'highlight.js/lib/languages/javascript'
 // import ts from 'highlight.js/lib/languages/typescript'
@@ -37,6 +38,9 @@ const TextEditorPanel = (props:TextEditorProps) => {
             TextStyle, 
             Color,
             Highlight.configure({ multicolor: true }),
+            TextAlign.configure({
+                types: ['heading', 'paragraph'],
+              }),
             CodeBlockLowlight
                 .extend({
                     addNodeView() {

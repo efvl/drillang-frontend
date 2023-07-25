@@ -2,6 +2,11 @@
 .ProseMirror {
     > * + * {
       margin-top: 0.5em;
+      margin-left: 0.5em;
+    }
+
+    &.ProseMirror-focused {
+      border: none;
     }
 
     blockquote {
