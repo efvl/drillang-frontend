@@ -8,6 +8,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
 import Youtube from '@tiptap/extension-youtube';
+import Link from '@tiptap/extension-link';
 // import css from 'highlight.js/lib/languages/css'
 // import js from 'highlight.js/lib/languages/javascript'
 // import ts from 'highlight.js/lib/languages/typescript'
@@ -45,6 +46,9 @@ const TextEditorPanel = (props:TextEditorProps) => {
             Youtube.configure({
             controls: true,
             }),
+            Link.configure({
+                openOnClick: true,
+              }),
             CodeBlockLowlight
                 .extend({
                     addNodeView() {

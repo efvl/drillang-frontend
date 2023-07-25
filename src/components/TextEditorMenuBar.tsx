@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Form } from "react-bootstrap";
 
 const TextEditorMenuBar = ({editor}) => {
@@ -12,10 +12,6 @@ const TextEditorMenuBar = ({editor}) => {
       }
     }, [widthRef.current, heightRef.current])
 
-    if(!editor){
-        return null;
-    }
-
     const addYoutubeVideo = (e) => {
         e.preventDefault();
         const url = prompt('Enter YouTube URL')
@@ -28,6 +24,27 @@ const TextEditorMenuBar = ({editor}) => {
           })
         }
       }
+
+    const setLink = useCallback(() => {
+        const previousUrl = editor.getAttributes('link').href
+        const url = window.prompt('URL', previousUrl)
+        // cancelled
+        if (url === null) {
+          return
+        }
+        // empty
+        if (url === '') {
+          editor.chain().focus().extendMarkRange('link').unsetLink().run()
+          return
+        }
+        // update link
+        editor.chain().focus().extendMarkRange('link').setLink({ href: url })
+          .run()
+    }, [editor]);
+
+    if(!editor){
+        return null;
+    }
 
     return (
         <div className='editor_menu pb-2'>
@@ -161,9 +178,16 @@ const TextEditorMenuBar = ({editor}) => {
                 className={editor.isActive({ textAlign: 'justify' }) ? 'is-active' : ''}>justify</button>
             <button 
                 onClick={(e) => { e.preventDefault();  editor.chain().focus().unsetTextAlign().run(); } }>unsetTextAlign</button>    
-            <button id="add" onClick={addYoutubeVideo}>Add YouTube video</button>
+            <button id="add" 
+                onClick={addYoutubeVideo}>Add YouTube video</button>
             <input id="width" type="number" className="form-inline" min="320" max="1024" ref={widthRef} placeholder="width"/>  
-            <input id="height" type="number" className="form-inline" min="320" max="1024" ref={heightRef} placeholder="height"/>                 
+            <input id="height" type="number" className="form-inline" min="320" max="1024" ref={heightRef} placeholder="height"/> 
+            <button 
+                onClick={(e) => { e.preventDefault();  setLink(); }} 
+                className={editor.isActive('link') ? 'is-active' : ''}>setLink</button>
+            <button 
+                onClick={(e) => { e.preventDefault();  editor.chain().focus().unsetLink().run(); } }
+                disabled={!editor.isActive('link')}>unsetLink</button>                
         </div>
     );
 };
